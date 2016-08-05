@@ -1,0 +1,6 @@
+{
+  "name": "Dboor-updated-v1.0",
+  "tagline": "These files are completely useless before i do some updates.",
+  "body": "Original Files : https://github.com/Bazaid/tatar-wars-old\r\n\r\n###All copyrights of old files goes to Dboor creators.\r\n\r\nThis project will be focused on updating these files for all PHP versions > 5.3  versions.\r\nWith more security , less memory usage, fixed bugs , this re-done, also few custom features.\r\n(keep in mind that before any stable V1 Release commits can be done every minute).\r\n\r\n###We still recruiting testing team , so if you interested contact me in email b.expire@gmail.com or skype : Jakbut\r\n\r\nPlease report all the bugs you can find, so they can be fixed faster. \r\nLive version of script will be available soon.\r\n\r\n##Change log\r\n\r\n\r\n##To Do list.\r\n\r\n\r\n###Bug\r\n\r\n- Fix Natar spawn time.\r\n\r\n###Improvements\r\n\r\n- Remake configs, they look so bad.\r\n\r\n###Rewriting\r\n\r\n- Rewrite database class to MySqli from MySQL.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
