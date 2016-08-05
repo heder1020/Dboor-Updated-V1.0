@@ -10,3 +10,13 @@ Development and testing team : Recruiting at the moment
 
 Please report all the bugs you can find, so they can be fixed faster. 
 Live version will be available soon.
+
+==Changelog==
+
+==To Do list.==
+=Bugs=
+Fix Natar spawn time.
+=Improvements=
+Remake configs, they look so bad.
+=Rewriting=
+Rewrite database class to MySqli from MySQL.
