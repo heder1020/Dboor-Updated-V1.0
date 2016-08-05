@@ -1,0 +1,1022 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'report.php' );
+	echo '<h1>';
+	echo LANGUI_RPT_T1;
+	echo '</h1><div id="textmenu">   <a href="report.php"';
+
+	if ($this->selectedTabIndex == 0) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_RPT_T2;
+	echo '</a> | <a href="report.php?t=1"';
+
+	if ($this->selectedTabIndex == 1) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_RPT_T3;
+	echo '</a> | <a href="report.php?t=2"';
+
+	if ($this->selectedTabIndex == 2) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_RPT_T4;
+	echo '</a> | <a href="report.php?t=3"';
+
+	if ($this->selectedTabIndex == 3) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_RPT_T5;
+	echo '</a> | <a href="report.php?t=4"';
+
+	if ($this->selectedTabIndex == 4) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_RPT_T6;
+	echo '</a></div>';
+
+	if ($this->showList) {
+		echo '<form method="post" action="report.php?p=';
+		echo $this->pageIndex;
+
+		if (0 < $this->selectedTabIndex) {
+			echo '&t=' . $this->selectedTabIndex;
+		}
+
+		echo '" name="msg"><table cellpadding="1" cellspacing="1" id="overview" class="row_table_data">	<thead>		<tr>			<th colspan="2">';
+		echo LANGUI_RPT_T7;
+		echo '</th>			<th class="sent">';
+		echo LANGUI_RPT_T8;
+		echo '</th>		</tr>	</thead>	<tbody>	';
+		$_c = 0;
+
+		while ($this->dataList->next()) {
+			++$_c;
+			$isAttack = $this->dataList->row['from_player_id'] == $this->player->playerId;
+			$rptRelativeResult = ReportHelper::getreportresultrelative( $this->dataList->row['rpt_result'], $isAttack );
+			$btext = ReportHelper::getreportresulttext( $rptRelativeResult );
+			$_rptResultCss = ($rptRelativeResult == 100 ? 10 : $rptRelativeResult);
+			echo '		<tr>			<td class="sel"><input class="check" type="checkbox" name="dr[]" value="';
+			echo $this->dataList->row['id'];
+			echo '"></td>			<td class="sub"><img src="assets/x.gif" class="iReport iReport';
+			echo $_rptResultCss;
+			echo '" alt="';
+			echo $btext;
+			echo '" title="';
+			echo $btext;
+			echo '"><div><a href="report.php?id=';
+			echo $this->dataList->row['id'];
+			echo '">';
+			echo $this->getVillageName( $this->dataList->row['from_player_id'], $this->dataList->row['from_village_name'] );
+			echo ReportHelper::getreportactiontext( $this->dataList->row['rpt_cat'] );
+			echo $this->getVillageName( $this->dataList->row['to_player_id'], $this->dataList->row['to_village_name'] );
+			echo '</a>';
+
+			if (!$this->dataList->row['is_readed']) {
+				echo ' ' . LANGUI_RPT_T9;
+			}
+
+			echo '</div></td>			<td class="dat">';
+			echo $this->dataList->row['mdate'];
+			echo '</td>		</tr>	';
+		}
+
+
+		if ($_c == 0) {
+			echo '		<tr><td colspan="3" class="none">';
+			echo LANGUI_RPT_T10;
+			echo '</td></tr>	';
+		}
+
+		echo '	</tbody>	<tfoot>		<tr>			<th>&nbsp;</th>			<th class="buttons">';
+
+		if (0 < $_c) {
+			echo '<input name="delmsg" value="';
+			echo LANGUI_RPT_T11;
+			echo '" type="image" id="btn_delete" class="dynamic_img" src="assets/x.gif" alt="';
+			echo LANGUI_RPT_T11;
+			echo '">';
+		}
+
+		echo '</th>			<th class="navi">';
+		echo $this->getPreviousLink();
+		echo ' ';
+		echo $this->getNextLink();
+		echo '</th>		</tr>	</tfoot></table></form>';
+		return 1;
+	}
+
+
+	if ($this->reportData['rpt_cat'] == 1) {
+		echo '<table cellpadding="1" cellspacing="1" id="report_surround">	<thead>		<tr>			<th>';
+		echo LANGUI_RPT_T7;
+		echo ':</th>			<th>';
+		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+		echo '</th>		</tr>		<tr>			<td class="sent">';
+		echo LANGUI_RPT_T8;
+		echo ':</td>			<td>';
+		echo text_in_lang;
+		echo ' ';
+		echo $this->reportData['mdate'];
+		echo ' ';
+		echo '<s';
+		echo 'pan>';
+		echo time_hour_lang2;
+		echo ' ';
+		echo $this->reportData['mtime'];
+		echo '</span></td>		</tr>	</thead>	<tbody>		<tr><td colspan="2" class="empty"></td></tr>		<tr><td colspan="2" class="report_content">			<table cellpadding="1" cellspacing="1" id="trade">				<thead>					<tr>						<td>&nbsp;</td>						<td>';
+
+		if (0 < intval( $this->reportData['from_player_id'] )) {
+			echo '<a href="profile.php?uid=';
+			echo $this->reportData['from_player_id'];
+			echo '">';
+			echo $this->reportData['from_player_name'];
+			echo '</a> ';
+			echo LANGUI_RPT_T12;
+			echo ' <a href="village3.php?id=';
+			echo $this->reportData['from_village_id'];
+			echo '">';
+			echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+			echo '</a>';
+		} 
+else {
+			echo '<s';
+			echo 'pan class="none">';
+			echo $this->reportData['from_player_name'];
+			echo '</span> ';
+			echo LANGUI_RPT_T12;
+			echo ' ';
+			echo '<s';
+			echo 'pan class="none">[?]</span>';
+		}
+
+		echo '</td>					</tr>				</thead>				<tbody>					<tr>						<th>';
+		echo LANGUI_RPT_T13;
+		echo '</th>						<td><img class="r1" src="assets/x.gif" alt="';
+		echo item_title_1;
+		echo '" title="';
+		echo item_title_1;
+		echo '">';
+		echo $this->reportData['resources'][0];
+		echo ' | <img class="r2" src="assets/x.gif" alt="';
+		echo item_title_2;
+		echo '" title="';
+		echo item_title_2;
+		echo '">';
+		echo $this->reportData['resources'][1];
+		echo ' | <img class="r3" src="assets/x.gif" alt="';
+		echo item_title_3;
+		echo '" title="';
+		echo item_title_3;
+		echo '">';
+		echo $this->reportData['resources'][2];
+		echo ' | <img class="r4" src="assets/x.gif" alt="';
+		echo item_title_4;
+		echo '" title="';
+		echo item_title_4;
+		echo '">';
+		echo $this->reportData['resources'][3];
+		echo '</td>					</tr>				</tbody>			</table>		</td></tr>	</tbody></table>';
+		return 1;
+	}
+
+
+	if ($this->reportData['rpt_cat'] == 2) {
+		echo '<table cellpadding="1" cellspacing="1" id="report_surround">	<thead>		<tr>			<th>';
+		echo LANGUI_RPT_T7;
+		echo ':</th>			<th>';
+		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+		echo '</th>		</tr>		<tr>			<td class="sent">';
+		echo LANGUI_RPT_T8;
+		echo ':</td>			<td>';
+		echo text_in_lang;
+		echo ' ';
+		echo $this->reportData['mdate'];
+		echo ' ';
+		echo '<s';
+		echo 'pan>';
+		echo time_hour_lang2;
+		echo ' ';
+		echo $this->reportData['mtime'];
+		echo '</span></td>		</tr>	</thead>	<tbody>		<tr><td colspan="2" class="empty"></td></tr>		<tr><td colspan="2" class="report_content">			<table cellpadding="1" cellspacing="1" id="reinforcement">				<thead>					<tr>						<td class="role">';
+		echo LANGUI_RPT_T23;
+		echo '</td>						<td colspan="';
+		echo ($this->reportData['troopsTable']['hasHero'] ? 11 : 10);
+		echo '">';
+
+		if (0 < intval( $this->reportData['from_player_id'] )) {
+			echo '<a href="profile.php?uid=';
+			echo $this->reportData['from_player_id'];
+			echo '">';
+			echo $this->reportData['from_player_name'];
+			echo '</a> ';
+			echo LANGUI_RPT_T12;
+			echo ' <a href="village3.php?id=';
+			echo $this->reportData['from_village_id'];
+			echo '">';
+			echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+			echo '</a>';
+		} 
+else {
+			echo '<s';
+			echo 'pan class="none">';
+			echo $this->reportData['from_player_name'];
+			echo '</span> ';
+			echo LANGUI_RPT_T12;
+			echo ' ';
+			echo '<s';
+			echo 'pan class="none">[?]</span>';
+		}
+
+		echo '</td>					</tr>				</thead>				<tbody class="units">					<tr>						<td>&nbsp;</td>						';
+		foreach ($this->reportData['troopsTable']['troops'] as $tid => $tnum) {
+			echo '						<td><img src="assets/x.gif" class="unit u';
+			echo $tid;
+			echo '" title="';
+			echo constant( 'troop_' . $tid );
+			echo '" alt="';
+			echo constant( 'troop_' . $tid );
+			echo '"></td>						';
+		}
+
+		echo '						';
+
+		if ($this->reportData['troopsTable']['hasHero']) {
+			echo '						<td><img src="assets/x.gif" class="unit uhero" title="';
+			echo troop_hero;
+			echo '" alt="';
+			echo troop_hero;
+			echo '"></td>						';
+		}
+
+		echo '					</tr>					<tr>						<th>';
+		echo LANGUI_RPT_T14;
+		echo '</th>						';
+		foreach ($this->reportData['troopsTable']['troops'] as $tid => $tnum) {
+			echo '						';
+
+			if ($tnum <= 0) {
+				echo '<td class="none">0</td>';
+			} 
+else {
+				echo '<td>';
+				echo $tnum;
+				echo '</td>';
+			}
+
+			echo '						';
+		}
+
+		echo '						';
+
+		if ($this->reportData['troopsTable']['hasHero']) {
+			echo '						<td>1</td>						';
+		}
+
+		echo '					</tr>				</tbody>				<tbody class="infos">					<tr>						<th>';
+		echo LANGUI_RPT_T15;
+		echo '</th>						<td colspan="';
+		echo ($this->reportData['troopsTable']['hasHero'] ? 11 : 10);
+		echo '">';
+		echo $this->reportData['cropConsume'];
+		echo '<img src="assets/x.gif" class="r4" title="';
+		echo item_title_4;
+		echo '" alt="';
+		echo item_title_4;
+		echo '">';
+		echo LANGUI_RPT_T16;
+		echo '</td>					</tr>				</tbody>			</table>		</td></tr>	</tbody></table>';
+		return 1;
+	}
+
+
+	if ($this->reportData['rpt_cat'] == 3) {
+		echo '<table cellpadding="1" cellspacing="1" id="report_surround">	<thead>		<tr>			<th>';
+		echo LANGUI_RPT_T7;
+		echo ':</th>			<th>';
+		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+		echo '</th>		</tr>		<tr>			<td class="sent">';
+		echo LANGUI_RPT_T8;
+		echo ':</td>			<td>';
+		echo text_in_lang;
+		echo ' ';
+		echo $this->reportData['mdate'];
+		echo ' ';
+		echo '<s';
+		echo 'pan>';
+		echo time_hour_lang2;
+		echo ' ';
+		echo $this->reportData['mtime'];
+		echo '</span></td>		</tr>	</thead>	<tbody>		<tr><td colspan="2" class="empty"></td></tr>		<tr><td colspan="2" class="report_content">		<table cellpadding="1" cellspacing="1" id="attacker">			<thead>				<tr>					<td class="role">';
+		echo LANGUI_RPT_T17;
+		echo '</td>					<td colspan="';
+		echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+		echo '">';
+
+		if (0 < intval( $this->reportData['from_player_id'] )) {
+			echo '<a href="profile.php?uid=';
+			echo $this->reportData['from_player_id'];
+			echo '">';
+			echo $this->reportData['from_player_name'];
+			echo '</a> ';
+			echo LANGUI_RPT_T12;
+			echo ' <a href="village3.php?id=';
+			echo $this->reportData['from_village_id'];
+			echo '">';
+			echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+			echo '</a>';
+		} 
+else {
+			echo '<s';
+			echo 'pan class="none">';
+			echo $this->reportData['from_player_name'];
+			echo '</span> ';
+			echo LANGUI_RPT_T12;
+			echo ' ';
+			echo '<s';
+			echo 'pan class="none">[?]</span>';
+		}
+
+		echo '</td>				</tr>			</thead>			<tbody class="units">				<tr>				<td>&nbsp;</td>				';
+		foreach ($this->reportData['attackTroopsTable']['troops'] as $tid => $tprop) {
+			echo '				<td><img src="assets/x.gif" class="unit u';
+			echo $tid;
+			echo '" title="';
+			echo constant( 'troop_' . $tid );
+			echo '" alt="';
+			echo constant( 'troop_' . $tid );
+			echo '"></td>				';
+		}
+
+		echo '				';
+
+		if (0 < $this->reportData['attackTroopsTable']['heros']['number']) {
+			echo '<td><img src="assets/x.gif" class="unit uhero" title="';
+			echo troop_hero;
+			echo '" alt="';
+			echo troop_hero;
+			echo '"></td>';
+		}
+
+		echo '				</tr>								<tr><th>';
+		echo LANGUI_RPT_T14;
+		echo '</th>				';
+		foreach ($this->reportData['attackTroopsTable']['troops'] as $tid => $tprop) {
+			$tnum = $tprop['number'];
+			echo '				';
+
+			if ($tnum <= 0) {
+				echo '<td class="none">0</td>';
+			} 
+else {
+				echo '<td>';
+				echo $tnum;
+				echo '</td>';
+			}
+
+			echo '				';
+		}
+
+		echo '				';
+
+		if (0 < $this->reportData['attackTroopsTable']['heros']['number']) {
+			echo '<td';
+
+			if ($this->reportData['attackTroopsTable']['heros']['number'] == 0) {
+				echo ' class="none"';
+			}
+
+			echo '>';
+			echo $this->reportData['attackTroopsTable']['heros']['number'];
+			echo '</td>';
+		}
+
+		echo '				</tr>								<tr><th>';
+		echo LANGUI_RPT_T18;
+		echo '</th>				';
+		foreach ($this->reportData['attackTroopsTable']['troops'] as $tid => $tprop) {
+			$tnum = $tprop['dead_number'];
+			echo '				';
+
+			if ($tnum <= 0) {
+				echo '<td class="none">0</td>';
+			} 
+else {
+				echo '<td>';
+				echo $tnum;
+				echo '</td>';
+			}
+
+			echo '				';
+		}
+
+		echo '				';
+
+		if (0 < $this->reportData['attackTroopsTable']['heros']['number']) {
+			echo '<td';
+
+			if ($this->reportData['attackTroopsTable']['heros']['dead_number'] == 0) {
+				echo ' class="none"';
+			}
+
+			echo '>';
+			echo $this->reportData['attackTroopsTable']['heros']['dead_number'];
+			echo '</td>';
+		}
+
+		echo '				</tr>			</tbody>			';
+
+		if (!$this->reportData['all_attackTroops_dead']) {
+			echo '			<tbody class="goods">				<tr>					<th>';
+			echo LANGUI_RPT_T24;
+			echo '</th>					<td colspan="';
+			echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+			echo '">						<div class="res">							<img class="r1" src="assets/x.gif" alt="';
+			echo item_title_1;
+			echo '" title="';
+			echo item_title_1;
+			echo '">';
+			echo $this->reportData['harvest_resources'][0];
+			echo ' | 							<img class="r2" src="assets/x.gif" alt="';
+			echo item_title_2;
+			echo '" title="';
+			echo item_title_2;
+			echo '">';
+			echo $this->reportData['harvest_resources'][1];
+			echo ' |							<img class="r3" src="assets/x.gif" alt="';
+			echo item_title_3;
+			echo '" title="';
+			echo item_title_3;
+			echo '">';
+			echo $this->reportData['harvest_resources'][2];
+			echo ' |							<img class="r4" src="assets/x.gif" alt="';
+			echo item_title_4;
+			echo '" title="';
+			echo item_title_4;
+			echo '">';
+			echo $this->reportData['harvest_resources'][3];
+			echo '</div>						<div class="carry"><img class="car" src="assets/x.gif" alt="';
+			echo LANGUI_RPT_T19;
+			echo '" title="';
+			echo LANGUI_RPT_T19;
+			echo '">';
+			echo $this->reportData['total_harvest_carry_load'];
+			echo '/';
+			echo $this->reportData['total_carry_load'];
+			echo '</div>					</td>				</tr>			</tbody>			';
+		}
+
+		echo '			';
+
+		if ($this->reportData['all_attackTroops_dead']) {
+			echo '			<tbody class="infos">				<tr><th>';
+			echo LANGUI_RPT_T20;
+			echo '</th><td colspan="';
+			echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+			echo '">';
+			echo LANGUI_RPT_T21;
+			echo '</td></tr>			</tbody>			';
+		} 
+else {
+			echo '						';
+
+			if (isset( $this->reportData['captureResult'] )) {
+				echo '			<tbody class="infos">				<tr><th>';
+				echo LANGUI_RPT_T20;
+				echo '</th><td colspan="';
+				echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+				echo '">';
+				echo $this->reportData['captureResult'];
+				echo '</td></tr>			</tbody>			';
+			}
+
+			echo '			';
+
+			if (isset( $this->reportData['oasisResult'] )) {
+				echo '			<tbody class="infos">				<tr><th>';
+				echo LANGUI_RPT_T20;
+				echo '</th><td colspan="';
+				echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+				echo '">';
+				echo $this->reportData['oasisResult'];
+				echo '</td></tr>			</tbody>			';
+			}
+
+			echo '						';
+
+			if (isset( $this->reportData['wallDestructionResult'] )) {
+				echo '			<tbody class="infos">				<tr><th>';
+				echo LANGUI_RPT_T20;
+				echo '</th><td colspan="';
+				echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+				echo '">';
+				echo $this->reportData['wallDestructionResult'];
+				echo '</td></tr>			</tbody>			';
+			}
+
+			echo '			';
+
+			if (isset( $this->reportData['buildingDestructionResult'] )) {
+				echo '			';
+				foreach ($this->reportData['buildingDestructionResult'] as $bResult) {
+					echo '			<tbody class="infos">				<tr><th>';
+					echo LANGUI_RPT_T20;
+					echo '</th><td colspan="';
+					echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+					echo '">';
+					echo $bResult;
+					echo '</td></tr>			</tbody>			';
+				}
+
+				echo '			';
+			}
+
+			echo '			';
+		}
+
+		echo '		</table>		';
+
+		if (( ( !$this->reportData['all_attackTroops_dead'] || intval( $this->reportData['to_player_id'] ) == $this->player->playerId ) || ( $this->reportData['to_player_alliance_id'] == $this->data['alliance_id'] && 0 < intval( $this->data['alliance_id'] ) ) )) {
+			echo '		';
+			$t = 0;
+			foreach ($this->reportData['defenseTroopsTable'] as $defTable) {
+				++$t;
+				echo '		<table cellpadding="1" cellspacing="1" class="defender">			<thead>				<tr>				<td class="role">';
+				echo LANGUI_RPT_T22;
+				echo '				</td><td colspan="';
+				echo (0 < $defTable['heros']['number'] ? 11 : 10);
+				echo '">';
+
+				if ($t == 1) {
+					echo '				';
+
+					if (0 < intval( $this->reportData['to_player_id'] )) {
+						echo '<a href="profile.php?uid=';
+						echo $this->reportData['to_player_id'];
+						echo '">';
+						echo $this->reportData['to_player_name'];
+						echo '</a> ';
+						echo LANGUI_RPT_T12;
+						echo ' <a href="village3.php?id=';
+						echo $this->reportData['to_village_id'];
+						echo '">';
+						echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+						echo '</a>';
+					} 
+else {
+						echo '<s';
+						echo 'pan class="none">';
+						echo $this->reportData['to_player_name'];
+						echo '</span> ';
+						echo LANGUI_RPT_T12;
+						echo ' ';
+						echo '<s';
+						echo 'pan class="none">[?]</span>';
+					}
+
+					echo '				';
+				} 
+else {
+					echo LANGUI_RPT_T4;
+				}
+
+				echo '</td>				</tr>			</thead>			<tbody class="units">				<tr>				<td>&nbsp;</td>				';
+				foreach ($defTable['troops'] as $tid => $tprop) {
+					echo '				<td><img src="assets/x.gif" class="unit u';
+					echo $tid;
+					echo '" title="';
+					echo constant( 'troop_' . $tid );
+					echo '" alt="';
+					echo constant( 'troop_' . $tid );
+					echo '"></td>				';
+				}
+
+				echo '				';
+
+				if (0 < $defTable['heros']['number']) {
+					echo '<td><img src="assets/x.gif" class="unit uhero" title="';
+					echo troop_hero;
+					echo '" alt="';
+					echo troop_hero;
+					echo '"></td>';
+				}
+
+				echo '				</tr>								<tr><th>';
+				echo LANGUI_RPT_T14;
+				echo '</th>				';
+				foreach ($defTable['troops'] as $tid => $tprop) {
+					$tnum = $tprop['number'];
+					echo '				';
+
+					if ($tnum <= 0) {
+						echo '<td class="none">0</td>';
+					} 
+else {
+						echo '<td>';
+						echo $tnum;
+						echo '</td>';
+					}
+
+					echo '				';
+				}
+
+				echo '				';
+
+				if (0 < $defTable['heros']['number']) {
+					echo '<td';
+
+					if ($defTable['heros']['number'] == 0) {
+						echo ' class="none"';
+					}
+
+					echo '>';
+					echo $defTable['heros']['number'];
+					echo '</td>';
+				}
+
+				echo '				</tr>								<tr><th>';
+				echo LANGUI_RPT_T18;
+				echo '</th>				';
+				foreach ($defTable['troops'] as $tid => $tprop) {
+					$tnum = $tprop['dead_number'];
+					echo '				';
+
+					if ($tnum <= 0) {
+						echo '<td class="none">0</td>';
+					} 
+else {
+						echo '<td>';
+						echo $tnum;
+						echo '</td>';
+					}
+
+					echo '				';
+				}
+
+				echo '				';
+
+				if (0 < $defTable['heros']['number']) {
+					echo '<td';
+
+					if ($defTable['heros']['dead_number'] == 0) {
+						echo ' class="none"';
+					}
+
+					echo '>';
+					echo $defTable['heros']['dead_number'];
+					echo '</td>';
+				}
+
+				echo '				</tr>			</tbody>		</table>		';
+			}
+
+			echo '		';
+		}
+
+		echo '		</td></tr>	</tbody></table><p></p>';
+		echo $this->getFlashContent( 'assets/anm/war/attack.swf', 500, 200 );
+		return 1;
+	}
+
+
+	if ($this->reportData['rpt_cat'] == 4) {
+		echo '<table cellpadding="1" cellspacing="1" id="report_surround">	<thead>		<tr>			<th>';
+		echo LANGUI_RPT_T7;
+		echo ':</th>			<th>';
+		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+		echo '</th>		</tr>		<tr>			<td class="sent">';
+		echo LANGUI_RPT_T8;
+		echo ':</td>			<td>';
+		echo text_in_lang;
+		echo ' ';
+		echo $this->reportData['mdate'];
+		echo ' ';
+		echo '<s';
+		echo 'pan>';
+		echo time_hour_lang2;
+		echo ' ';
+		echo $this->reportData['mtime'];
+		echo '</span></td>		</tr>	</thead>	<tbody>		<tr><td colspan="2" class="empty"></td></tr>		<tr><td colspan="2" class="report_content">		<table cellpadding="1" cellspacing="1" id="attacker">			<thead>				<tr>					<td class="role">';
+		echo LANGUI_RPT_T17;
+		echo '</td>					<td colspan="';
+		echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+		echo '">';
+
+		if (0 < intval( $this->reportData['from_player_id'] )) {
+			echo '<a href="profile.php?uid=';
+			echo $this->reportData['from_player_id'];
+			echo '">';
+			echo $this->reportData['from_player_name'];
+			echo '</a> ';
+			echo LANGUI_RPT_T12;
+			echo ' <a href="village3.php?id=';
+			echo $this->reportData['from_village_id'];
+			echo '">';
+			echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
+			echo '</a>';
+		} 
+else {
+			echo '<s';
+			echo 'pan class="none">';
+			echo $this->reportData['from_player_name'];
+			echo '</span> ';
+			echo LANGUI_RPT_T12;
+			echo ' ';
+			echo '<s';
+			echo 'pan class="none">[?]</span>';
+		}
+
+		echo '</td>				</tr>			</thead>			<tbody class="units">				<tr>				<td>&nbsp;</td>				';
+		foreach ($this->reportData['attackTroopsTable']['troops'] as $tid => $tprop) {
+			echo '				<td><img src="assets/x.gif" class="unit u';
+			echo $tid;
+			echo '" title="';
+			echo constant( 'troop_' . $tid );
+			echo '" alt="';
+			echo constant( 'troop_' . $tid );
+			echo '"></td>				';
+		}
+
+		echo '				';
+
+		if (0 < $this->reportData['attackTroopsTable']['heros']['number']) {
+			echo '<td><img src="assets/x.gif" class="unit uhero" title="';
+			echo troop_hero;
+			echo '" alt="';
+			echo troop_hero;
+			echo '"></td>';
+		}
+
+		echo '				</tr>								<tr><th>';
+		echo LANGUI_RPT_T14;
+		echo '</th>				';
+		foreach ($this->reportData['attackTroopsTable']['troops'] as $tid => $tprop) {
+			$tnum = $tprop['number'];
+			echo '				';
+
+			if ($tnum <= 0) {
+				echo '<td class="none">0</td>';
+			} 
+else {
+				echo '<td>';
+				echo $tnum;
+				echo '</td>';
+			}
+
+			echo '				';
+		}
+
+		echo '				';
+
+		if (0 < $this->reportData['attackTroopsTable']['heros']['number']) {
+			echo '<td';
+
+			if ($this->reportData['attackTroopsTable']['heros']['number'] == 0) {
+				echo ' class="none"';
+			}
+
+			echo '>';
+			echo $this->reportData['attackTroopsTable']['heros']['number'];
+			echo '</td>';
+		}
+
+		echo '				</tr>								<tr><th>';
+		echo LANGUI_RPT_T18;
+		echo '</th>				';
+		foreach ($this->reportData['attackTroopsTable']['troops'] as $tid => $tprop) {
+			$tnum = $tprop['dead_number'];
+			echo '				';
+
+			if ($tnum <= 0) {
+				echo '<td class="none">0</td>';
+			} 
+else {
+				echo '<td>';
+				echo $tnum;
+				echo '</td>';
+			}
+
+			echo '				';
+		}
+
+		echo '				';
+
+		if (0 < $this->reportData['attackTroopsTable']['heros']['number']) {
+			echo '<td';
+
+			if ($this->reportData['attackTroopsTable']['heros']['dead_number'] == 0) {
+				echo ' class="none"';
+			}
+
+			echo '>';
+			echo $this->reportData['attackTroopsTable']['heros']['dead_number'];
+			echo '</td>';
+		}
+
+		echo '				</tr>			</tbody>			';
+
+		if (isset( $this->reportData['harvest_resources'] )) {
+			echo '			<tbody class="goods">				<tr>					<th>';
+			echo LANGUI_RPT_T13;
+			echo '</th>					<td colspan="';
+			echo (0 < $this->reportData['attackTroopsTable']['heros']['number'] ? 11 : 10);
+			echo '">						<div class="res">							<img class="r1" src="assets/x.gif" alt="';
+			echo item_title_1;
+			echo '" title="';
+			echo item_title_1;
+			echo '">';
+			echo $this->reportData['harvest_resources'][0];
+			echo ' | 							<img class="r2" src="assets/x.gif" alt="';
+			echo item_title_2;
+			echo '" title="';
+			echo item_title_2;
+			echo '">';
+			echo $this->reportData['harvest_resources'][1];
+			echo ' |							<img class="r3" src="assets/x.gif" alt="';
+			echo item_title_3;
+			echo '" title="';
+			echo item_title_3;
+			echo '">';
+			echo $this->reportData['harvest_resources'][2];
+			echo ' |							<img class="r4" src="assets/x.gif" alt="';
+			echo item_title_4;
+			echo '" title="';
+			echo item_title_4;
+			echo '">';
+			echo $this->reportData['harvest_resources'][3];
+			echo '						</div>					</td>				</tr>			</tbody>			';
+		}
+
+		echo '			';
+
+		if (isset( $this->reportData['harvest_info'] )) {
+			echo '			<tbody class="infos">				<tr><th>';
+			echo LANGUI_RPT_T20;
+			echo '</th><td colspan="10">';
+			echo $this->reportData['harvest_info'];
+			echo '</td></tr>			</tbody>			';
+		}
+
+		echo '		</table>		';
+
+		if (( ( !$this->reportData['all_spy_dead'] || intval( $this->reportData['to_player_id'] ) == $this->player->playerId ) || ( $this->reportData['to_player_alliance_id'] == $this->data['alliance_id'] && 0 < intval( $this->data['alliance_id'] ) ) )) {
+			echo '		';
+			$t = 0;
+			foreach ($this->reportData['defenseTroopsTable'] as $defTable) {
+				++$t;
+				echo '		<table cellpadding="1" cellspacing="1" class="defender">			<thead>				<tr>				<td class="role">';
+				echo LANGUI_RPT_T22;
+				echo '				</td><td colspan="';
+				echo (0 < $defTable['heros']['number'] ? 11 : 10);
+				echo '">';
+
+				if ($t == 1) {
+					echo '				';
+
+					if (0 < intval( $this->reportData['to_player_id'] )) {
+						echo '<a href="profile.php?uid=';
+						echo $this->reportData['to_player_id'];
+						echo '">';
+						echo $this->reportData['to_player_name'];
+						echo '</a> ';
+						echo LANGUI_RPT_T12;
+						echo ' <a href="village3.php?id=';
+						echo $this->reportData['to_village_id'];
+						echo '">';
+						echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
+						echo '</a>';
+					} 
+else {
+						echo '<s';
+						echo 'pan class="none">';
+						echo $this->reportData['to_player_name'];
+						echo '</span> ';
+						echo LANGUI_RPT_T12;
+						echo ' ';
+						echo '<s';
+						echo 'pan class="none">[?]</span>';
+					}
+
+					echo '				';
+				} 
+else {
+					echo LANGUI_RPT_T4;
+				}
+
+				echo '</td>				</tr>			</thead>			<tbody class="units">				<tr>				<td>&nbsp;</td>				';
+				foreach ($defTable['troops'] as $tid => $tprop) {
+					echo '				<td><img src="assets/x.gif" class="unit u';
+					echo $tid;
+					echo '" title="';
+					echo constant( 'troop_' . $tid );
+					echo '" alt="';
+					echo constant( 'troop_' . $tid );
+					echo '"></td>				';
+				}
+
+				echo '				';
+
+				if (0 < $defTable['heros']['number']) {
+					echo '<td><img src="assets/x.gif" class="unit uhero" title="';
+					echo troop_hero;
+					echo '" alt="';
+					echo troop_hero;
+					echo '"></td>';
+				}
+
+				echo '				</tr>								<tr><th>';
+				echo LANGUI_RPT_T14;
+				echo '</th>				';
+				foreach ($defTable['troops'] as $tid => $tprop) {
+					$tnum = $tprop['number'];
+					echo '				';
+
+					if ($tnum <= 0) {
+						echo '<td class="none">0</td>';
+					} 
+else {
+						echo '<td>';
+						echo $tnum;
+						echo '</td>';
+					}
+
+					echo '				';
+				}
+
+				echo '				';
+
+				if (0 < $defTable['heros']['number']) {
+					echo '<td';
+
+					if ($defTable['heros']['number'] == 0) {
+						echo ' class="none"';
+					}
+
+					echo '>';
+					echo $defTable['heros']['number'];
+					echo '</td>';
+				}
+
+				echo '				</tr>								<tr><th>';
+				echo LANGUI_RPT_T18;
+				echo '</th>				';
+				foreach ($defTable['troops'] as $tid => $tprop) {
+					$tnum = $tprop['dead_number'];
+					echo '				';
+
+					if ($tnum <= 0) {
+						echo '<td class="none">0</td>';
+					} 
+else {
+						echo '<td>';
+						echo $tnum;
+						echo '</td>';
+					}
+
+					echo '				';
+				}
+
+				echo '				';
+
+				if (0 < $defTable['heros']['number']) {
+					echo '<td';
+
+					if ($defTable['heros']['dead_number'] == 0) {
+						echo ' class="none"';
+					}
+
+					echo '>';
+					echo $defTable['heros']['dead_number'];
+					echo '</td>';
+				}
+
+				echo '				</tr>			</tbody>		</table>		';
+			}
+
+			echo '		';
+		}
+
+		echo '		</td></tr>	</tbody></table>	';
+	}
+
+?>
+
+

@@ -1,0 +1,1405 @@
+<?php
+require_once( LANG_UI_PATH . 'custbuilds.php' );
+echo '<div id="textmenu">
+   <a href="build.php?id=';
+echo $this->buildingIndex;
+echo '"';
+
+if ($this->selectedTabIndex == 0) {
+	echo ' class="selected"';
+}
+
+echo '>';
+echo LANGUI_CUSTBU_MKT_p1;
+echo '</a>
+ | <a href="build.php?id=';
+echo $this->buildingIndex;
+echo '&t=1"';
+
+if ($this->selectedTabIndex == 1) {
+	echo ' class="selected"';
+}
+
+echo '>';
+echo LANGUI_CUSTBU_MKT_p2;
+echo '</a>
+ | <a href="build.php?id=';
+echo $this->buildingIndex;
+echo '&t=2"';
+
+if ($this->selectedTabIndex == 2) {
+	echo ' class="selected"';
+}
+
+echo '>';
+echo LANGUI_CUSTBU_MKT_p3;
+echo '</a>
+ | <a href="build.php?id=';
+echo $this->buildingIndex;
+echo '&t=3"';
+
+if ($this->selectedTabIndex == 3) {
+	echo ' class="selected"';
+}
+
+echo '>';
+echo LANGUI_CUSTBU_MKT_p4;
+echo '</a>
+</div>
+';
+
+if ($this->selectedTabIndex == 0) {
+	echo '<s';
+	echo 'cript language="JavaScript">
+<!--
+var merchNum = ';
+	echo $this->merchantProperty['exits_num'];
+	echo ';
+var carry = ';
+	echo $this->merchantProperty['capacity'];
+	echo ';
+//-->
+</script>
+<div id="contract">
+<form method="post" name="snd" action="build.php?id=';
+	echo $this->buildingIndex;
+	echo '">
+';
+
+	if (!$this->merchantProperty['confirm_snd']) {
+		echo '<input type="hidden" name="act" value="1" />
+<table id="send_select" class="send_res" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td class="ico"><a href="#" onclick="upd_res(1,1); return false;"><img class="r1" src="assets/x.gif" alt="';
+		echo item_title_1;
+		echo '" title="';
+		echo item_title_1;
+		echo '"></a></td>
+			<td class="nam">';
+		echo item_title_1;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r1" id="r1" value="';
+		echo (isset( $_POST['r1'] ) ? $_POST['r1'] : '');
+		echo '" maxlength="5" onkeyup="upd_res(1)" tabindex="1"></td>
+			<td class="max"><a href="#" onmouseup="add_res(1);" onclick="return false;">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</a></td>
+		</tr>
+		<tr>
+			<td class="ico"><a href="#" onclick="upd_res(2,1); return false;"><img class="r2" src="assets/x.gif" alt="';
+		echo item_title_2;
+		echo '" title="';
+		echo item_title_2;
+		echo '"></a></td>
+			<td class="nam">';
+		echo item_title_2;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r2" id="r2" value="';
+		echo (isset( $_POST['r2'] ) ? $_POST['r2'] : '');
+		echo '" maxlength="5" onkeyup="upd_res(2)" tabindex="2"></td>
+			<td class="max"><a href="#" onmouseup="add_res(2);" onclick="return false;">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</a></td>
+		</tr>
+		<tr>
+			<td class="ico"><a href="#" onclick="upd_res(3,1); return false;"><img class="r3" src="assets/x.gif" alt="';
+		echo item_title_3;
+		echo '" title="';
+		echo item_title_3;
+		echo '"></a></td>
+			<td class="nam">';
+		echo item_title_3;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r3" id="r3" value="';
+		echo (isset( $_POST['r3'] ) ? $_POST['r3'] : '');
+		echo '" maxlength="5" onkeyup="upd_res(3)" tabindex="3"></td>
+			<td class="max"><a href="#" onmouseup="add_res(3);" onclick="return false;">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</a></td>
+		</tr>
+		<tr>
+			<td class="ico"><a href="#" onclick="upd_res(4,1); return false;"><img class="r4" src="assets/x.gif" alt="';
+		echo item_title_4;
+		echo '" title="';
+		echo item_title_4;
+		echo '"></a></td>
+			<td class="nam">';
+		echo item_title_4;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r4" id="r4" value="';
+		echo (isset( $_POST['r4'] ) ? $_POST['r4'] : '');
+		echo '" maxlength="5" onkeyup="upd_res(4)" tabindex="4"></td>
+			<td class="max"><a href="#" onmouseup="add_res(4);" onclick="return false;">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</a></td>
+		</tr>
+	</tbody>
+</table>
+
+<table id="target_select" class="res_target" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr><td class="mer">';
+		echo LANGUI_CUSTBU_MKT_p1_t1;
+		echo ' ';
+		echo $this->merchantProperty['exits_num'];
+		echo '/';
+		echo $this->merchantProperty['total_num'];
+		echo '</td></tr>
+		<tr><td class="vil">';
+		echo '<s';
+		echo 'pan>';
+		echo LANGUI_CUSTBU_MKT_p1_t2;
+		echo ':</span> <input class="text" type="text" name="vname" value="';
+		echo (isset( $_POST['vname'] ) ? $_POST['vname'] : '');
+		echo '" maxlength="20" tabindex="5"></td></tr>
+		<tr><td class="or">';
+		echo text_or_lang;
+		echo '</td></tr>
+		<tr>
+			<td class="coo">
+				';
+		echo '<s';
+		echo 'pan>X:</span><input class="text" type="text" name="x" value="';
+		echo (isset( $_POST['x'] ) ? $_POST['x'] : '');
+		echo '" maxlength="4" tabindex="6">
+				';
+		echo '<s';
+		echo 'pan>Y:</span><input class="text" type="text" name="y" value="';
+		echo (isset( $_POST['y'] ) ? $_POST['y'] : '');
+		echo '" maxlength="4" tabindex="7">
+			</td>
+		</tr>
+	</tbody>
+</table>
+';
+		echo '<s';
+		echo 'cript language="JavaScript" type="text/javascript">document.snd.r1.focus();</script>
+';
+	}
+	else {
+		echo '<input type="hidden" name="act" value="2" />
+<input type="hidden" name="vid2" value="';
+		echo $this->merchantProperty['to_vid'];
+		echo '" />
+<table id="send_validate" class="send_res" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td class="ico"><img class="r1" src="assets/x.gif" alt="';
+		echo item_title_1;
+		echo '" title="';
+		echo item_title_1;
+		echo '"></td>
+			<td class="nam">';
+		echo item_title_1;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r1" id="r1" value="';
+		echo $_POST['r1'];
+		echo '" readonly=""></td>
+			<td class="max">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</td>
+		</tr>
+		<tr>
+			<td class="ico"><img class="r2" src="assets/x.gif" alt="';
+		echo item_title_2;
+		echo '" title="';
+		echo item_title_2;
+		echo '"></td>
+			<td class="nam">';
+		echo item_title_2;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r2" id="r2" value="';
+		echo $_POST['r2'];
+		echo '" readonly=""></td>
+			<td class="max">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</td>
+		</tr>
+		<tr>
+			<td class="ico"><img class="r3" src="assets/x.gif" alt="';
+		echo item_title_3;
+		echo '" title="';
+		echo item_title_3;
+		echo '"></td>
+			<td class="nam">';
+		echo item_title_3;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r3" id="r3" value="';
+		echo $_POST['r3'];
+		echo '" readonly=""></td>
+			<td class="max">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</td>
+		</tr>
+		<tr>
+			<td class="ico"><img class="r4" src="assets/x.gif" alt="';
+		echo item_title_4;
+		echo '" title="';
+		echo item_title_4;
+		echo '"></td>
+			<td class="nam">';
+		echo item_title_4;
+		echo ':</td>
+			<td class="val"><input class="text" type="text" name="r4" id="r4" value="';
+		echo $_POST['r4'];
+		echo '" readonly=""></td>
+			<td class="max">(';
+		echo $this->merchantProperty['capacity'];
+		echo ')</td>
+		</tr>
+	</tbody>
+</table>
+
+<table id="target_validate" class="res_target" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr><td class="vil" colspan="2">';
+		echo $this->merchantProperty['vRow']['village_name'];
+		echo ' (';
+		echo $this->merchantProperty['vRow']['rel_x'];
+		echo '|';
+		echo $this->merchantProperty['vRow']['rel_y'];
+		echo ')</td></tr>
+		<tr>
+			<th>';
+		echo LANGUI_CUSTBU_MKT_p1_t3;
+		echo ':</th>
+			<td><a href="profile.php?uid=';
+		echo $this->merchantProperty['vRow']['player_id'];
+		echo '">';
+		echo $this->merchantProperty['vRow']['player_name'];
+		echo '</a></td>
+		</tr>
+		<tr>
+			<th>';
+		echo text_period_lang;
+		echo ':</th>
+			<td>';
+		echo WebHelper::secondstostring( $this->merchantProperty['vRow_time'] );
+		echo '</td>
+		</tr>
+		<tr>
+			<th>';
+		echo LANGUI_CUSTBU_MKT_p1_t1;
+		echo ':</th>
+			<td>';
+		echo $this->merchantProperty['vRow_merchant_num'];
+		echo '</td>
+		</tr>
+	</tbody>
+</table>
+';
+	}
+
+	echo '
+<div class="clear"></div>
+<p><input type="image" value="ok" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" tabindex="8" alt="';
+	echo LANGUI_CUSTBU_MKT_p3_t8;
+	echo '"></p>
+</form>
+</div>
+<p></p>
+';
+
+	if (( $this->isPost(  ) && $this->merchantProperty['showError'] )) {
+		echo '	';
+
+		if ($this->merchantProperty['vRow'] == NULL) {
+			echo '	<p class="error">';
+			echo LANGUI_CUSTBU_MKT_p1_t4;
+			echo '</p>
+	';
+		}
+		else {
+			if (!$this->merchantProperty['available_res']) {
+				echo '	<p class="error">';
+				echo LANGUI_CUSTBU_MKT_p1_t5;
+				echo '</p>
+	';
+			}
+			else {
+				if ($this->merchantProperty['vRow_merchant_num'] == 0) {
+					echo '	<p class="error">';
+					echo LANGUI_CUSTBU_MKT_p1_t6;
+					echo '.</p>
+	';
+				}
+				else {
+					if ($this->merchantProperty['exits_num'] < $this->merchantProperty['vRow_merchant_num']) {
+						echo '	<p class="error">';
+						echo LANGUI_CUSTBU_MKT_p1_t7;
+						echo ' ';
+						echo $this->merchantProperty['vRow_merchant_num'];
+						echo ' ';
+						echo LANGUI_CUSTBU_MKT_p1_t8;
+						echo '</p>
+	';
+					}
+					else {
+						if ($this->merchantProperty['same_village']) {
+							echo '	<p class="error">';
+							echo LANGUI_CUSTBU_MKT_p1_t9;
+							echo '.</p>
+	';
+						}
+					}
+				}
+			}
+		}
+	}
+
+	echo '
+<p></p><p>';
+	echo LANGUI_CUSTBU_MKT_p1_t10;
+	echo ' <b>';
+	echo $this->merchantProperty['capacity'];
+	echo '</b> ';
+	echo LANGUI_CUSTBU_MKT_p1_t11;
+	echo ' .</p><p></p>
+
+';
+	$akey = 'merchant_coming';
+
+	if (( isset( $this->queueModel->tasksInQueue[$akey] ) && 0 < sizeof( $this->queueModel->tasksInQueue[$akey] ) )) {
+		$qts = $this->queueModel->tasksInQueue[$akey];
+		echo '<h4>';
+		echo LANGUI_CUSTBU_MKT_p1_t12;
+		echo '</h4>
+';
+		$m = new BuildModel(  );
+		foreach ($qts as $qt) {
+			list( $merchantNum, $resStr ) = explode( '|', $qt['proc_params'] );
+			$mResources = explode( ' ', $resStr );
+			$pn = $m->getPlayerName( $qt['player_id'] );
+			$vn = $m->getVillageName( $qt['village_id'] );
+			echo '<table class="traders" cellpadding="1" cellspacing="1">
+	<thead>
+		<tr>
+			<td>';
+
+			if ($pn != '') {
+				echo '<a href="profile.php?uid=';
+				echo $qt['player_id'];
+				echo '">';
+				echo $pn;
+				echo '</a>';
+			}
+			else {
+				echo '<s';
+				echo 'pan class="none">[?]</span>';
+			}
+
+			echo '</td>
+			<td>';
+
+			if ($vn != '') {
+				echo '<a href="village3.php?id=';
+				echo $qt['village_id'];
+				echo '"><p class="custDir">';
+				echo LANGUI_CUSTBU_MKT_p1_t13;
+				echo ' ';
+				echo $vn;
+				echo '</p></a>';
+			}
+			else {
+				echo '<p class="custDir">';
+				echo LANGUI_CUSTBU_MKT_p1_t13;
+				echo ' ';
+				echo '<s';
+				echo 'pan class="none">[?]</span></p>';
+			}
+
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>';
+			echo LANGUI_CUSTBU_MKT_p1_t14;
+			echo '</th>
+			<td>
+				<div class="in">';
+			echo '<s';
+			echo 'pan id="timer1">';
+			echo WebHelper::secondstostring( $qt['remainingSeconds'] );
+			echo '</span> ';
+			echo LANGUI_CUSTBU_MKT_p1_t15;
+			echo '</div>
+			</td>
+		</tr>
+		<tr class="res">
+			<th>';
+			echo LANGUI_CUSTBU_MKT_p1_t16;
+			echo '</th>
+			<td>
+				<img class="r1" src="assets/x.gif" alt="';
+			echo item_title_1;
+			echo '" title="';
+			echo item_title_1;
+			echo '">';
+			echo $mResources[0];
+			echo ' |
+				<img class="r2" src="assets/x.gif" alt="';
+			echo item_title_2;
+			echo '" title="';
+			echo item_title_2;
+			echo '">';
+			echo $mResources[1];
+			echo ' |
+				<img class="r3" src="assets/x.gif" alt="';
+			echo item_title_3;
+			echo '" title="';
+			echo item_title_3;
+			echo '">';
+			echo $mResources[2];
+			echo ' |
+				<img class="r4" src="assets/x.gif" alt="';
+			echo item_title_4;
+			echo '" title="';
+			echo item_title_4;
+			echo '">';
+			echo $mResources[3];
+			echo '			</td>
+		</tr>
+	</tbody>
+</table>
+';
+		}
+
+		$m->dispose(  );
+	}
+
+	echo '
+';
+	$akey = 'merchant_travel';
+
+	if (( isset( $this->queueModel->tasksInQueue[$akey] ) && 0 < sizeof( $this->queueModel->tasksInQueue[$akey] ) )) {
+		$qts = $this->queueModel->tasksInQueue[$akey];
+		echo '<h4>';
+		echo LANGUI_CUSTBU_MKT_p1_t17;
+		echo '</h4>
+';
+		$m = new BuildModel(  );
+		foreach ($qts as $qt) {
+			list( $merchantNum, $resStr ) = explode( '|', $qt['proc_params'] );
+			$mResources = explode( ' ', $resStr );
+			$vn2 = $m->getVillageName( $qt['to_village_id'] );
+			echo '<table class="traders" cellpadding="1" cellspacing="1">
+	<thead>
+		<tr>
+			<td><a href="profile.php?uid=';
+			echo $qt['player_id'];
+			echo '">';
+			echo $this->data['name'];
+			echo '</a></td>
+			<td>';
+
+			if ($vn2 != '') {
+				echo '<a href="village3.php?id=';
+				echo $qt['to_village_id'];
+				echo '"><p class="custDir">';
+
+				if ($qt['merchantBack']) {
+					echo LANGUI_CUSTBU_MKT_p1_t18;
+				}
+				else {
+					echo LANGUI_CUSTBU_MKT_p1_t19;
+				}
+
+				echo ' ';
+				echo $vn2;
+				echo '</p></a>';
+			}
+			else {
+				echo '<p class="custDir">';
+
+				if ($qt['merchantBack']) {
+					echo LANGUI_CUSTBU_MKT_p1_t18;
+				}
+				else {
+					echo LANGUI_CUSTBU_MKT_p1_t19;
+				}
+
+				echo ' ';
+				echo '<s';
+				echo 'pan class="none">[?]</span></p>';
+			}
+
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>';
+			echo LANGUI_CUSTBU_MKT_p1_t14;
+			echo '</th>
+			<td>
+				<div class="in">';
+			echo '<s';
+			echo 'pan id="timer1">';
+			echo WebHelper::secondstostring( $qt['remainingSeconds'] );
+			echo '</span> ';
+			echo LANGUI_CUSTBU_MKT_p1_t15;
+			echo '</div>
+				<div class="at">';
+			echo LANGUI_CUSTBU_MKT_p1_t20;
+			echo ': ';
+			echo $merchantNum;
+			echo '</div>
+			</td>
+		</tr>
+		<tr class="res">
+			<th>';
+			echo LANGUI_CUSTBU_MKT_p1_t16;
+			echo '</th>
+			<td>';
+
+			if ($qt['merchantBack']) {
+				echo '<s';
+				echo 'pan class="none">';
+			}
+
+			echo '				<img class="r1" src="assets/x.gif" alt="';
+			echo item_title_1;
+			echo '" title="';
+			echo item_title_1;
+			echo '">';
+			echo $mResources[0];
+			echo ' |
+				<img class="r2" src="assets/x.gif" alt="';
+			echo item_title_2;
+			echo '" title="';
+			echo item_title_2;
+			echo '">';
+			echo $mResources[1];
+			echo ' |
+				<img class="r3" src="assets/x.gif" alt="';
+			echo item_title_3;
+			echo '" title="';
+			echo item_title_3;
+			echo '">';
+			echo $mResources[2];
+			echo ' |
+				<img class="r4" src="assets/x.gif" alt="';
+			echo item_title_4;
+			echo '" title="';
+			echo item_title_4;
+			echo '">';
+			echo $mResources[3];
+			echo '			';
+
+			if ($qt['merchantBack']) {
+				echo '</span>';
+			}
+
+			echo '</td>
+		</tr>
+	</tbody>
+</table>
+';
+		}
+
+		$m->dispose(  );
+		return 1;
+	}
+}
+else {
+	if ($this->selectedTabIndex == 1) {
+		if ($this->merchantProperty['showOfferList']) {
+			echo '<table id="range" cellpadding="1" cellspacing="1">
+	<thead>
+		<tr><th colspan="5"><a name="h2"></a>';
+			echo LANGUI_CUSTBU_MKT_p2_t1;
+			echo '</th></tr>
+		<tr>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p2_t2;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p2_t3;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p2_t4;
+			echo '</td>
+			<td>';
+			echo text_period_lang;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p2_t5;
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+			$_c = 0;
+			$m = new BuildModel(  );
+
+			while ($this->merchantProperty['all_offers']->next(  )) {
+				++$_c;
+				$aid = 0;
+
+				if ($this->merchantProperty['all_offers']->row['alliance_only']) {
+					if (0 < intval( $this->data['alliance_id'] )) {
+						$aid = $m->getPlayerAllianceId( $this->merchantProperty['all_offers']->row['player_id'] );
+
+						if (intval( $this->data['alliance_id'] ) != $aid) {
+							continue;
+						}
+					}
+
+					continue;
+				}
+
+				list( $res1, $res2 ) = explode( '|', $this->merchantProperty['all_offers']->row['offer'] );
+				$resArr1 = explode( ' ', $res1 );
+				$needResources = array( '1' => $resArr1[0], '2' => $resArr1[1], '3' => $resArr1[2], '4' => $resArr1[3] );
+				$res1_item_id = 0;
+				$res1_value = 0;
+				$i = 0;
+				$_c = sizeof( $resArr1 );
+
+				while ($i < $_c) {
+					if (0 < $resArr1[$i]) {
+						$res1_item_id = $i + 1;
+						$res1_value = $resArr1[$i];
+						break;
+					}
+
+					++$i;
+				}
+
+				$resArr1 = explode( ' ', $res2 );
+				$giveResources = array( '1' => $resArr1[0], '2' => $resArr1[1], '3' => $resArr1[2], '4' => $resArr1[3] );
+				$res2_item_id = 0;
+				$res2_value = 0;
+				$i = 0;
+				$_c = sizeof( $resArr1 );
+
+				while ($i < $_c) {
+					if (0 < $resArr1[$i]) {
+						$res2_item_id = $i + 1;
+						$res2_value = $resArr1[$i];
+						break;
+					}
+
+					++$i;
+				}
+
+				echo '		<tr>
+			<td class="val"><img src="assets/x.gif" class="r';
+				echo $res1_item_id;
+				echo '" alt="';
+				echo constant( 'item_title_' . $res1_item_id );
+				echo '" title="';
+				echo constant( 'item_title_' . $res1_item_id );
+				echo '">';
+				echo $res1_value;
+				echo '</td>
+			<td class="val"><img src="assets/x.gif" class="r';
+				echo $res2_item_id;
+				echo '" alt="';
+				echo constant( 'item_title_' . $res2_item_id );
+				echo '" title="';
+				echo constant( 'item_title_' . $res2_item_id );
+				echo '">';
+				echo $res2_value;
+				echo '</td>
+			<td class="pla"><a href="village3.php?id=';
+				echo $this->merchantProperty['all_offers']->row['village_id'];
+				echo '">';
+				echo $this->merchantProperty['all_offers']->row['player_name'];
+				echo '</a></td>
+			<td class="dur">';
+				echo WebHelper::secondstostring( intval( $this->merchantProperty['all_offers']->row['timeInSeconds'] ) );
+				echo '</td>
+			<td class="act none">
+			';
+				$acceptResult = $this->_canAcceptOffer( $needResources, $giveResources, $this->merchantProperty['all_offers']->row['village_id'], $this->merchantProperty['all_offers']->row['alliance_only'], $aid, $this->merchantProperty['all_offers']->row['max_time'], $this->merchantProperty['all_offers']->row['timeInSeconds'] / 3600 * $this->merchantProperty['all_offers']->row['merchants_speed'] );
+				switch ($acceptResult) {
+				case 1: {
+						echo LANGUI_CUSTBU_MKT_p2_t6;
+						break;
+					}
+
+				case 2: {
+						echo LANGUI_CUSTBU_MKT_p2_t7;
+						break;
+					}
+
+				case 5: {
+						printf( '<a href="build.php?id=%s&t=%s&oid=%s">' . LANGUI_CUSTBU_MKT_p2_t8 . '</a>', $this->buildingIndex, $this->selectedTabIndex, $this->merchantProperty['all_offers']->row['id'] );
+					}
+				}
+
+				echo '			</td>
+		</tr>
+		';
+			}
+
+			$m->dispose(  );
+			echo '		';
+
+			if ($_c == 0) {
+				echo '		<tr><td colspan="5" class="none">';
+				echo LANGUI_CUSTBU_MKT_p2_t9;
+				echo '</td></tr>
+		';
+			}
+
+			echo '	</tbody>
+	<tfoot>
+		<tr><td colspan="5" class="none">';
+			echo $this->getPreviousLink(  );
+			echo ' ';
+			echo $this->getNextLink(  );
+			echo '</td></tr>
+	</tfoot>
+</table>
+';
+			return 1;
+		}
+
+		echo '<table id="summary" cellpadding="1" cellspacing="1">
+	<thead>
+		<tr><th colspan="2">';
+		echo LANGUI_CUSTBU_MKT_p2_t10;
+		echo '</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="2" class="desc">';
+		echo LANGUI_CUSTBU_MKT_p2_t11;
+		echo ' <a href="profile.php?uid=';
+		echo $this->merchantProperty['offerProperty']['player_id'];
+		echo '">';
+		echo $this->merchantProperty['offerProperty']['player_name'];
+		echo '</a></td>
+		</tr>
+		<tr>
+			<td class="val"><img class="r';
+		echo $this->merchantProperty['offerProperty']['res1_item_id'];
+		echo '" src="assets/x.gif" alt="';
+		echo constant( 'item_title_' . $this->merchantProperty['offerProperty']['res1_item_id'] );
+		echo '" title="';
+		echo constant( 'item_title_' . $this->merchantProperty['offerProperty']['res1_item_id'] );
+		echo '"> ';
+		echo $this->merchantProperty['offerProperty']['res1_value'];
+		echo '</td>
+			<td class="text">';
+		echo LANGUI_CUSTBU_MKT_p2_t12;
+		echo '</td>
+		</tr>
+		<tr>
+			<td class="val"><img class="r';
+		echo $this->merchantProperty['offerProperty']['res2_item_id'];
+		echo '" src="assets/x.gif" alt="';
+		echo constant( 'item_title_' . $this->merchantProperty['offerProperty']['res2_item_id'] );
+		echo '" title="';
+		echo constant( 'item_title_' . $this->merchantProperty['offerProperty']['res2_item_id'] );
+		echo '"> ';
+		echo $this->merchantProperty['offerProperty']['res2_value'];
+		echo '</td>
+			<td class="text">';
+		echo LANGUI_CUSTBU_MKT_p2_t13;
+		echo '.</td>
+		</tr>
+	</tbody>
+</table>
+<br/><br/>
+';
+		return 1;
+	}
+
+
+	if ($this->selectedTabIndex == 2) {
+		echo '<div id="contract">
+<form method="post" name="snd" action="build.php?id=';
+		echo $this->buildingIndex;
+		echo '&t=';
+		echo $this->selectedTabIndex;
+		echo '" class="sell_resources" >
+<table id="sell" cellpadding="1" cellspacing="1">
+	<tbody>
+	<tr>
+		<th>';
+		echo LANGUI_CUSTBU_MKT_p3_t1;
+		echo '</th>
+		<td class="val"><input class="text" tabindex="1" name="m1" value="" maxlength="6"></td>
+		<td class="res">
+			';
+		echo '<s';
+		echo 'elect name="rid1" tabindex="2" class="dropdown">
+				<option value="1" selected="selected">';
+		echo item_title_1;
+		echo '</option>
+				<option value="2">';
+		echo item_title_2;
+		echo '</option>
+				<option value="3">';
+		echo item_title_3;
+		echo '</option>
+				<option value="4">';
+		echo item_title_4;
+		echo '</option>
+			</select>
+		</td>
+		<td class="tra"><input class="check" type="checkbox" tabindex="5" name="d1" value="1"> ';
+		echo LANGUI_CUSTBU_MKT_p3_t2;
+		echo ' : <input class="text" tabindex="6" name="d2" value="2" maxlength="2"> ';
+		echo time_hour_lang;
+		echo '</td>
+	</tr>
+	<tr>
+		<th>';
+		echo LANGUI_CUSTBU_MKT_p3_t3;
+		echo '</th>
+		<td class="val"><input class="text" tabindex="3" name="m2" value="" maxlength="6"></td>
+		<td class="res">
+			';
+		echo '<s';
+		echo 'elect name="rid2" tabindex="4" class="dropdown">
+				<option value="1">';
+		echo item_title_1;
+		echo '</option>
+				<option value="2" selected="selected">';
+		echo item_title_2;
+		echo '</option>
+				<option value="3">';
+		echo item_title_3;
+		echo '</option>
+				<option value="4">';
+		echo item_title_4;
+		echo '</option>
+			</select>
+		</td>
+		<td class="al"><input class="check" type="checkbox" tabindex="7" name="ally" value="1"> ';
+		echo LANGUI_CUSTBU_MKT_p3_t4;
+		echo '</td>
+	</tr>
+	</tbody>
+</table>
+
+<p>';
+		echo LANGUI_CUSTBU_MKT_p1_t1;
+		echo ': ';
+		echo $this->merchantProperty['exits_num'];
+		echo '/';
+		echo $this->merchantProperty['total_num'];
+		echo '</p>
+';
+
+		if ($this->merchantProperty['showError']) {
+			echo '<p class="error2">
+';
+
+			if ($this->merchantProperty['showError3']) {
+				echo LANGUI_CUSTBU_MKT_p3_t5;
+			}
+			else {
+				if (( $this->merchantProperty['showError2'] || intval( $_POST['rid1'] ) == intval( $_POST['rid2'] ) )) {
+					echo LANGUI_CUSTBU_MKT_p3_t6;
+				}
+				else {
+					if (!$this->merchantProperty['available_res']) {
+						echo LANGUI_CUSTBU_MKT_p2_t6;
+					}
+					else {
+						if ($this->merchantProperty['vRow_merchant_num'] == 0) {
+							echo LANGUI_CUSTBU_MKT_p3_t7;
+						}
+						else {
+							if ($this->merchantProperty['exits_num'] < $this->merchantProperty['vRow_merchant_num']) {
+								echo LANGUI_CUSTBU_MKT_p2_t7;
+							}
+						}
+					}
+				}
+			}
+
+			echo '</p>
+';
+		}
+
+		echo '
+<p><input type="image" tabindex="8" value="ok" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" alt="';
+		echo LANGUI_CUSTBU_MKT_p3_t8;
+		echo '"></p>
+</form>
+</div>
+
+';
+
+		if (0 < $this->data['offer_merchants_count']) {
+			echo '<table id="sell_overview" cellpadding="1" cellspacing="1">
+	<thead>
+		<tr>
+			<th colspan="6">';
+			echo LANGUI_CUSTBU_MKT_p3_t9;
+			echo '</th>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p3_t1;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p3_t3;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p1_t1;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_MKT_p3_t10;
+			echo '</td>
+			<td>';
+			echo text_period_lang;
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+
+			while ($this->merchantProperty['offers']->next(  )) {
+				list( $res1, $res2 ) = explode( '|', $this->merchantProperty['offers']->row['offer'] );
+				$resArr1 = explode( ' ', $res1 );
+				$res1_item_id = 0;
+				$res1_value = 0;
+				$i = 0;
+				$_c = sizeof( $resArr1 );
+
+				while ($i < $_c) {
+					if (0 < $resArr1[$i]) {
+						$res1_item_id = $i + 1;
+						$res1_value = $resArr1[$i];
+						break;
+					}
+
+					++$i;
+				}
+
+				$resArr1 = explode( ' ', $res2 );
+				$res2_item_id = 0;
+				$res2_value = 0;
+				$i = 0;
+				$_c = sizeof( $resArr1 );
+
+				while ($i < $_c) {
+					if (0 < $resArr1[$i]) {
+						$res2_item_id = $i + 1;
+						$res2_value = $resArr1[$i];
+						break;
+					}
+
+					++$i;
+				}
+
+				echo '		<tr>
+			<td class="abo"><a href="build.php?id=';
+				echo $this->buildingIndex;
+				echo '&t=';
+				echo $this->selectedTabIndex;
+				echo '&d=';
+				echo $this->merchantProperty['offers']->row['id'];
+				echo '"><img class="del" src="assets/x.gif" alt="';
+				echo LANGUI_CUSTBU_MKT_p3_t11;
+				echo '" title="';
+				echo LANGUI_CUSTBU_MKT_p3_t11;
+				echo '"></a></td>
+			<td class="val"><img src="assets/x.gif" class="r';
+				echo $res1_item_id;
+				echo '" alt="';
+				echo constant( 'item_title_' . $res1_item_id );
+				echo '" title="';
+				echo constant( 'item_title_' . $res1_item_id );
+				echo '">';
+				echo $res1_value;
+				echo '</td>
+			<td class="val"><img src="assets/x.gif" class="r';
+				echo $res2_item_id;
+				echo '" alt="';
+				echo constant( 'item_title_' . $res2_item_id );
+				echo '" title="';
+				echo constant( 'item_title_' . $res2_item_id );
+				echo '">';
+				echo $res2_value;
+				echo '</td>
+			<td class="tra">';
+				echo $this->merchantProperty['offers']->row['merchants_num'];
+				echo '</td>
+			<td class="al">';
+				echo ($this->merchantProperty['offers']->row['alliance_only'] ? LANGUI_CUSTBU_MKT_p3_t13 : LANGUI_CUSTBU_MKT_p3_t12);
+				echo '</td>
+			<td class="dur">';
+				echo (0 < $this->merchantProperty['offers']->row['max_time'] ? $this->merchantProperty['offers']->row['max_time'] . ( ' ' . LANGUI_CUSTBU_MKT_p1_t15 ) : '-');
+				echo '</td>
+		</tr>
+		';
+			}
+
+			echo '	</tbody>
+</table>
+';
+			return 1;
+		}
+	}
+	else {
+		if ($this->selectedTabIndex == 3) {
+			echo '<s';
+			echo 'cript language="JavaScript">
+var overall;
+function calculateRes() {
+	resObj=document.getElementsByName("m2");
+	overall=0;
+	for (i=0; i<resObj.length; i++) {
+		var tmp="";
+		for (j=0; j<resObj[i].value.length; j++)
+			if ((resObj[i].value.charAt(j)>="0") && (resObj[i].value.charAt(j)<="9")) tmp=tmp+resObj[i].value.charAt(j);
+		resObj[i].value=tmp;
+		if (tmp=="") tmp="0";
+		newRes=Math.round';
+			echo '(parseInt(tmp)*summe/100);
+		if (((i<3) && (newRes<=max123)) || ((i==3) && (newRes<=max4)))
+			newHTML=newRes;
+		else
+			newHTML="';
+			echo '<s';
+			echo 'pan class=\'corr\'>"+newRes+"</span>";
+		document.getElementById("new"+i).innerHTML=newHTML;
+		overall+=parseInt(tmp);
+	}
+	document.getElementById("overall").innerHTML=overall+"%";
+}
+function normalize() {
+	calculateRes();
+	resObj=document.getElementsByName("m2");
+	for (i=0; i<resObj.length; i++) {
+		tmp=parseInt(resObj[i].value);
+		tmp=tmp*(100/overall);
+		resObj[i].value=Math.round(tmp);';
+			echo '
+	}
+	calculateRes();
+}
+
+
+function calculateRest() {
+	resObj=document.getElementsByName("m2[]");
+	overall=0;
+	for (i=0; i<resObj.length; i++) {
+		var tmp="";
+		for (j=0; j<resObj[i].value.length; j++)
+			if ((resObj[i].value.charAt(j)>="0") && (resObj[i].value.charAt(j)<="9")) tmp=tmp+resObj[i].value.charAt(j);
+		if (tmp=="") {
+			tmp="0";
+			newRes=0;
+			resObj[i].value="";
+		} else ';
+			echo '{
+			newRes=parseInt(tmp);
+			if ((i<3) && (newRes>max123)) newRes=max123;
+			if ((i==3) && (newRes>max4)) newRes=max4;
+			resObj[i].value=newRes;
+		}
+		dif=newRes-parseInt(document.getElementById("org"+i).innerHTML);
+		newHTML=dif;
+		if (dif>0) newHTML="+"+dif;
+		document.getElementById("diff"+i).innerHTML=newHTML;
+		overall+=newRes;
+	}
+	document.getElementById("newsum").innerHTML=over';
+			echo 'all;
+	rest=parseInt(document.getElementById("org4").innerHTML)-overall;
+	document.getElementById("remain").innerHTML=rest;
+	testSum();
+}
+
+function fillup(nr) {
+	resObj=document.getElementsByName("m2[]");
+	if (nr<3) {
+		resObj[nr].value=max123;
+	} else {
+		resObj[nr].value=max4;
+	}
+	calculateRest();
+}
+function portionOut() {
+	restRes=parseInt(document.getElementById("remain").innerHT';
+			echo 'ML);
+	rest=restRes;
+	resObj=document.getElementsByName("m2[]");
+	nullCount=0;
+	notNullCount=0;
+	// Z�hlen
+	for (j=0; j<resObj.length; j++) {
+		if ((restRes>0) && (resObj[j].value=="")) nullCount++;
+		if ((restRes<0) && (resObj[j].value!="")) notNullCount++;
+	}
+	// Verteilen
+	nullCount2=0;
+	if (restRes>0) {
+		// In allen Feldern schon Zahlen?
+		if (nullCount==0) {
+			for (i=0; i<resOb';
+			echo 'j.length; i++) {
+				free=max123-parseInt(resObj[i].value);
+				resObj[i].value=(parseInt(resObj[i].value)+Math.round(rest/(4-i)));
+				rest=rest-Math.min(free,Math.round(rest/(4-i)));
+				if ((i<3) && (parseInt(resObj[i].value)<max123)) nullCount2++;
+			}
+		} else {
+			for (i=0; i<resObj.length; i++) {
+				if (resObj[i].value=="") {
+					resObj[i].value=Math.round(rest/nullCount);
+					res';
+			echo 't=rest-Math.round(rest/nullCount);
+					nullCount--;
+				}
+				if ((i<3) && (parseInt(resObj[i].value)<max123)) nullCount2++;
+			}
+		}
+	} else {
+		for (j=0; j<resObj.length; j++) {
+			if (parseInt(resObj[j].value)>0) {
+				resObj[j].value=(parseInt(resObj[j].value)+Math.round(rest/notNullCount));
+				rest=rest-Math.round(rest/notNullCount);
+				notNullCount--;
+			}
+		}
+	}
+	calculateRes';
+			echo 't();
+	// Noch irgendein Rest?
+	if (rest>0) {
+		if (max123>max4) {
+			for (j=0; j<3; j++) {
+				if (parseInt(resObj[j].value)<max123) {
+					resObj[j].value=(parseInt(resObj[j].value)+Math.round(rest/nullCount2));
+					rest=rest-Math.round(rest/nullCount2);
+					nullCount2--;
+				}
+			}
+		} else {
+			resObj[3].value=(parseInt(resObj[3].value)+rest);
+		}
+	}
+	calculateRest();
+}
+
+funct';
+			echo 'ion testSum() {
+	if (document.getElementById("remain").innerHTML!=0) {
+		document.getElementById("submitText").innerHTML="<a href=\'javascript:portionOut();\'>';
+			echo LANGUI_CUSTBU_MKT_p4_t1;
+			echo '</a>";
+		document.getElementById("submitText").style.display="block";
+		document.getElementById("submitButton").style.display="none";
+	} else {
+		document.getElementById("submitText").innerHTML="";
+		document.getElementById("submitText").style.display="none";
+		document.getElementById("submitButton").style.display="block";
+	}
+}
+</script>
+';
+			echo '<s';
+			echo 'cript language="JavaScript">var summe=';
+			echo $this->resources[1]['current_value'] + $this->resources[2]['current_value'] + $this->resources[3]['current_value'] + $this->resources[4]['current_value'];
+			echo ';var max123=';
+			echo $this->resources[1]['store_max_limit'];
+			echo ';var max4=';
+			echo $this->resources[4]['store_max_limit'];
+			echo ';</script>
+<form method="post" id="_fm1" name="snd" action="build.php?id=';
+			echo $this->buildingIndex;
+			echo '&t=';
+			echo $this->selectedTabIndex;
+
+			if (isset( $_GET['rid'] )) {
+				echo '&rid=' . intval( $_GET['rid'] );
+			}
+
+			echo '">
+<table id="npc" cellpadding="1" cellspacing="1">
+	<thead>
+		<tr><th colspan="5">';
+			echo LANGUI_CUSTBU_MKT_p4;
+			echo '</th></tr>
+		<tr>
+			<td class="all"><a href="javascript:fillup(0);"><img class="r1" src="assets/x.gif" alt="';
+			echo item_title_1;
+			echo '" title="';
+			echo item_title_1;
+			echo '"></a>';
+			echo '<s';
+			echo 'pan id="org0">';
+			echo $this->resources[1]['current_value'];
+			echo '</span></td>
+			<td class="all"><a href="javascript:fillup(1);"><img class="r2" src="assets/x.gif" alt="';
+			echo item_title_2;
+			echo '" title="';
+			echo item_title_2;
+			echo '"></a>';
+			echo '<s';
+			echo 'pan id="org1">';
+			echo $this->resources[2]['current_value'];
+			echo '</span></td>
+			<td class="all"><a href="javascript:fillup(2);"><img class="r3" src="assets/x.gif" alt="';
+			echo item_title_3;
+			echo '" title="';
+			echo item_title_3;
+			echo '"></a>';
+			echo '<s';
+			echo 'pan id="org2">';
+			echo $this->resources[3]['current_value'];
+			echo '</span></td>
+			<td class="all"><a href="javascript:fillup(3);"><img class="r4" src="assets/x.gif" alt="';
+			echo item_title_4;
+			echo '" title="';
+			echo item_title_4;
+			echo '"></a>';
+			echo '<s';
+			echo 'pan id="org3">';
+			echo $this->resources[4]['current_value'];
+			echo '</span></td>
+			<td class="sum">';
+			echo LANGUI_CUSTBU_MKT_p4_t2;
+			echo ':&nbsp;';
+			echo '<s';
+			echo 'pan id="org4">';
+			echo $this->resources[1]['current_value'] + $this->resources[2]['current_value'] + $this->resources[3]['current_value'] + $this->resources[4]['current_value'];
+			echo '</span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="sel">
+				<input class="text" onkeyup="calculateRest();" name="m2[]" size="5" maxlength="7" value="';
+			echo (isset( $_GET['r1'] ) ? intval( $_GET['r1'] ) : '');
+			echo '">
+				<input type="hidden" name="m1[]" value="';
+			echo $this->resources[1]['current_value'];
+			echo '">
+			</td>
+			<td class="sel">
+				<input class="text" onkeyup="calculateRest();" name="m2[]" size="5" maxlength="7" value="';
+			echo (isset( $_GET['r2'] ) ? intval( $_GET['r2'] ) : '');
+			echo '">
+				<input type="hidden" name="m1[]" value="';
+			echo $this->resources[2]['current_value'];
+			echo '">
+			</td>
+			<td class="sel">
+				<input class="text" onkeyup="calculateRest();" name="m2[]" size="5" maxlength="7" value="';
+			echo (isset( $_GET['r3'] ) ? intval( $_GET['r3'] ) : '');
+			echo '">
+				<input type="hidden" name="m1[]" value="';
+			echo $this->resources[3]['current_value'];
+			echo '">
+			</td>
+			<td class="sel">
+				<input class="text" onkeyup="calculateRest();" name="m2[]" size="5" maxlength="7" value="';
+			echo (isset( $_GET['r4'] ) ? intval( $_GET['r4'] ) : '');
+			echo '">
+				<input type="hidden" name="m1[]" value="';
+			echo $this->resources[4]['current_value'];
+			echo '">
+			</td>
+			<td class="sum">';
+			echo LANGUI_CUSTBU_MKT_p4_t2;
+			echo ':&nbsp;';
+			echo '<s';
+			echo 'pan id="newsum">0</span></td>
+		</tr>
+		<tr>
+			<td class="rem">';
+			echo '<s';
+			echo 'pan id="diff0">-';
+			echo $this->resources[1]['current_value'];
+			echo '</span></td>
+			<td class="rem">';
+			echo '<s';
+			echo 'pan id="diff1">-';
+			echo $this->resources[2]['current_value'];
+			echo '</span></td>
+			<td class="rem">';
+			echo '<s';
+			echo 'pan id="diff2">-';
+			echo $this->resources[3]['current_value'];
+			echo '</span></td>
+			<td class="rem">';
+			echo '<s';
+			echo 'pan id="diff3">-';
+			echo $this->resources[4]['current_value'];
+			echo '</span></td>
+			<td class="sum">';
+			echo LANGUI_CUSTBU_MKT_p4_t3;
+			echo ':&nbsp;';
+			echo '<s';
+			echo 'pan id="remain">';
+			echo $this->resources[1]['current_value'] + $this->resources[2]['current_value'] + $this->resources[3]['current_value'] + $this->resources[4]['current_value'];
+			echo '</span></td>
+		</tr>
+	</tbody>
+</table>
+<p id="submitText" style="display: block; "><a href="javascript:portionOut();">';
+			echo LANGUI_CUSTBU_MKT_p4_t1;
+			echo '</a></p>
+';
+
+			if ($this->data['gold_num'] < $this->gameMetadata['plusTable'][6]['cost']) {
+				echo '<p id="submitButton" style="display: none; "><a href="plus.php?t=2">';
+				echo '<s';
+				echo 'pan class="none">';
+				echo LANGUI_CUSTBU_MKT_p4_t4;
+				echo '</span></a></p>
+';
+			}
+			else {
+				echo '<p id="submitButton" style="display: none; "><a href="#" onclick="_(\'_fm1\').submit();return false;">';
+				echo LANGUI_CUSTBU_MKT_p4_t5;
+				echo '</a> (';
+				echo LANGUI_CUSTBU_MKT_p4_t6;
+				echo ' ';
+				echo $this->gameMetadata['plusTable'][6]['cost'];
+				echo ' ';
+				echo LANGUI_CUSTBU_MKT_p4_t8;
+				echo ')</p>
+';
+			}
+
+			echo '</form>
+
+';
+			echo '<s';
+			echo 'cript>calculateRest();testSum();</script>
+<p>';
+			echo LANGUI_CUSTBU_MKT_p4_t9;
+			echo '.</p>
+';
+
+			if (isset( $_GET['rid'] )) {
+				$rid = intval( $_GET['rid'] );
+				$prop = $this->getBuildingProperties( $rid );
+				$btext = LANGUI_CUSTBU_MKT_p4_t7;
+
+				if (!$prop['emptyPlace']) {
+					$btext .= ' ' . text_to_lang . ' ' . constant( 'item_' . $prop['building']['item_id'] );
+				}
+
+				echo '<p><a href="build.php?id=';
+				echo $rid;
+				echo '" title="';
+				echo $btext;
+				echo '">';
+				echo $btext;
+				echo '</a></p>
+';
+			}
+
+			echo '<br/><br/>
+';
+		}
+	}
+}
+
+?>

@@ -1,0 +1,250 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'advertising.php' );
+	echo '<h1>';
+	echo LANGUI_ADV_T1;
+	echo '</h1>
+';
+	echo '<s';
+	echo 'cript type="text/javascript">
+<!--
+var Advs = new Array();
+function edit(id){
+	_(\'advtitle\').innerHTML 	= \'';
+	echo LANGUI_ADV_T2;
+	echo '\';
+	_(\'doID\').value 			= \'edit\';
+	_(\'IDID\').value 			= id;
+	_(\'nameID\').value 			= Advs[id].name;
+	_(\'imageID\').value 			= Advs[id].img;
+	_(\'urlID\').value 			= Advs[id].url;
+	_(\'catID\').value 			= Advs[id].cat;
+}
+function resetForm(){
+	_(\'advtitle\').innerHTML  	= \'';
+	echo LANGUI_ADV_T3;
+	echo '\';
+	_(\'doID\').value 			= \'add\';
+	_(\'IDID\').value 			= 0;
+	_(\'nameID\').value 			= \'\';
+	_(\'imageID\').value 			= \'\';
+	_(\'urlID\').value 			= \'\';
+	_(\'catID\').value 			= 1;
+}
+-->
+</script>
+<form action="advertising.php" method="POST">
+<input type="hidden" name="do" value="add" id="doID" />
+<input type="hidden" name="ID" value="0" id="IDID" />
+<table cellpadding="1" cellspacing="1" id="links">
+	';
+	echo '<thead>
+		<tr>
+			<th colspan="2">
+            ';
+	echo '<s';
+	echo 'amp style="float:right"><a href="#" onclick="javascript:resetForm(); return false;"><img title="';
+	echo LANGUI_ADV_T4;
+	echo '" alt="';
+	echo LANGUI_ADV_T4;
+	echo '" src="assets/default/img/f/plus.gif" border="0" /></a></samp>
+            ';
+	echo '<s';
+	echo 'amp id="advtitle">';
+	echo LANGUI_ADV_T3;
+	echo '</samp></th>
+		</tr>
+    </thead>
+	<tbody>
+    	<tr>
+        	<td>';
+	echo LANGUI_ADV_T5;
+	echo '</td>
+            <td><input class="text" type="text" name="name" value="" id="nameID" maxlength="150"></td>
+        </tr>
+        <tr>
+        	<td>';
+	echo LANGUI_ADV_T6;
+	echo ' &nbsp;<a href="#" onclick="alert(\'';
+	echo LANGUI_ADV_T7;
+	echo '\'); return false;"><img class="help" src="assets/x.gif" alt="';
+	echo LANGUI_ADV_T21;
+	echo '" title="';
+	echo LANGUI_ADV_T21;
+	echo '"></a></td>
+            <td><input class="text" type="text" name="image" value="" id="imageID" maxlength="150"></td>
+        </tr>
+        <tr>
+        	<td>';
+	echo LANGUI_ADV_T8;
+	echo '</td>
+            <td><input class="text" type="text" name="url" value="" id="urlID" maxlength="150"></td>
+        </tr>
+        <tr>
+        	<td>';
+	echo LANGUI_ADV_T9;
+	echo '</td>
+            <td>';
+	echo '<s';
+	echo 'elect class="text" name="cat" id="catID">
+            	<option value="1">';
+	echo LANGUI_ADV_T10;
+	echo '</option>
+                <option value="2">';
+	echo LANGUI_ADV_T11;
+	echo '</option>
+            </select></td>
+        </tr>
+        <tr>
+        	<td colspan="2"><div class="btn"><input type="image" value="" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" title="';
+	echo LANGUI_ADV_T20;
+	echo '" alt="';
+	echo LANGUI_ADV_T20;
+	echo '"></div></td>
+        </tr>
+    </tbody>
+</table><br />
+<table cellpadding="1" cellspacing="1" id="links">
+	<thead>
+		<tr>
+			<th colspan="6">';
+	echo LANGUI_ADV_T12;
+	echo '</th>
+		</tr>
+		<tr>
+			<td>';
+	echo LANGUI_ADV_T13;
+	echo '</td>
+            <td>';
+	echo LANGUI_ADV_T5;
+	echo '</td>
+            <td>';
+	echo LANGUI_ADV_T14;
+	echo '</td>
+            <td>';
+	echo LANGUI_ADV_T15;
+	echo '</td>
+            <td>';
+	echo LANGUI_ADV_T9;
+	echo '</td>
+            <td>';
+	echo LANGUI_ADV_T16;
+	echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+	$_c = 0;
+
+	while ($this->Advertisings->next()) {
+		++$_c;
+		$c = $_c + $this->pageIndex * $this->pageSize;
+		echo '              ';
+		echo '<s';
+		echo 'cript type="text/javascript">
+			  <!--
+			  Advs[';
+		echo htmlspecialchars( $this->Advertisings->row['ID'] );
+		echo '] = {
+				  name:\'';
+		echo htmlspecialchars( $this->Advertisings->row['name'] );
+		echo '\',
+				  url:\'';
+		echo htmlspecialchars( $this->Advertisings->row['url'] );
+		echo '\',
+				  img:\'';
+		echo htmlspecialchars( $this->Advertisings->row['image'] );
+		echo '\',
+				  cat:\'';
+		echo htmlspecialchars( $this->Advertisings->row['cat'] );
+		echo '\'
+				  };
+			  -->
+			  </script>
+		<tr>
+			<td class="nr">';
+		echo $c++;
+		echo '</td>
+			<td class="link"><a href="';
+		echo htmlspecialchars( $this->Advertisings->row['url'] );
+		echo '" target="_blank">';
+		echo htmlspecialchars( $this->Advertisings->row['name'] );
+		echo '</a></td>
+            <td class="nam">';
+		echo htmlspecialchars( $this->Advertisings->row['visit'] );
+		echo '</td>
+            <td class="nam">';
+		echo htmlspecialchars( $this->Advertisings->row['view'] );
+		echo '</td>
+            <td class="nam">';
+		echo ($this->Advertisings->row['cat'] == 1 ? LANGUI_ADV_T10 : LANGUI_ADV_T11);
+		echo '</td>
+			<td class="link">
+            <a href="';
+		echo htmlspecialchars( $this->Advertisings->row['image'] );
+		echo '" target="_blank"><img border="0" src="assets/default/img/a/external.gif" title="';
+		echo LANGUI_ADV_T17;
+		echo '" alt="';
+		echo LANGUI_ADV_T17;
+		echo '" /></a>
+            &nbsp;
+            <a href="advertising.php?DAdv=';
+		echo htmlspecialchars( $this->Advertisings->row['ID'] );
+		echo '"><img border="0" src="assets/default/img/a/del.gif" title="';
+		echo LANGUI_ADV_T18;
+		echo '" alt="';
+		echo LANGUI_ADV_T18;
+		echo '" /></a>
+            &nbsp;
+            <a href="#" onclick="javascript:edit(';
+		echo htmlspecialchars( $this->Advertisings->row['ID'] );
+		echo '); return false;"><img border="0" src="assets/default/img/f/edit.gif" title="';
+		echo LANGUI_ADV_T19;
+		echo '" alt="';
+		echo LANGUI_ADV_T19;
+		echo '" /></a>
+            </td>
+		</tr>
+		';
+	}
+
+	echo '        <tr>
+            <td colspan="5" class="table_body"><div align="center">';
+	echo $this->getPreviousLink();
+	echo ' &nbsp; | &nbsp; ';
+	echo $this->getNextLink();
+	echo '</div></td>
+            <td class="table_body"><div align="center">
+			';
+	echo '<s';
+	echo 'elect name="p" onchange="window.location.href=(\'advertising.php?p=\'+this.value)">
+            ';
+	$i = 1;
+	$c = 0;
+
+	while ($i <= $this->pageCount) {
+		echo '            	<option value="';
+		echo $c;
+		echo '"';
+
+		if (( isset( $_GET['p'] ) && $_GET['p'] == $c )) {
+			echo ' selected="selected"';
+		}
+
+		echo '>';
+		echo $i;
+		echo '</option>
+            ';
+		++$i;
+		++$c;
+	}
+
+	echo '            </select>
+            </div></td>
+        </tr>
+	</tbody>
+</table>
+</form>';
+?>
+
+

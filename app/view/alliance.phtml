@@ -1,0 +1,973 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'alliance.php' );
+
+	if (!$this->hasAlliance) {
+		echo '<h1>';
+		echo LANGUI_ALLIANCE_T1;
+		echo '</h1>
+<p></p>
+<p>';
+		echo LANGUI_ALLIANCE_T2;
+		echo '</p>
+<p></p>
+';
+		return 1;
+	}
+
+	echo '<h1>';
+	echo $this->allianceData['name'];
+	echo ' - ';
+	echo $this->allianceData['name2'];
+	echo '</h1>
+';
+
+	if ($this->fullView) {
+		echo '<div id="textmenu">
+   <a href="alliance.php"';
+
+		if ($this->selectedTabIndex == 0) {
+			echo ' class="selected"';
+		}
+
+		echo '>';
+		echo LANGUI_ALLIANCE_T3;
+		echo '</a>
+';
+
+		if ($this->hasAllianceEditRole()) {
+			echo ' | <a href="alliance.php?t=1"';
+
+			if ($this->selectedTabIndex == 1) {
+				echo ' class="selected"';
+			}
+
+			echo '>';
+			echo LANGUI_ALLIANCE_T4;
+			echo '</a>';
+		}
+
+		echo ' | <a href="alliance.php?t=2"';
+
+		if ($this->selectedTabIndex == 2) {
+			echo ' class="selected"';
+		}
+
+		echo '>';
+		echo LANGUI_ALLIANCE_T5;
+		echo '</a>
+ | <a href="alliance.php?t=3"';
+
+		if ($this->selectedTabIndex == 3) {
+			echo ' class="selected"';
+		}
+
+		echo '>';
+		echo LANGUI_ALLIANCE_T6;
+		echo '</a>
+</div>
+';
+	}
+
+	echo '
+';
+
+	if ($this->selectedTabIndex == 0) {
+		echo '<s';
+		echo 'cript type="text/javascript">
+function getMouseCoords(e) {
+	var coords = {};
+	if (!e) var e = window.event;
+	if (e.pageX || e.pageY) {
+		coords.x = e.pageX;
+		coords.y = e.pageY;
+	} else if (e.clientX || e.clientY) {
+		coords.x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		coords.y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop';
+		echo ';
+	}
+
+	return coords;
+}
+function med_mouseMoveHandler(e, desc_string) {
+	var coords = getMouseCoords(e);
+	var layer = _("medal_mouseover");
+	layer.style.top = (coords.y + 25) + "px";
+	layer.style.left = (coords.x - 20) + "px";
+	layer.className = "";
+	layer.innerHTML  = desc_string;
+}
+function med_closeDescription(){
+	var layer = _("medal_mouseover");
+	layer.className = "hide";
+}
+';
+		echo '
+layer = document.createElement("div");
+layer.id = "medal_mouseover";
+layer.className = "hide";
+document.body.appendChild(layer);
+</script>
+
+<table cellpadding="1" cellspacing="1" id="profile">
+	<thead>
+		<tr><th colspan="2">';
+		echo LANGUI_ALLIANCE_T7;
+		echo '</th></tr>
+		<tr>
+			<td>';
+		echo LANGUI_ALLIANCE_T8;
+		echo ':</td>
+			<td>';
+		echo LANGUI_ALLIANCE_T9;
+		echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr><td class="empty"></td><td class="empty"></td></tr>
+		<tr>
+			<td class="details">
+				<table cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<th>';
+		echo LANGUI_ALLIANCE_T10;
+		echo ':</th>
+							<td>';
+		echo $this->allianceData['name'];
+		echo '</td>
+						</tr>
+						<tr>
+							<th>';
+		echo LANGUI_ALLIANCE_T11;
+		echo ':</th>
+							<td>';
+		echo $this->allianceData['name2'];
+		echo '</td>
+						</tr>
+						<tr><td colspan="2" class="empty"></td></tr>
+						<tr>
+							<th>';
+		echo LANGUI_ALLIANCE_T12;
+		echo ':</th>
+							<td>';
+		echo $this->allianceData['rank'];
+		echo '</td>
+						</tr>
+						<tr>
+							<th>';
+		echo LANGUI_ALLIANCE_T13;
+		echo ':</th>
+							<td>';
+		echo $this->allianceData['rating'];
+		echo '</td>
+						</tr>
+						<tr>
+							<th>';
+		echo LANGUI_ALLIANCE_T14;
+		echo ':</th>
+							<td>';
+		echo $this->allianceData['player_count'];
+		echo '</td>
+						</tr>
+						<tr><td colspan="2" class="empty"></td></tr>
+						';
+		foreach ($this->allianceData['players'] as $player) {
+			if (trim( $player['alliance_roles'] ) == '') {
+				continue;
+			}
+
+			list( $roleNumber, $roleName ) = explode( ' ', trim( $player['alliance_roles'] ), 2 );
+			$roleName = trim( $roleName );
+
+			if (( $roleName == '' || $roleName == '.' )) {
+				continue;
+			}
+
+			echo '						<tr>
+							<th>';
+			echo $roleName;
+			echo '</th>
+							<td><a href="profile.php?uid=';
+			echo $player['id'];
+			echo '">';
+			echo $player['name'];
+			echo '</a></td>
+						</tr>
+						';
+		}
+
+		echo '						<tr><td colspan="2" class="empty"></td></tr>
+
+						<tr>
+							<td class="desc2" colspan="2">';
+		echo $this->getAllianceDescription( $this->allianceData['description2'] );
+		echo '</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+			<td class="desc1">';
+		echo $this->getAllianceDescription( $this->allianceData['description1'] );
+		echo '</td>
+		</tr>
+	</tbody>
+</table>
+
+';
+		echo '<s';
+		echo 'cript type="text/javascript">
+function confirmDel () { return confirm ("';
+		echo LANGUI_ALLIANCE_T15;
+		echo '"); }
+
+function showAllianceRole(uid) {
+	p = document.getElementById("ce");
+	if (p!=null) {
+		p.innerHTML = \'<div id="_pwin" class="popup3"><div id="drag" onmousedown="dragStart(event, \'_pwin\')"></div><a href="#" onClick="hideManual(); return false;"><img src="assets/x.gif" border="1" class="popup4" alt="Move"></a><iframe frameborder="0" id="Frame" src="alliancerole.php?uid=\'+uid+\'" width="412" he';
+		echo 'ight="440" border="0"></iframe></div>\';
+	}
+
+	return false;
+}
+</script>
+
+<table cellpadding="1" cellspacing="1" id="member">
+	<thead>
+		<tr>
+			<th>&nbsp;</th>
+			<th>';
+		echo LANGUI_ALLIANCE_T16;
+		echo '</th>
+			<th>';
+		echo LANGUI_ALLIANCE_T17;
+		echo '</th>
+			<th>';
+		echo LANGUI_ALLIANCE_T18;
+		echo '</th>
+			';
+
+		if ($this->fullView) {
+			echo '<th>&nbsp;</th>';
+
+			if ($this->hasAllianceRemovePlayerRole()) {
+				echo '<th>&nbsp;</th>';
+			}
+
+
+			if ($this->hasAllianceSetRoles()) {
+				echo '<th>&nbsp;</th>';
+			}
+		}
+
+		echo '		</tr>
+	</thead>
+	<tbody>
+		';
+		$_c = 1;
+		foreach ($this->allianceData['players'] as $player) {
+			echo '		<tr>
+			<td class="ra">';
+			echo $_c++;
+			echo '.</td>
+			<td class="pla"><a href="profile.php?uid=';
+			echo $player['id'];
+			echo '">';
+			echo $player['name'];
+			echo '</a></td>
+			<td class="hab">';
+			echo $player['total_people_count'];
+			echo '</td>
+			<td class="vil">';
+			echo $player['villages_count'];
+			echo '</td>
+			';
+
+			if ($this->fullView) {
+				echo '			<td class="on">';
+				echo $this->getOnlineStatus( $player['lastLoginFromHours'] );
+				echo '</td>
+			';
+
+				if ($this->hasAllianceRemovePlayerRole()) {
+					echo '			<td class="on">';
+
+					if ($player['id'] != $this->player->playerId) {
+						echo '<a onclick="return confirmDel();" href="alliance.php?d=';
+						echo $player['id'];
+						echo '"><img class="del" src="assets/x.gif" alt="';
+						echo LANGUI_ALLIANCE_T19;
+						echo '" title="';
+						echo LANGUI_ALLIANCE_T19;
+						echo '"></a>';
+					}
+
+					echo '</td>
+			';
+				}
+
+				echo '			';
+
+				if ($this->hasAllianceSetRoles()) {
+					echo '			<td class="on"><a href="#" onclick="return showAllianceRole(';
+					echo $player['id'];
+					echo ');"><img class="def_c" src="assets/x.gif" alt="';
+					echo LANGUI_ALLIANCE_T20;
+					echo '" title="';
+					echo LANGUI_ALLIANCE_T20;
+					echo '"></a></td>
+			';
+				}
+
+				echo '			
+			';
+			}
+
+			echo '		</tr>
+		';
+		}
+
+		echo '	</tbody>
+</table>
+';
+		return 1;
+	}
+
+
+	if ($this->selectedTabIndex == 1) {
+		echo '<form action="alliance.php?t=';
+		echo $this->selectedTabIndex;
+		echo '" method="post">
+	<table cellpadding="1" cellspacing="1" id="edit" class="vip">
+		<thead>
+			<tr><th colspan="3">';
+		echo LANGUI_ALLIANCE_T7;
+		echo '</th></tr>
+			<tr>
+				<td colspan="2">';
+		echo LANGUI_ALLIANCE_T8;
+		echo ':</td>
+				<td>';
+		echo LANGUI_ALLIANCE_T9;
+		echo ':</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td colspan="2" class="empty"></td><td class="empty"></td></tr>
+			<tr>
+				<th>';
+		echo LANGUI_ALLIANCE_T10;
+		echo ':</th>
+				<td class="birth"><input tabindex="1" class="text day" type="text" name="aname1" value="';
+		echo htmlspecialchars( $this->allianceData['name'] );
+		echo '" maxlength="8"></td>
+				<td rowspan="4" class="desc1"><textarea tabindex="7" name="be1">';
+		echo $this->allianceData['description1'];
+		echo '</textarea></td>
+			</tr>
+			<tr>
+				<th>';
+		echo LANGUI_ALLIANCE_T11;
+		echo ':</th>
+				<td class="gend"><input tabindex="1" class="text day" type="text" name="aname2" value="';
+		echo htmlspecialchars( $this->allianceData['name2'] );
+		echo '" maxlength="25"></td>
+			</tr>
+			<tr><td colspan="2" class="empty"></td></tr>
+			<tr ><td colspan="2"><textarea tabindex="8" name="be2" rows="15" cols="42">';
+		echo $this->allianceData['description2'];
+		echo '</textarea></td></tr>
+		</tbody>
+	</table>
+
+	<table cellpadding="1" cellspacing="1" id="medals">
+		<thead>
+			<tr><th colspan="4">';
+		echo LANGUI_ALLIANCE_T21;
+		echo '</th></tr>
+			<tr>
+				<td>';
+		echo LANGUI_ALLIANCE_T22;
+		echo '</td>
+				<td>';
+		echo LANGUI_ALLIANCE_T23;
+		echo '</td>
+				<td>';
+		echo LANGUI_ALLIANCE_T24;
+		echo '</td>
+				<td>';
+		echo LANGUI_ALLIANCE_T25;
+		echo '</td>
+			</tr>
+		</thead>
+		<tbody>
+			';
+
+		if (trim( $this->allianceData['medals'] ) != '') {
+			$medals = explode( ',', $this->allianceData['medals'] );
+			foreach ($medals as $medal) {
+				list( $index, $rank, $week ) = explode( ':', $medal );
+
+				if (!isset( $this->gameMetadata['medals'][$index] )) {
+					continue;
+				}
+
+				$medalData = $this->gameMetadata['medals'][$index];
+
+				if ($index == 0) {
+					$rank = 1;
+				}
+
+				echo '			<tr>
+			   <td class="typ">';
+				echo constant( 'medal_row_' . $medalData['textIndex'] );
+				echo '</td>
+			   <td class="ra">';
+				echo $rank;
+				echo '</td>
+			   <td class="we">';
+				echo $week;
+				echo '</td>
+			   <td class="bb">[#';
+				echo intval( $medalData['BBCode'] ) + intval( $week ) * 10 + ( intval( $rank ) - 1 );
+				echo ']</td>
+			</tr>
+			';
+			}
+		}
+
+		echo '		</tbody>
+	</table>
+	<p class="btn"><input type="image" value="" tabindex="9" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" alt="';
+		echo text_okdone_lang;
+		echo '"></p>
+</form>
+';
+		return 1;
+	}
+
+
+	if ($this->selectedTabIndex == 2) {
+		echo '<table cellpadding="1" cellspacing="1" id="offs">
+	<thead>
+		<tr>
+			<th colspan="4">
+				';
+		echo LANGUI_ALLIANCE_T26;
+		echo '				<div id="submenu">
+					<a href="alliance.php?t=2';
+		echo (( isset( $_GET['ac'] ) && $_GET['ac'] == 2 ) ? '' : '&ac=2');
+		echo '"><img src="assets/x.gif" class="btn_def';
+
+		if (( isset( $_GET['ac'] ) && $_GET['ac'] == 2 )) {
+			echo ' active';
+		}
+
+		echo '" alt="';
+		echo LANGUI_ALLIANCE_T27;
+		echo '" title="';
+		echo LANGUI_ALLIANCE_T27;
+		echo '"></a>
+					<a href="alliance.php?t=2';
+		echo (( isset( $_GET['ac'] ) && $_GET['ac'] == 1 ) ? '' : '&ac=1');
+		echo '"><img src="assets/x.gif" class="btn_off';
+
+		if (( isset( $_GET['ac'] ) && $_GET['ac'] == 1 )) {
+			echo ' active';
+		}
+
+		echo '" alt="';
+		echo LANGUI_ALLIANCE_T28;
+		echo '" title="';
+		echo LANGUI_ALLIANCE_T28;
+		echo '"></a>
+				</div>
+			</th>
+		</tr>
+		<tr>
+			<td>';
+		echo LANGUI_ALLIANCE_T16;
+		echo '</td>
+			<td>';
+		echo LANGUI_ALLIANCE_T7;
+		echo '</td>
+			<td>';
+		echo LANGUI_ALLIANCE_T29;
+		echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+		$_c = 0;
+
+		while ($this->lastReports->next()) {
+			++$_c;
+			$isAttack = $this->lastReports->row['isAttack'];
+			$rptRelativeResult = ReportHelper::getreportresultrelative( $this->lastReports->row['rpt_result'], $isAttack );
+			$btext = ReportHelper::getreportresulttext( $rptRelativeResult );
+			$_rptResultCss = ($rptRelativeResult == 100 ? 10 : $rptRelativeResult);
+			echo '		<tr>
+			<td class="sub">
+				<img src="assets/x.gif" class="iReport iReport';
+			echo $_rptResultCss;
+			echo '" alt="';
+			echo $btext;
+			echo '" title="';
+			echo $btext;
+			echo '">
+				<div><a href="report.php?id=';
+			echo $this->lastReports->row['id'];
+			echo '">';
+			echo $this->lastReports->row['from_player_name'];
+			echo ReportHelper::getreportactiontext( $this->lastReports->row['rpt_cat'] );
+			echo $this->lastReports->row['to_player_name'];
+			echo '</a></div>
+			</td>
+			<td class="al">
+			';
+			$targetPlayerId = ($this->isMemberOfAlliance( $this->lastReports->row['from_player_id'] ) ? $this->lastReports->row['to_player_id'] : $this->lastReports->row['from_player_id']);
+			$aData = $this->getAllianceDataFor( $targetPlayerId );
+			echo '			';
+
+			if (( $aData != NULL && 0 < intval( $aData['alliance_id'] ) )) {
+				echo '<a href="alliance.php?id=';
+				echo $aData['alliance_id'];
+				echo '">';
+				echo $aData['alliance_name'];
+				echo '</a>';
+			} 
+else {
+				echo '-';
+			}
+
+			echo '			</td>
+			<td class="dat">';
+			echo $this->lastReports->row['mdate'];
+			echo '</td>
+		</tr>
+		';
+		}
+
+		echo '		';
+
+		if ($_c == 0) {
+			echo '		<tr class="none"><td colspan="4">';
+			echo LANGUI_ALLIANCE_T30;
+			echo '</td></tr>
+		';
+		}
+
+		echo '	</tbody>
+</table>
+';
+		return 1;
+	}
+
+
+	if ($this->selectedTabIndex == 3) {
+		if (!isset( $_GET['a'] )) {
+			echo '<table cellpadding="1" cellspacing="1" id="options" class="small_option">
+	<thead>
+		<tr><th>';
+			echo LANGUI_ALLIANCE_T6;
+			echo '</th></tr>
+	</thead>
+	<tbody>
+		';
+
+			if ($this->hasAllianceInviteRoles()) {
+				echo '<tr><td class="val"><a href="alliance.php?t=';
+				echo $this->selectedTabIndex;
+				echo '&a=1">';
+				echo LANGUI_ALLIANCE_T31;
+				echo '</a></td></tr>';
+			}
+
+			echo '		';
+
+			if ($this->hasAllianceEditContractRole()) {
+				echo '<tr><td class="val"><a href="alliance.php?t=';
+				echo $this->selectedTabIndex;
+				echo '&a=2">';
+				echo LANGUI_ALLIANCE_T32;
+				echo '</a></td></tr>';
+			}
+
+			echo '		<tr><td class="val"><a href="alliance.php?t=';
+			echo $this->selectedTabIndex;
+			echo '&a=3">';
+			echo LANGUI_ALLIANCE_T33;
+			echo '</a></td></tr>
+	</tbody>
+</table>
+';
+			return 1;
+		}
+
+		echo '<form action="alliance.php?t=';
+		echo $this->selectedTabIndex;
+		echo '&a=';
+		echo $_GET['a'];
+		echo '" method="post">
+';
+
+		if (intval( $_GET['a'] ) == 3) {
+			echo '<table cellpadding="1" cellspacing="1" id="quit" class="small_option">
+	<thead>
+		<tr><th colspan="2">';
+			echo LANGUI_ALLIANCE_T33;
+			echo '</th></tr>
+	</thead>
+	<tbody>
+		<tr><td colspan="2" class="info">';
+			echo LANGUI_ALLIANCE_T34;
+			echo '</td></tr>
+		<tr>
+			<th>';
+			echo LANGUI_ALLIANCE_T35;
+			echo ':</th>
+			<td><input class="pass text" type="password" name="pw" maxlength="20"></td>
+		</tr>
+	</tbody>
+</table>
+<p><input type="image" value="ok" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" alt="';
+			echo text_okdone_lang;
+			echo '"></p>
+';
+
+			if ($this->hasErrors) {
+				echo '<p class="error">';
+				echo LANGUI_ALLIANCE_T36;
+				echo '</p>';
+			}
+		} 
+else {
+			if (intval( $_GET['a'] ) == 2) {
+				echo '
+<table cellpadding="1" cellspacing="1" id="diplomacy" class="dipl">
+	<thead>
+		<tr><th colspan="2"> ';
+				echo LANGUI_ALLIANCE_T37;
+				echo '</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>';
+				echo LANGUI_ALLIANCE_T7;
+				echo '</th>
+			<td><input class="ally text" type="text" name="a_name" maxlength="8"></td>
+		</tr>
+	</tbody>
+</table>
+
+<table cellpadding="1" cellspacing="1" id="hint" class="infos">
+	<thead>
+		<tr><th colspan="2">';
+				echo LANGUI_ALLIANCE_T38;
+				echo ':</th></tr>
+	</thead>
+	<tbody>
+		<tr><td colspan="2">';
+				echo LANGUI_ALLIANCE_T39;
+				echo '</td></tr>
+	</tbody>
+</table>
+
+<div id="box">
+	<p><input type="image" value="ok" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" alt="';
+				echo text_okdone_lang;
+				echo '"></p>
+	';
+
+				if (( $this->isPost() && !$this->hasErrors )) {
+					echo '<p class="error">';
+					echo LANGUI_ALLIANCE_T40;
+					echo ' ';
+					echo trim( $_POST['a_name'] );
+					echo '.</p>';
+				}
+
+				echo '</div>
+<div class="clear"></div>
+
+<table cellpadding="1" cellspacing="1" id="own" class="dipl">
+	<thead>
+		<tr><th colspan="3">';
+				echo LANGUI_ALLIANCE_T41;
+				echo '</th></tr>
+	</thead>
+	<tbody>
+		';
+				$_c = 0;
+				foreach ($this->contracts as $aid => $status) {
+					if ($status != 1) {
+						continue;
+					}
+
+					++$_c;
+					echo '		<tr>
+			<td class="abo"><a href="alliance.php?t=';
+					echo $this->selectedTabIndex;
+					echo '&a=';
+					echo $_GET['a'];
+					echo '&d=';
+					echo $aid;
+					echo '"><img class="del" src="assets/x.gif" alt="';
+					echo LANGUI_ALLIANCE_T42;
+					echo '" title="';
+					echo LANGUI_ALLIANCE_T42;
+					echo '"></a></td>
+			<td><a href="alliance.php?id=';
+					echo $aid;
+					echo '">';
+					echo LANGUI_ALLIANCE_T43;
+					echo ' ';
+					echo $this->getAllianceName( $aid );
+					echo '</a></td>
+			<td class="wait">';
+					echo LANGUI_ALLIANCE_T44;
+					echo '</td>
+		</tr>
+		';
+				}
+
+				echo '		';
+
+				if ($_c == 0) {
+					echo '		<tr><td colspan="3" class="none">';
+					echo LANGUI_ALLIANCE_T45;
+					echo '</td></tr>
+		';
+				}
+
+				echo '	</tbody>
+</table>
+	
+<table cellpadding="1" cellspacing="1" id="tip" class="infos">
+	<thead>
+		<tr><th colspan="2">';
+				echo LANGUI_ALLIANCE_T46;
+				echo ':</th></tr>
+	</thead>
+	<tbody>
+		<tr><td colspan="2">';
+				echo LANGUI_ALLIANCE_T47;
+				echo ' ';
+				echo '<s';
+				echo 'pan class="e">[contracts]</span>&nbsp; ';
+				echo LANGUI_ALLIANCE_T48;
+				echo '. </td></tr>
+	</tbody>
+</table>
+
+<table cellpadding="1" cellspacing="1" id="foreign" class="dipl">
+	<thead>
+		<tr><th colspan="3">';
+				echo LANGUI_ALLIANCE_T49;
+				echo '</th></tr>
+	</thead>
+	<tbody>
+		';
+				$_c = 0;
+				foreach ($this->contracts as $aid => $status) {
+					if ($status != 2) {
+						continue;
+					}
+
+					++$_c;
+					echo '		<tr>
+			<td class="abo"><a href="alliance.php?t=';
+					echo $this->selectedTabIndex;
+					echo '&a=';
+					echo $_GET['a'];
+					echo '&d=';
+					echo $aid;
+					echo '"><img class="del" src="assets/x.gif" alt="';
+					echo LANGUI_ALLIANCE_T42;
+					echo '" title="';
+					echo LANGUI_ALLIANCE_T42;
+					echo '"></a></td>
+			<td><a href="alliance.php?id=';
+					echo $aid;
+					echo '">';
+					echo LANGUI_ALLIANCE_T43;
+					echo ' ';
+					echo $this->getAllianceName( $aid );
+					echo '</a></td>
+			<td class="wait"><a href="alliance.php?t=';
+					echo $this->selectedTabIndex;
+					echo '&a=';
+					echo $_GET['a'];
+					echo '&c=';
+					echo $aid;
+					echo '">';
+					echo LANGUI_ALLIANCE_T50;
+					echo '</a></td>
+		</tr>
+		';
+				}
+
+				echo '		';
+
+				if ($_c == 0) {
+					echo '		<tr><td colspan="3" class="none">';
+					echo LANGUI_ALLIANCE_T45;
+					echo '</td></tr>
+		';
+				}
+
+				echo '	</tbody>
+</table>
+
+<table cellpadding="1" cellspacing="1" id="existing" class="dipl">
+	<thead>
+		<tr><th colspan="2">';
+				echo LANGUI_ALLIANCE_T51;
+				echo '</th></tr>
+	</thead>
+	<tbody>
+		';
+				$_c = 0;
+				foreach ($this->contracts as $aid => $status) {
+					if ($status != 0) {
+						continue;
+					}
+
+					++$_c;
+					echo '		<tr>
+			<td class="abo"><a href="alliance.php?t=';
+					echo $this->selectedTabIndex;
+					echo '&a=';
+					echo $_GET['a'];
+					echo '&d=';
+					echo $aid;
+					echo '"><img class="del" src="assets/x.gif" alt="';
+					echo LANGUI_ALLIANCE_T42;
+					echo '" title="';
+					echo LANGUI_ALLIANCE_T42;
+					echo '"></a></td>
+			<td colspan="2"><a href="alliance.php?id=';
+					echo $aid;
+					echo '">';
+					echo LANGUI_ALLIANCE_T43;
+					echo ' ';
+					echo $this->getAllianceName( $aid );
+					echo '</a></td>
+		</tr>
+		';
+				}
+
+				echo '		';
+
+				if ($_c == 0) {
+					echo '		<tr><td colspan="3" class="none">';
+					echo LANGUI_ALLIANCE_T45;
+					echo '</td></tr>
+		';
+				}
+
+				echo '	</tbody>
+</table>
+
+';
+			} 
+else {
+				if (intval( $_GET['a'] ) == 1) {
+					echo '<table cellpadding="1" cellspacing="1" id="invite" class="small_option">
+	<thead>
+		<tr><th colspan="2">';
+					echo LANGUI_ALLIANCE_T31;
+					echo '</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>';
+					echo LANGUI_ALLIANCE_T11;
+					echo ':</th>
+			<td><input class="name text" type="text" name="a_name" maxlength="20"></td>
+		</tr>
+	</tbody>
+</table>
+<p><input type="image" value="ok" name="s1" id="btn_ok" class="dynamic_img" src="assets/x.gif" alt="';
+					echo text_okdone_lang;
+					echo '"></p>
+
+';
+
+					if ($this->invitesResult == 1) {
+						echo '<p class="error">';
+						echo LANGUI_ALLIANCE_T52;
+						echo ' ';
+						echo $_POST['a_name'];
+						echo '</p>
+';
+					} 
+else {
+						if ($this->invitesResult == 2) {
+							echo '<p class="error">';
+							echo LANGUI_ALLIANCE_T53;
+							echo ' ';
+							echo $_POST['a_name'];
+							echo '</p>
+';
+						}
+					}
+
+					echo '
+<table cellpadding="1" cellspacing="1" id="invitations" class="small_option">
+	<thead>
+		<tr><th colspan="2">';
+					echo LANGUI_ALLIANCE_T54;
+					echo ':</th></tr>
+	</thead>
+	<tbody>
+		';
+					$_c = 0;
+					foreach ($this->allianceData['players_invites'] as $pid => $pname) {
+						++$_c;
+						echo '		<tr>
+			<td class="abo"><a href="alliance.php?t=';
+						echo $this->selectedTabIndex;
+						echo '&a=';
+						echo $_GET['a'];
+						echo '&d=';
+						echo $pid;
+						echo '"><img class="del" src="assets/x.gif" alt="';
+						echo LANGUI_ALLIANCE_T42;
+						echo '" title="';
+						echo LANGUI_ALLIANCE_T42;
+						echo '"></a></td>
+			<td><a href="profile.php?uid=';
+						echo $pid;
+						echo '">';
+						echo LANGUI_ALLIANCE_T55;
+						echo ' ';
+						echo $pname;
+						echo '</a></td>
+		</tr>
+		';
+					}
+
+					echo '		';
+
+					if ($_c == 0) {
+						echo '			<tr><td colspan="2" class="none">';
+						echo LANGUI_ALLIANCE_T45;
+						echo '</td></tr>
+		';
+					}
+
+					echo '	</tbody>
+</table>
+';
+				}
+			}
+		}
+
+		echo '</form>
+';
+	}
+
+?>
+
+

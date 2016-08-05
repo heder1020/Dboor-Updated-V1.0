@@ -1,0 +1,409 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'build.php' );
+
+	if (!$this->buildProperties['emptyPlace']) {
+		echo '<div id="build" class="gid';
+		echo $this->buildProperties['building']['item_id'];
+		echo '">
+	<a href="" onclick="return showManual(4, ';
+		echo $this->buildProperties['building']['item_id'];
+		echo ');" class="build_logo"><img class="building g';
+		echo $this->buildProperties['building']['item_id'];
+		echo '" src="assets/x.gif" alt="';
+		echo htmlspecialchars( constant( 'item_' . $this->buildProperties['building']['item_id'] ) );
+		echo '" title="';
+		echo htmlspecialchars( constant( 'item_' . $this->buildProperties['building']['item_id'] ) );
+		echo '"></a>
+	<h1>';
+		echo constant( 'item_' . $this->buildProperties['building']['item_id'] );
+		echo ' ';
+		echo '<s';
+		echo 'pan class="level">';
+		echo level_lang;
+		echo ' ';
+		echo $this->buildProperties['building']['level'];
+		echo '</span></h1>
+	<p class="build_desc"></p>
+	<p>';
+		echo constant( 'item_desc_' . $this->buildProperties['building']['item_id'] );
+		echo '</p>
+	<p></p>
+
+	';
+
+		if (( ( 4 < $this->buildProperties['building']['item_id'] && 0 < $this->buildProperties['building']['update_state'] ) && $this->buildProperties['building']['level'] == 0 )) {
+			echo '	<p></p><br/><p></p><p class="none">';
+			echo LANGUI_BUILD_T1;
+			echo '.</p><p></p><br/><p></p>
+	';
+		} 
+else {
+			if ($this->productionPane) {
+				echo '	<table cellpadding="1" cellspacing="1" id="build_value">
+		<tbody>
+			<tr>
+				<th>';
+				echo constant( 'item_curprod_' . $this->buildProperties['building']['item_id'] );
+				echo ':</th>
+				<td><b>';
+				echo $this->buildProperties['level']['current_value'];
+				echo '</b> ';
+				echo constant( 'item_unit_' . $this->buildProperties['building']['item_id'] );
+				echo '</td>
+			</tr>
+			';
+
+				if ($this->buildProperties['building']['level'] < $this->buildProperties['maxLevel']) {
+					echo '			<tr>
+				<th>';
+					echo constant( 'item_nextprod_' . $this->buildProperties['building']['item_id'] );
+					echo ' ';
+					echo $this->buildProperties['nextLevel'];
+					echo ':</th>
+				<td><b>';
+					echo $this->buildProperties['level']['value'];
+					echo '</b> ';
+					echo constant( 'item_unit_' . $this->buildProperties['building']['item_id'] );
+					echo '</td>
+			</tr>
+			';
+				}
+
+				echo '		</tbody>
+	</table>
+	';
+			}
+
+
+			if ($this->buildingView != '') {
+				require( VIEW_PATH . 'buildings/' . $this->buildingView . '.phtml' );
+			}
+		}
+
+		echo '	';
+
+		if ($this->buildProperties['maxLevel'] <= $this->buildProperties['building']['level']) {
+			echo '	<p class="none">';
+			echo LANGUI_BUILD_T2;
+			echo ' ';
+			echo constant( 'item_' . $this->buildProperties['building']['item_id'] );
+			echo ' ';
+			echo LANGUI_BUILD_T3;
+			echo '</p>
+	';
+		} 
+else {
+			if (( $this->buildProperties['maxLevel'] <= $this->buildProperties['upgradeToLevel'] && 0 < $this->buildProperties['building']['update_state'] )) {
+				echo '	<p class="none">';
+				echo LANGUI_BUILD_T4;
+				echo ' ';
+				echo constant( 'item_' . $this->buildProperties['building']['item_id'] );
+				echo ' ';
+				echo LANGUI_BUILD_T3;
+				echo '</p>
+	';
+			} 
+else {
+				echo '	<p id="contract">
+		<b>';
+				echo LANGUI_BUILD_T5;
+				echo ' </b> ';
+				echo LANGUI_BUILD_T6;
+				echo ' ';
+				echo $this->buildProperties['nextLevel'];
+				echo ':<br>
+		<img class="r1" src="assets/x.gif" alt="';
+				echo item_title_1;
+				echo '" title="';
+				echo item_title_1;
+				echo '">';
+				echo $this->buildProperties['level']['resources'][1];
+				echo ' | 
+		<img class="r2" src="assets/x.gif" alt="';
+				echo item_title_2;
+				echo '" title="';
+				echo item_title_2;
+				echo '">';
+				echo $this->buildProperties['level']['resources'][2];
+				echo ' | 
+		<img class="r3" src="assets/x.gif" alt="';
+				echo item_title_3;
+				echo '" title="';
+				echo item_title_3;
+				echo '">';
+				echo $this->buildProperties['level']['resources'][3];
+				echo ' | 
+		<img class="r4" src="assets/x.gif" alt="';
+				echo item_title_4;
+				echo '" title="';
+				echo item_title_4;
+				echo '">';
+				echo $this->buildProperties['level']['resources'][4];
+				echo ' | 
+		<img class="r5" src="assets/x.gif" alt="';
+				echo LANGUI_BUILD_T7;
+				echo '" title="';
+				echo LANGUI_BUILD_T7;
+				echo '">';
+				echo $this->buildProperties['level']['people_inc'];
+				echo ' | 
+		<img class="clock" src="assets/x.gif" alt="';
+				echo text_period_lang;
+				echo '" title="';
+				echo text_period_lang;
+				echo '">';
+				echo WebHelper::secondstostring( $this->buildProperties['level']['calc_consume'] );
+				echo '		';
+				echo $this->getResourceGoldExchange( $this->buildProperties['level']['resources'], $this->buildProperties['building']['item_id'], $this->buildingIndex );
+				echo '		<br>';
+				echo $this->getActionText( $this->buildProperties['level']['resources'], $this->buildProperties['building']['item_id'] <= 4, TRUE, $this->buildProperties['building']['item_id'] );
+				echo '	</p>
+	';
+			}
+		}
+
+		echo '</div>
+';
+
+		if ($this->buildProperties['building']['item_id'] <= 4) {
+			echo $this->getFlashContent( 'assets/anm/res/r' . $this->buildProperties['building']['item_id'] . '.swf', 130, 160 );
+			return 1;
+		}
+	} 
+else {
+		echo '<s';
+		echo 'cript language="JavaScript" type="text/javascript">
+function showPane(list) {
+	var build_list = _(\'build_list_\'+list);
+	var link = _(list+\'_link\');
+
+	if (build_list.className == \'hide\') {
+		build_list.className = \'\';		
+		link.innerHTML = \'';
+		echo LANGUI_BUILD_T8;
+		echo '\';
+	} else {
+		build_list.className = \'hide\';
+		link.innerHTML = \'';
+		echo LANGUI_BUILD_T9;
+		echo '\';
+	}
+}
+</script>
+<div id="build" class="gid0"><h1>';
+		echo LANGUI_BUILD_T10;
+		echo '</h1>
+
+';
+		foreach ($this->newBuilds['available'] as $buildArray) {
+			foreach ($buildArray as $item_id => $build) {
+				if ($this->data['is_special_village']) {
+					if (( ( ( ( $_GET['id'] == 25 || $_GET['id'] == 26 ) || $_GET['id'] == 29 ) || $_GET['id'] == 30 ) || $_GET['id'] == 33 )) {
+						if ($item_id != 40) {
+							continue;
+						}
+					}
+
+
+					if ($item_id == 40) {
+						continue;
+					}
+				}
+
+
+				if (( $_GET['id'] == 39 && $item_id != 16 )) {
+					continue;
+				}
+
+
+				if (( ( ( $_GET['id'] == 40 && $item_id != 31 ) && $item_id != 32 ) && $item_id != 33 )) {
+					continue;
+				}
+
+
+				if (( $_GET['id'] != 39 && $_GET['id'] != 40 )) {
+					if (( ( ( $item_id == 16 || $item_id == 31 ) || $item_id == 32 ) || $item_id == 33 )) {
+						continue;
+					}
+				}
+
+				$neededResources = $build['levels'][0]['resources'];
+				echo '<h2>';
+				echo constant( 'item_' . $item_id );
+				echo '</h2>
+<table class="new_building" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td class="desc"><p>';
+				echo constant( 'item_desc_' . $item_id );
+				echo '</p></td>
+			<td rowspan="3" class="bimg">
+				<a href="#" onclick="return showManual(4, ';
+				echo $item_id;
+				echo ');"><img class="building g';
+				echo $item_id;
+				echo '" src="assets/x.gif" alt="';
+				echo htmlspecialchars( constant( 'item_' . $item_id ) );
+				echo '" title="';
+				echo htmlspecialchars( constant( 'item_' . $item_id ) );
+				echo '"></a>
+			</td>
+		</tr>
+		<tr>
+			<td class="res">
+				<img class="r1" src="assets/x.gif" alt="';
+				echo item_title_1;
+				echo '" title="';
+				echo item_title_1;
+				echo '">';
+				echo $neededResources[1];
+				echo ' | 
+				<img class="r2" src="assets/x.gif" alt="';
+				echo item_title_2;
+				echo '" title="';
+				echo item_title_2;
+				echo '">';
+				echo $neededResources[2];
+				echo ' | 
+				<img class="r3" src="assets/x.gif" alt="';
+				echo item_title_3;
+				echo '" title="';
+				echo item_title_3;
+				echo '">';
+				echo $neededResources[3];
+				echo ' | 
+				<img class="r4" src="assets/x.gif" alt="';
+				echo item_title_4;
+				echo '" title="';
+				echo item_title_4;
+				echo '">';
+				echo $neededResources[4];
+				echo ' | 
+				<img class="r5" src="assets/x.gif" alt="';
+				echo LANGUI_BUILD_T7;
+				echo '" title="';
+				echo LANGUI_BUILD_T7;
+				echo '">';
+				echo $build['levels'][0]['people_inc'];
+				echo ' | 
+				<img class="clock" src="assets/x.gif" alt="';
+				echo text_period_lang;
+				echo '" title="';
+				echo text_period_lang;
+				echo '">';
+				echo WebHelper::secondstostring( $build['levels'][0]['time_consume'] / $this->gameSpeed * ( $this->data['time_consume_percent'] / 100 ) );
+				echo '				';
+				echo $this->getResourceGoldExchange( $neededResources, $item_id, $this->buildingIndex );
+				echo '			</td>
+		</tr>
+		<tr>
+			<td class="link">';
+				echo $this->getActionText( $neededResources, FALSE, FALSE, $item_id );
+				echo '</td>
+		</tr>
+	</tbody>
+</table>
+';
+			}
+		}
+
+		echo '
+';
+
+		if (( ( $_GET['id'] != 39 && $_GET['id'] != 40 ) && !( $this->data['is_special_village'] && ( ( ( ( $_GET['id'] == 25 || $_GET['id'] == 26 ) || $_GET['id'] == 29 ) || $_GET['id'] == 30 ) || $_GET['id'] == 33 ) ) )) {
+			echo '<p class="switch"><a id="soon_link" href="javascript:showPane(\'soon\');">';
+			echo LANGUI_BUILD_T9;
+			echo '</a></p>
+<div id="build_list_soon" class="hide">
+
+';
+			foreach ($this->newBuilds['soon'] as $buildArray) {
+				foreach ($buildArray as $item_id => $build) {
+					echo '<h2>';
+					echo constant( 'item_' . $item_id );
+					echo '</h2>
+<table class="new_building" cellpadding="1" cellspacing="1">
+	<tbody>
+		<tr>
+			<td class="desc"><p>';
+					echo constant( 'item_desc_' . $item_id );
+					echo '</p></td>
+			<td rowspan="3" class="bimg">
+				<a href="#" onclick="return showManual(4, ';
+					echo $item_id;
+					echo ');"><img class="building g';
+					echo $item_id;
+					echo '" src="assets/x.gif" alt="';
+					echo htmlspecialchars( constant( 'item_' . $item_id ) );
+					echo '" title="';
+					echo htmlspecialchars( constant( 'item_' . $item_id ) );
+					echo '"></a>
+			</td>
+		</tr>
+		<tr>
+			<td class="requ">';
+					echo LANGUI_BUILD_T11;
+					echo ':</td>
+		</tr>
+		<tr>
+			<td>
+			';
+					$flag = FALSE;
+					foreach ($build['pre_requests'] as $reqId => $reqValue) {
+						echo '			';
+
+						if ($flag) {
+							echo ', ';
+						}
+
+						echo '<a href="#" onclick="return showManual(4,';
+						echo $reqId;
+						echo ');">';
+
+						if ($reqValue == NULL) {
+							echo '<strike>';
+						}
+
+						echo constant( 'item_' . $reqId );
+
+						if ($reqValue == NULL) {
+							echo '</strike>';
+						}
+
+						echo '</a>';
+
+						if ($reqValue != NULL) {
+							echo '<s';
+							echo 'pan title="';
+							echo ($build['pre_requests_dependencyCount'][$reqId] < 0 ? '>' : '+' . $build['pre_requests_dependencyCount'][$reqId]);
+							echo '"> ';
+							echo level_lang;
+							echo ' ';
+							echo $reqValue;
+						}
+
+						echo '</span>
+			';
+						$flag = TRUE;
+					}
+
+					echo '			</td>
+		</tr>
+	</tbody>
+</table>
+';
+				}
+			}
+
+			echo '</div>
+';
+		}
+
+		echo '</div>
+';
+	}
+
+?>
+
+

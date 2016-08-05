@@ -1,0 +1,481 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'custbuilds.php' );
+	echo '<div id="textmenu">
+   <a href="build.php?id=';
+	echo $this->buildingIndex;
+	echo '"';
+
+	if ($this->selectedTabIndex == 0) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_CUSTBU_RPLC_p1;
+	echo '</a>
+ | <a href="build.php?id=';
+	echo $this->buildingIndex;
+	echo '&t=1"';
+
+	if ($this->selectedTabIndex == 1) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_CUSTBU_RPLC_p2;
+	echo '</a>
+ | <a href="build.php?id=';
+	echo $this->buildingIndex;
+	echo '&t=2"';
+
+	if ($this->selectedTabIndex == 2) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_CUSTBU_RPLC_p3;
+	echo '</a>
+ | <a href="build.php?id=';
+	echo $this->buildingIndex;
+	echo '&t=3"';
+
+	if ($this->selectedTabIndex == 3) {
+		echo ' class="selected"';
+	}
+
+	echo '>';
+	echo LANGUI_CUSTBU_RPLC_p4;
+	echo '</a>
+</div>
+';
+
+	if ($this->selectedTabIndex == 0) {
+		echo '	';
+
+		if ($this->showBuildingForm) {
+			echo '<form method="post" name="snd" action="build.php?id=';
+			echo $this->buildingIndex;
+			echo '">
+<table cellpadding="1" cellspacing="1" class="build_details">
+	<thead>
+		<tr>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p1_t1;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p1_t2;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p1_t3;
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+			foreach ($this->troopsUpgrade as $troop) {
+				$tid = $troop['troopId'];
+				$buildingMetadata = $this->gameMetadata['troops'][$tid];
+				$lvlTime = intval( $buildingMetadata['training_time_consume'] / $this->gameSpeed * ( 10 / ( $this->buildProperties['building']['level'] + 9 ) ) );
+				$maxNumber = $this->_getMaxTrainNumber( $tid, $this->buildings[$this->buildingIndex]['item_id'] );
+				echo '		<tr>
+			<td class="desc">
+				<div class="tit"><img class="unit u';
+				echo $tid;
+				echo '" src="assets/x.gif" alt="';
+				echo constant( 'troop_' . $tid );
+				echo '" title="';
+				echo constant( 'troop_' . $tid );
+				echo '"><a href="#" onclick="return showManual(3,';
+				echo $tid;
+				echo ');">';
+				echo constant( 'troop_' . $tid );
+				echo '</a> ';
+				echo '<s';
+				echo 'pan class="info">(';
+				echo LANGUI_CUSTBU_RPLC_p1_t4;
+				echo ': ';
+				echo $this->troops[$tid];
+				echo ')</span></div>
+				<div class="details">
+					<img class="r1" src="assets/x.gif" alt="';
+				echo item_title_1;
+				echo '" title="';
+				echo item_title_1;
+				echo '">';
+				echo '<s';
+				echo 'pan class="little_res">';
+				echo $buildingMetadata['training_resources'][1] * $this->buildingTribeFactor;
+				echo '</span>|<img class="r2" src="assets/x.gif" alt="';
+				echo item_title_2;
+				echo '" title="';
+				echo item_title_2;
+				echo '">';
+				echo '<s';
+				echo 'pan class="little_res">';
+				echo $buildingMetadata['training_resources'][2] * $this->buildingTribeFactor;
+				echo '</span>|<img class="r3" src="assets/x.gif" alt="';
+				echo item_title_3;
+				echo '" title="';
+				echo item_title_3;
+				echo '">';
+				echo '<s';
+				echo 'pan class="little_res">';
+				echo $buildingMetadata['training_resources'][3] * $this->buildingTribeFactor;
+				echo '</span>|<img class="r4" src="assets/x.gif" alt="';
+				echo item_title_4;
+				echo '" title="';
+				echo item_title_4;
+				echo '">';
+				echo '<s';
+				echo 'pan class="little_res">';
+				echo $buildingMetadata['training_resources'][4] * $this->buildingTribeFactor;
+				echo '</span>|<img class="clock" src="assets/x.gif" alt="';
+				echo text_period_lang;
+				echo '" title="';
+				echo text_period_lang;
+				echo '">';
+				echo WebHelper::secondstostring( $lvlTime );
+				$neededResources = array();
+				foreach ($buildingMetadata['training_resources'] as $k => $v) {
+					$neededResources[$k] = $v * $this->buildingTribeFactor;
+				}
+
+				echo $this->getResourceGoldExchange( $neededResources, 0, $this->buildingIndex, TRUE );
+				echo '				</div>
+			</td>
+			<td class="val"><input type="text" class="text" id="_tf';
+				echo $tid;
+				echo '" name="tf[';
+				echo $tid;
+				echo ']" value="0" maxlength="4"></td>
+			<td class="max"><a href="#" onclick="_(\'_tf';
+				echo $tid;
+				echo '\').value=';
+				echo $maxNumber;
+				echo '; return false;">(';
+				echo $maxNumber;
+				echo ')</a></td>
+		</tr>
+		';
+			}
+
+			echo '	</tbody>
+</table>
+<p><input type="image" id="btn_train" class="dynamic_img" value="ok" name="s1" src="assets/x.gif" alt="';
+			echo LANGUI_CUSTBU_RPLC_p1_t5;
+			echo '"></p>
+</form>
+	';
+		} 
+else {
+			$_bid2_ = $this->buildings[$this->buildingIndex]['item_id'];
+			echo '		';
+
+			if (( ( 2 <= $this->childVillagesCount && $_bid2_ == 25 ) || ( 3 <= $this->childVillagesCount && $_bid2_ == 26 ) )) {
+				echo '		<div class="c">';
+				echo LANGUI_CUSTBU_RPLC_p1_t6;
+				echo '.</div>
+		
+		';
+			} 
+else {
+				if ($this->childVillagesCount == 1) {
+					echo '			';
+
+					if (( ( $this->buildings[$this->buildingIndex]['level'] < 20 && $_bid2_ == 25 ) || ( $this->buildings[$this->buildingIndex]['level'] < 15 && $_bid2_ == 26 ) )) {
+						echo '			<div class="c">';
+						echo LANGUI_CUSTBU_RPLC_p1_t7;
+						echo ' ';
+						echo ($_bid2_ == 26 ? '15' : '20');
+						echo '.</div>
+			';
+					} 
+else {
+						echo '			<div class="c">';
+						echo LANGUI_CUSTBU_RPLC_p1_t8;
+						echo '.</div>
+			';
+					}
+
+					echo '			
+		';
+				} 
+else {
+					if (( $this->childVillagesCount == 2 && $_bid2_ == 26 )) {
+						echo '			';
+
+						if ($this->buildings[$this->buildingIndex]['level'] < 20) {
+							echo '			<div class="c">';
+							echo LANGUI_CUSTBU_RPLC_p1_t7;
+							echo ' 20.</div>
+			';
+						} 
+else {
+							echo '			<div class="c">';
+							echo LANGUI_CUSTBU_RPLC_p1_t8;
+							echo '.</div>
+			';
+						}
+
+						echo '			
+		';
+					} 
+else {
+						echo '			';
+
+						if ($this->buildings[$this->buildingIndex]['level'] < 10) {
+							echo '			<div class="c">';
+							echo LANGUI_CUSTBU_RPLC_p1_t9;
+							echo '.</div>
+			';
+						} 
+else {
+							echo '			<div class="c">';
+							echo LANGUI_CUSTBU_RPLC_p1_t8;
+							echo '.</div>
+			';
+						}
+
+						echo '		';
+					}
+				}
+			}
+
+			echo '	';
+		}
+
+
+		if (( isset( $this->queueModel->tasksInQueue[$this->troopsUpgradeType] ) && isset( $this->queueModel->tasksInQueue[$this->troopsUpgradeType][$this->buildProperties['building']['item_id']] ) )) {
+			$qts = $this->queueModel->tasksInQueue[$this->troopsUpgradeType][$this->buildProperties['building']['item_id']];
+			echo '<table cellpadding="1" cellspacing="1" class="under_progress">
+	';
+
+			if (( !$this->data['is_special_village'] && $this->gameMetadata['plusTable'][7]['cost'] <= $this->data['gold_num'] )) {
+				echo '	<thead>
+		<tr>
+			<th colspan="2">
+				';
+				$costTip = sprintf( LANGUI_CUSTBU_TRP_t15, $this->gameMetadata['plusTable'][7]['cost'] );
+				echo '				';
+				echo LANGUI_CUSTBU_TRP_t16;
+				echo ': 
+				<a href="village1.php?tfs&k=';
+				echo $this->data['update_key'];
+				echo '" title="';
+				echo $costTip;
+				echo '">
+				<img class="clock" alt="';
+				echo $costTip;
+				echo '" src="assets/x.gif"></a>
+			</th>
+		</tr>
+	</thead>
+	';
+			}
+
+			echo '	<thead>
+		<tr>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p1_t10;
+			echo '</td>
+			<td>';
+			echo text_period_lang;
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+			$nextTroopTime = 0;
+			$_f = TRUE;
+			foreach ($qts as $qt) {
+				$tid = $qt['proc_params'];
+				$troopTime = $qt['execution_time'] - ( $qt['execution_time'] * $qt['threads'] - $qt['remainingSeconds'] );
+
+				if (( $troopTime < $nextTroopTime || $_f )) {
+					$_f = FALSE;
+					$nextTroopTime = $troopTime;
+				}
+
+				echo '		<tr>
+			<td class="desc"><img class="unit u';
+				echo $tid;
+				echo '" src="assets/x.gif" alt="';
+				echo constant( 'troop_' . $tid );
+				echo '" title="';
+				echo constant( 'troop_' . $tid );
+				echo '"> ';
+				echo $qt['threads'];
+				echo ' ';
+				echo constant( 'troop_' . $tid );
+				echo '</td>
+			<td class="dur">';
+				echo '<s';
+				echo 'pan id="timer1">';
+				echo WebHelper::secondstostring( $qt['remainingSeconds'] );
+				echo '</span></td>
+		</tr>
+		';
+			}
+
+			echo '		<tr class="next"><td colspan="2">';
+			echo LANGUI_CUSTBU_RPLC_p1_t11;
+			echo ' ';
+			echo '<s';
+			echo 'pan id="timer1">';
+			echo WebHelper::secondstostring( $nextTroopTime );
+			echo '</span></td></tr>
+	</tbody>
+</table>
+';
+		}
+
+		echo '
+';
+
+		if ($this->buildings[$this->buildingIndex]['item_id'] == 26) {
+			if ($this->data['is_capital']) {
+				echo '<p class="none">';
+				echo LANGUI_CUSTBU_RPLC_p1_t12;
+				echo '</p>';
+				return 1;
+			}
+
+
+			if (!$this->data['is_special_village']) {
+				echo '<p><a href="build.php?id=';
+				echo $this->buildingIndex;
+				echo '&mc">';
+				echo LANGUI_CUSTBU_RPLC_p1_t13;
+				echo '</a></p>';
+				return 1;
+			}
+		}
+	} 
+else {
+		if ($this->selectedTabIndex == 1) {
+			echo '<p><p>';
+			echo LANGUI_CUSTBU_RPLC_p2_t1;
+			echo '.</p></p>
+ 
+<table cellpadding="1" cellspacing="1" id="build_value">
+	<tr>
+		<th>';
+			echo LANGUI_CUSTBU_RPLC_p2_t2;
+			echo ':</th>
+		<td><b>';
+			echo $this->cpRate;
+			echo '</b> ';
+			echo LANGUI_CUSTBU_RPLC_p2_t3;
+			echo '</td>
+	</tr>
+	<tr>
+		<th>';
+			echo LANGUI_CUSTBU_RPLC_p2_t4;
+			echo ':</th>
+		<td><b>';
+			echo $this->totalCpRate;
+			echo '</b> ';
+			echo LANGUI_CUSTBU_RPLC_p2_t3;
+			echo '</td>
+	</tr>
+</table>
+
+<p><p>';
+			echo LANGUI_CUSTBU_RPLC_p2_t5;
+			echo ' <b>';
+			echo $this->totalCpValue;
+			echo '</b> ';
+			echo LANGUI_CUSTBU_RPLC_p2_t6;
+			echo '.<br/>
+';
+			echo LANGUI_CUSTBU_RPLC_p2_t7;
+			echo ' <b>';
+			echo $this->neededCpValue;
+			echo '</b> ';
+			echo LANGUI_CUSTBU_RPLC_p2_t8;
+			echo '.</p></p><br/>
+';
+			return 1;
+		}
+
+
+		if ($this->selectedTabIndex == 2) {
+			echo '<p>';
+			echo LANGUI_CUSTBU_RPLC_p3_t1;
+			echo '.
+<br/><br/> ';
+			echo LANGUI_CUSTBU_RPLC_p3_t2;
+			echo ' <b>';
+			echo $this->data['allegiance_percent'];
+			echo '</b> %.</p><br/>
+';
+			return 1;
+		}
+
+
+		if ($this->selectedTabIndex == 3) {
+			echo '<table cellpadding="1" cellspacing="1" id="expansion">
+	<thead>
+		<tr>
+			<th colspan="4"><a name="h2"></a>';
+			echo LANGUI_CUSTBU_RPLC_p4_t1;
+			echo '</th>
+		</tr>
+		<tr>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p4_t2;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p4_t3;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p4_t4;
+			echo '</td>
+			<td>';
+			echo LANGUI_CUSTBU_RPLC_p4_t5;
+			echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		';
+			$_c = 0;
+			foreach ($this->childVillages as $child) {
+				++$_c;
+				echo '		<tr>
+			<td class="nam"><a href="village3.php?id=';
+				echo $child['id'];
+				echo '">';
+				echo $child['village_name'];
+				echo '</a></td>
+			<td class="zp">';
+				echo $child['people_count'];
+				echo '</td>
+			<td class="aligned_coords"><div class="cox">(';
+				echo $child['rel_x'];
+				echo '</div><div class="pi">|</div><div class="coy">';
+				echo $child['rel_y'];
+				echo ')</div></td>
+			<td class="res">';
+				echo $child['creation_date'];
+				echo '</td>
+		</tr>
+		';
+			}
+
+			echo '		';
+
+			if ($_c == 0) {
+				echo '		<tr><td colspan="4" class="none">';
+				echo LANGUI_CUSTBU_RPLC_p4_t6;
+				echo '.</td></tr>
+		';
+			}
+
+			echo '	</tbody>
+</table><br/><br/>
+';
+		}
+	}
+
+?>
+

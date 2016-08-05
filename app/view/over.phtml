@@ -1,0 +1,45 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'over.php' );
+	echo '<h2>';
+	echo LANGUI_OVER_T1;
+	echo '</h2>
+<br><br>
+
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr>
+		<td><img src="assets/default/img/ww_start.jpg" border="0" alt="';
+	echo LANGUI_OVER_T2;
+	echo '"></td>
+		<td>
+<p class="custDir">
+';
+	echo LANGUI_OVER_T3;
+	echo ' <a href="profile.php?uid=';
+	echo $this->playerData['id'];
+	echo '">';
+	echo $this->playerData['name'];
+	echo '</a>
+<br/>
+';
+
+	if (0 < intval( $this->playerData['alliance_id'] )) {
+		echo LANGUI_OVER_T4;
+		echo ' <a href="alliance.php?id=';
+		echo $this->playerData['alliance_id'];
+		echo '">';
+		echo $this->playerData['alliance_name'];
+		echo '</a>';
+	}
+
+	echo '</p>
+		</td>
+	</tr>
+</table>
+<br/><br/><br/>
+<p class="f16" align="center"><a href="village1.php">';
+	echo text_gotonext_lang;
+	echo '</a></p>';
+?>
+
+

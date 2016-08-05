@@ -1,0 +1,55 @@
+<?php
+	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="eg" lang="eg">
+	<head>
+		<title>';
+	echo $this->appConfig['page'][$this->appConfig['system']['lang'] . '_title'];
+	echo '</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta content="';
+	echo $this->appConfig['page']['meta-tag'];
+	echo '" name="description"> 
+		<meta content="';
+	echo $this->appConfig['page']['meta-tag'];
+	echo '" name="keywords">
+		<link rel="stylesheet" href="assets/default/lang/';
+	echo $this->appConfig['system']['lang'];
+	echo '/config.css';
+	echo $this->getAssetVersion();
+	echo '" type="text/css" />
+		<meta name="google-site-verification" content="vTjsRxnpRzHRJvw5E3uOiAA-jcGayHNOw_SEAD93-fc" />
+		<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+		';
+	echo '<s';
+	echo 'cript type="text/javascript">var d3l=';
+	echo ($this->appConfig['system']['lang'] == 'ar' ? '180' : '-600');
+	echo ';</script>
+		';
+	echo '<s';
+	echo 'cript src="assets/core.js';
+	echo $this->getAssetVersion();
+	echo '" type="text/javascript"></script>
+	</head>
+	<body class="webkit">
+		<div class="wrapper">
+			<div class="content">';
+	$this->printContent();
+	echo '<div class="clear"></div></div>
+			<div class="footer-stopper"></div>
+			<div class="clear"></div>
+			<div class="footer">
+				<div class="container container">
+					';
+	require( VIEW_PATH . 'layout/footer.phtml' );
+	echo '					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	';
+	echo '<s';
+	echo 'cript type="text/javascript">init();</script>
+</html>';
+?>

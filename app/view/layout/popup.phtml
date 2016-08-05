@@ -1,0 +1,42 @@
+<?php
+
+	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html>
+<head>
+	<title>';
+	echo $this->title;
+	echo '</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<link href="assets/default/lang/';
+	echo $this->appConfig['system']['lang'];
+	echo '/lang.css';
+	echo $this->getAssetVersion();
+	echo '" rel="stylesheet" type="text/css" />
+	<link href="assets/default/lang/';
+	echo $this->appConfig['system']['lang'];
+	echo '/compact.css';
+	echo $this->getAssetVersion();
+	echo '" rel="stylesheet" type="text/css" />
+	';
+	echo '<s';
+	echo 'cript type="text/javascript">var d3l=';
+	echo ($this->appConfig['system']['lang'] == 'ar' ? '180' : '-600');
+	echo ';</script>
+	';
+	echo '<s';
+	echo 'cript src="assets/core.js';
+	echo $this->getAssetVersion();
+	echo '" type="text/javascript"></script>
+</head>
+<body class="manual">';
+	$this->printContent();
+	echo '</body>
+';
+	echo '<s';
+	echo 'cript type="text/javascript">init();</script>
+</html>';
+?>

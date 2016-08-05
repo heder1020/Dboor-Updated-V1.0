@@ -1,0 +1,107 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'chat.php' );
+	echo '<h1>';
+	echo LANGUI_CHAT_T1;
+	echo '</h1>
+';
+	echo '<s';
+	echo 'tyle type="text/css">
+<!--
+#chatbox {
+	text-align:left;
+	margin:0 auto;
+	margin-bottom:25px;
+	padding:10px;
+	background:#fff;
+	height:270px;
+	width:430px;
+	border:1px solid #71D000;
+	overflow:auto;
+}
+#usermsg {
+	width:395px;
+	border:1px solid #71D000;
+}
+#submit { width: 60px; }
+.msgln { margin:0 0 2px 0;direction:ltr }
+-->
+</style>
+';
+	echo '<s';
+	echo 'cript type="text/javascript" src="assets/jquery.min.js';
+	echo $this->getAssetVersion();
+	echo '"></script>
+';
+	echo '<s';
+	echo 'cript type="text/javascript">
+// jQuery Document
+$(document).ready(function(){
+	//If user submits the form
+	function SendMsg(){
+		var clientmsg = $("#usermsg").val();
+		if(clientmsg != \'\'){
+			$.post("chat.php", {text: clientmsg});				
+			$("#usermsg").attr("value", "");
+		}
+		$("#usermsg").focus();
+	}
+	$("#submitmsg").click(function(){	
+		SendMsg();
+		return false;
+	});
+	//Load th';
+	echo 'e file containing the chat log
+	function loadLog(){		
+		var oldscrollHeight = $("#chatbox").attr("scrollHeight") - 20;
+		$.ajax({
+			url: "ajaxchat.php",
+			cache: false,
+			success: function(html){
+				$("#chatbox").html(html); //Insert chat log into the #chatbox div				
+				var newscrollHeight = $("#chatbox").attr("scrollHeight") - 20;
+				if(newscrollHeight > oldscrollHeight){
+					$(';
+	echo '"#chatbox").animate({ scrollTop: newscrollHeight }, \'normal\'); //Autoscroll to bottom of div
+				}				
+		  	},
+		});
+	}
+	setInterval (loadLog, 2500);	//Reload file every 2.5 seconds
+	$(\'#usermsg\').bind(\'keypress\', function(e) {
+		//alert(e.keyCode);
+		var code = (e.keyCode ? e.keyCode : e.which);
+		 if(code == 13) { //Enter keycode
+		   	SendMsg();
+			return false;
+		 }
+	});
+});
+</sc';
+	echo 'ript>
+<div id="chatbox">
+';
+	$storCtat = array();
+
+	while ($this->chats->next()) {
+		$text = $this->Filter->FilterWords( $this->chats->row['text'] );
+		$storCtat[$this->chats->row['ID']] = array( date( 'g:i A', $this->chats->row['date'] ), $this->chats->row['username'], $text, $this->chats->row['userid'] );
+	}
+
+	ksort( $storCtat );
+	foreach ($storCtat as $ChatLine) {
+		echo '<div class="msgln">(' . $ChatLine[0] . ') <b><a href="profile.php?uid=' . $ChatLine[3] . '" target="_blank">' . $ChatLine[1] . '</a></b>: ' . $ChatLine[2] . '<br></div>';
+	}
+
+	echo '</div>
+<div>
+<form name="message" action="">
+  <input name="usermsg" class="text" type="text" id="usermsg" size="63" />
+  <input name="submitmsg" type="button" id="submitmsg" value="';
+	echo LANGUI_CHAT_T2;
+	echo '" />
+</form>
+</div>';
+?>
+
+

@@ -1,0 +1,26 @@
+<?php
+
+	echo '<h1>';
+	echo text_gnews_lang;
+	echo '</h1>
+<form method="post" action="gnews.php">
+<div id="block">
+	<textarea name="news" id="notice">';
+	echo $this->siteNews;
+	echo '</textarea>
+	<p class="btn">
+		<input id="btn_save" type="image" value="" name="s1" src="assets/x.gif" class="dynamic_img" alt="';
+	echo text_save_lang;
+	echo '"><br/>
+		';
+
+	if ($this->saved) {
+		echo text_newssaved_lang;
+	}
+
+	echo '	</p>
+</div>
+</form>';
+?>
+
+

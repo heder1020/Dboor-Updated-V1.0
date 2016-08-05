@@ -1,0 +1,215 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'custbuilds.php' );
+	echo '<p></p>
+<table cellpadding="1" cellspacing="1" class="build_details">
+	<thead>
+		<tr>
+			<td>';
+	echo LANGUI_CUSTBU_ACD_t1;
+	echo '</td>
+			<td>';
+	echo LANGUI_CUSTBU_ACD_t2;
+	echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+';
+	$_ac = 0;
+	$troopMetadata = $this->gameMetadata['troops'];
+	foreach ($this->troopsUpgrade['available'] as $tid) {
+		++$_ac;
+		$lvlTime = intval( $troopMetadata[$tid]['research_time_consume'] / $this->gameSpeed );
+		echo '		<tr>
+			<td class="desc">
+				<div class="tit"><img class="unit u';
+		echo $tid;
+		echo '" src="assets/x.gif" alt="';
+		echo constant( 'troop_' . $tid );
+		echo '" title="';
+		echo constant( 'troop_' . $tid );
+		echo '"><a href="#" onclick="return showManual(3,';
+		echo $tid;
+		echo ');">';
+		echo constant( 'troop_' . $tid );
+		echo '</a></div>
+				<div class="details">
+					<img class="r1" src="assets/x.gif" alt="';
+		echo item_title_1;
+		echo '" title="';
+		echo item_title_1;
+		echo '">';
+		echo '<s';
+		echo 'pan class="little_res">';
+		echo $troopMetadata[$tid]['research_resources'][1];
+		echo '</span>|<img class="r2" src="assets/x.gif" alt="';
+		echo item_title_2;
+		echo '" title="';
+		echo item_title_2;
+		echo '">';
+		echo '<s';
+		echo 'pan class="little_res">';
+		echo $troopMetadata[$tid]['research_resources'][2];
+		echo '</span>|<img class="r3" src="assets/x.gif" alt="';
+		echo item_title_3;
+		echo '" title="';
+		echo item_title_3;
+		echo '">';
+		echo '<s';
+		echo 'pan class="little_res">';
+		echo $troopMetadata[$tid]['research_resources'][3];
+		echo '</span>|<img class="r4" src="assets/x.gif" alt="';
+		echo item_title_4;
+		echo '" title="';
+		echo item_title_4;
+		echo '">';
+		echo '<s';
+		echo 'pan class="little_res">';
+		echo $troopMetadata[$tid]['research_resources'][4];
+		echo '</span>|<img class="clock" src="assets/x.gif" alt="';
+		echo text_period_lang;
+		echo '" title="';
+		echo text_period_lang;
+		echo '">';
+		echo WebHelper::secondstostring( $lvlTime );
+		echo $this->getResourceGoldExchange( $troopMetadata[$tid]['research_resources'], 0, $this->buildingIndex );
+		echo '				</div>
+				';
+		echo $this->getActionText2( $troopMetadata[$tid]['research_resources'] );
+		echo '			</td>
+			<td class="act">';
+		echo $this->getActionText3( $troopMetadata[$tid]['research_resources'], 'a=' . $tid, LANGUI_CUSTBU_ACD_t8, $this->troopsUpgradeType );
+		echo '</td>
+		</tr>
+		';
+	}
+
+	echo '		';
+
+	if ($_ac == 0) {
+		echo '		<tr><td colspan="2">';
+		echo '<s';
+		echo 'pan class="none">';
+		echo LANGUI_CUSTBU_ACD_t3;
+		echo '.</span></td></tr>
+		';
+	}
+
+	echo '	</tbody>
+</table>
+';
+
+	if (0 < sizeof( $this->troopsUpgrade['soon'] )) {
+		echo '<p class="switch"><a id="researchFutureLink" href="javascript:showPane(\'researchFuture\');">';
+		echo LANGUI_CUSTBU_ACD_t4;
+		echo '</a></p>
+<table id="researchFuture" class="build_details hide" cellspacing="1" cellpadding="1">
+	<thead>
+		<tr><td colspan="2">';
+		echo LANGUI_CUSTBU_ACD_t5;
+		echo ':</td></tr>
+	</thead>
+	<tbody>
+		';
+		$troopMetadata = $this->gameMetadata['troops'];
+		foreach ($this->troopsUpgrade['soon'] as $tid) {
+			echo '		<tr>
+			<td class="desc">
+				<div class="tit"><img class="unit u';
+			echo $tid;
+			echo '" src="assets/x.gif" alt="';
+			echo constant( 'troop_' . $tid );
+			echo '" title="';
+			echo constant( 'troop_' . $tid );
+			echo '"><a href="#" onclick="return showManual(3,';
+			echo $tid;
+			echo ');">';
+			echo constant( 'troop_' . $tid );
+			echo '</a></div>
+			</td>
+			<td class="cond">
+				';
+			foreach ($troopMetadata[$tid]['pre_requests'] as $k => $v) {
+				echo '				<a href="#" onclick="return showManual(4,';
+				echo $k;
+				echo ');">';
+				echo constant( 'item_' . $k );
+				echo '</a> ';
+				echo '<s';
+				echo 'pan>';
+				echo level_lang;
+				echo ' ';
+				echo $v;
+				echo '</span><br>
+				';
+			}
+
+			echo '			</td>
+		</tr>
+		';
+		}
+
+		echo '	</tbody>
+</table>
+';
+		echo '<s';
+		echo 'cript language="JavaScript" type="text/javascript">
+function showPane(list) {
+	var build_list = _(list);
+	var link = _(list+\'Link\');
+
+	if (build_list.className == \'build_details hide\') {
+		build_list.className = \'build_details\';
+		link.innerHTML = \'';
+		echo LANGUI_CUSTBU_ACD_t6;
+		echo '\';
+	} else {
+		build_list.className = \'build_details hide\';
+		link.innerHTML = \'';
+		echo LANGUI_CUSTBU_ACD_t4;
+		echo '\';
+	}
+}
+</script>
+';
+	}
+
+
+	if (isset( $this->queueModel->tasksInQueue[$this->troopsUpgradeType] )) {
+		$tid = $this->queueModel->tasksInQueue[$this->troopsUpgradeType][0]['proc_params'];
+		echo '<table cellpadding="1" cellspacing="1" class="under_progress">
+	<thead>
+		<tr>
+			<td>';
+		echo LANGUI_CUSTBU_ACD_t7;
+		echo '</td>
+			<td>';
+		echo text_period_lang;
+		echo '</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="desc"><img class="unit u';
+		echo $tid;
+		echo '" src="assets/x.gif" alt="';
+		echo constant( 'troop_' . $tid );
+		echo '" title="';
+		echo constant( 'troop_' . $tid );
+		echo '">';
+		echo constant( 'troop_' . $tid );
+		echo '</td>
+			<td class="dur">';
+		echo '<s';
+		echo 'pan id="timer1">';
+		echo WebHelper::secondstostring( $this->queueModel->tasksInQueue[$this->troopsUpgradeType][0]['remainingSeconds'] );
+		echo '</span></td>
+		</tr>
+		<tr class="next"><td colspan="2">&nbsp;</td></tr>
+	</tbody>
+</table>
+';
+	}
+
+?>
+

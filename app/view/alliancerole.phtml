@@ -1,0 +1,110 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'alliancerole.php' );
+	echo '<h1><img class="point" src="assets/x.gif" alt="" title="">';
+	echo LANGUI_ALLIROL_T1;
+	echo '</h1>
+<p></p>
+<form method="post" action="alliancerole.php?uid=';
+	echo intval( $_GET['uid'] );
+	echo '">
+<table cellpadding="1" cellspacing="1" id="position" class="small_option">
+	<thead>
+		<tr><th colspan="2">';
+	echo LANGUI_ALLIROL_T1;
+	echo '</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>';
+	echo LANGUI_ALLIROL_T2;
+	echo ':</th>
+			<td>';
+	echo $this->playerName;
+	echo '</td>
+		</tr>
+		<tr>
+			<th>';
+	echo LANGUI_ALLIROL_T3;
+	echo '</th>
+			<td><input class="name text" type="text" name="a_titel" value="';
+	echo htmlspecialchars( $this->playerRoles['name'] );
+	echo '" maxlength="20"></td>
+		</tr>
+	</tbody>
+</table><p></p>
+
+<table cellpadding="1" cellspacing="1" id="rights" class="small_option">
+	<thead>
+		<tr><th colspan="2">';
+	echo LANGUI_ALLIROL_T4;
+	echo '</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="sel"><input class="check" type="checkbox" name="e1" ';
+	echo $this->getAllianceRoleCheckValue( ALLIANCE_ROLE_SETROLES );
+	echo '></td>
+			<td>';
+	echo LANGUI_ALLIROL_T5;
+	echo '</td>
+		</tr>
+		<tr>
+			<td class="sel"><input class="check" type="checkbox" name="e2" ';
+	echo $this->getAllianceRoleCheckValue( ALLIANCE_ROLE_REMOVEPLAYER );
+	echo '></td>
+			<td>';
+	echo LANGUI_ALLIROL_T6;
+	echo '</td>
+		</tr>
+		<tr>
+			<td class="sel"><input class="check" type="checkbox" name="e3" ';
+	echo $this->getAllianceRoleCheckValue( ALLIANCE_ROLE_EDITNAMES );
+	echo '></td>
+			<td>';
+	echo LANGUI_ALLIROL_T7;
+	echo '</td>
+		</tr>
+		<tr>
+			<td class="sel"><input class="check" type="checkbox" name="e4" ';
+	echo $this->getAllianceRoleCheckValue( ALLIANCE_ROLE_EDITCONTRACTS );
+	echo '></td>
+			<td>';
+	echo LANGUI_ALLIROL_T8;
+	echo '</td>
+		</tr>
+		<tr>
+			<td class="sel"><input class="check" type="checkbox" name="e5" ';
+	echo $this->getAllianceRoleCheckValue( ALLIANCE_ROLE_SENDMESSAGE );
+	echo '></td>
+			<td>';
+	echo LANGUI_ALLIROL_T9;
+	echo '</td>
+		</tr>
+		<tr>
+			<td class="sel"><input class="check" type="checkbox" name="e6" ';
+	echo $this->getAllianceRoleCheckValue( ALLIANCE_ROLE_INVITEPLAYERS );
+	echo '></td>
+			<td>';
+	echo LANGUI_ALLIROL_T10;
+	echo '</td>
+		</tr>
+	</tbody>
+</table>
+
+<p><input type="image" value="ok" name="s1" id="btn_save" class="dynamic_img" src="assets/x.gif" alt="';
+	echo text_save_lang;
+	echo '"></p>
+</form>
+
+';
+
+	if ($this->isPost()) {
+		echo '<p class="error">';
+		echo text_newssaved_lang;
+		echo '</p>';
+	}
+
+?>
+
+

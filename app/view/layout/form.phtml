@@ -1,0 +1,104 @@
+<?php
+
+
+	require_once( LANG_UI_PATH . 'form.php' );
+	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>';
+	echo $this->appConfig['page'][$this->appConfig['system']['lang'] . '_title'];
+	echo '</title>
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta content="';
+	echo $this->appConfig['page']['meta-tag'];
+	echo '" name="description"> 
+	<meta content="';
+	echo $this->appConfig['page']['meta-tag'];
+	echo '" name="keywords">
+	<link href="assets/default/lang/';
+	echo $this->appConfig['system']['lang'];
+	echo '/lang.css';
+	echo $this->getAssetVersion();
+	echo '" rel="stylesheet" type="text/css" />
+	<link href="assets/default/lang/';
+	echo $this->appConfig['system']['lang'];
+	echo '/compact.css';
+	echo $this->getAssetVersion();
+	echo '" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+	';
+	echo '<s';
+	echo 'cript type="text/javascript">var d3l=';
+	echo ($this->appConfig['system']['lang'] == 'ar' ? '180' : '-600');
+	echo ';</script>
+	';
+	echo '<s';
+	echo 'cript src="assets/core.js';
+	echo $this->getAssetVersion();
+	echo '" type="text/javascript"></script>
+</head>
+<body class="v35 webkit">
+<div class="wrapper">
+<img src="assets/x.gif" id="msfilter" alt="" />
+<div id="dynamic_header"></div>
+
+<div id="header">
+	<div id="mtop">
+		<div class="clear"></div>
+	</div>
+</div>
+ 
+<div id="mid">
+	<div id="side_navi">
+		<a id="logo" href="#"><img  src="assets/x.gif" alt="';
+	echo LANGUI_FORM_GNAME;
+	echo '" /></a>
+		<p>
+			<a href="index.php">';
+	echo LANGUI_FORM_MAIN;
+	echo '</a>
+			<a href="#" onclick="return showManual(0,0);">';
+	echo LANGUI_FORM_HELP;
+	echo '</a>
+			<a href="register.php">';
+	echo LANGUI_FORM_REG;
+	echo '</a>
+		</p>
+	</div>
+	<div id="content" class="';
+	echo $this->contentCssClass;
+	echo '">';
+	$this->printContent();
+	echo '</div>
+	<div id="side_info">';
+
+	if (trim( $this->newsText ) != '') {
+		echo '<div class="news"><h2>' . LANGUI_FORM_NEWS . '</h2><p>';
+		echo $this->newsText;
+		echo '</p><div class="clear"></div></div>';
+	}
+
+	echo '</div>
+	<div class="clear"></div>
+</div>
+
+<div class="footer-stopper"></div>
+<div class="clear"></div>
+<div id="footer">
+	<div id="mfoot"><div class="footer-menu">';
+	require( VIEW_PATH . 'layout/footer.phtml' );
+	echo '</div></div>
+    <div id="cfoot"></div>
+</div>
+</div>
+<div id="ce"></div>
+</body>
+';
+	echo '<s';
+	echo 'cript type="text/javascript">init();</script>
+</html>';
+?>

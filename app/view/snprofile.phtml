@@ -1,0 +1,496 @@
+<?php
+
+	require_once( LANG_UI_PATH . 'snprofile.php' );
+	echo '<h1>';
+	echo $this->myData['name'];
+	echo '</h1>
+<link type="text/css" rel="stylesheet" media="all" href="assets/chat.css';
+	echo $this->getAssetVersion();
+	echo '" />
+<link rel="stylesheet" type="text/css" href="assets/css/wowwindow.css';
+	echo $this->getAssetVersion();
+	echo '">
+';
+	echo '<s';
+	echo 'cript type="text/javascript" src="assets/jquery.min.js';
+	echo $this->getAssetVersion();
+	echo '"></script>
+';
+	echo '<s';
+	echo 'cript type="text/javascript" src="assets/jquery.timeago.js';
+	echo $this->getAssetVersion();
+	echo '"></script>
+';
+	echo '<s';
+	echo 'cript type="text/javascript" src="assets/chat.js';
+	echo $this->getAssetVersion();
+	echo '"></script>
+';
+	echo '<s';
+	echo 'cript type="text/javascript" src="assets/widget.js';
+	echo $this->getAssetVersion();
+	echo '"></script>
+';
+	echo '<s';
+	echo 'cript type="text/javascript" src="assets/jquery.wowwindow.min.js';
+	echo $this->getAssetVersion();
+	echo '"></script>
+';
+	echo '<s';
+	echo 'tyle type="text/css">
+<!--
+#newsbox {
+	text-align:left;
+	margin:0 auto;
+	margin-bottom:25px;
+	padding:10px;
+	background:#fff;
+	height:30px;
+	width:230px;
+	border:1px solid #71D000;
+	overflow:auto;
+}
+.imgborder {
+    border: 1px solid #CCCCCC;
+    margin: 2px;
+    padding: 2px;
+}
+.coldiv {
+    float: right;
+    height: auto !important;
+    min-height: 50px;
+    padding: 5px;
+ ';
+	echo '   width: 500px;
+}
+.coldiv table td{
+	text-align:right !important;
+}
+.delete_button a{
+    font-weight: bold;
+    height: 10px;
+    margin-left: 10px;
+	color:#069;
+	cursor:pointer;
+    width: 7px;
+	font-size:10px;
+	float:left;
+}
+img {
+    border: 0 none;
+}
+abbr {
+    border-bottom: medium none;
+	color:#CCC;
+	font-size:9px;
+}
+.comment_ui , .comment_u div table, .comment_u div';
+	echo ' table td, .comment_u div table tr{
+    background-color: #EDEFF4 !important;
+    border-bottom: 1px solid #E5EAF1 !important;
+    margin-bottom: 2px;
+    overflow: hidden;
+    width: 399px;
+}
+.com, .com td{
+    background-color: #EDEFF4 !important;
+    border-bottom: 1px solid #E5EAF1 !important;
+    margin-bottom: 2px;
+}
+.newcomment{
+	border:#CCC 1px solid;
+}
+.label{
+	text-align:';
+	echo 'right !important;
+	float:right;
+	padding-bottom: 5px;
+}
+textarea, .inputtext, .inputpassword {
+    font-size: 11px;
+    padding: 3px;
+}
+
+-->
+</style>
+';
+	echo '<s';
+	echo 'cript type="text/javascript">
+        $(document).ready(function() {
+            $(\'#youtube-auto-thumbnails a\').wowwindow({
+                draggable: true,
+                width: 480,
+                height: 390,
+                videoIframe: false,
+                autoYouTubeThumb: \'default\'
+            });
+        });
+    </script>
+';
+
+	if ($this->myData['id'] == $this->uid) {
+		echo '<form action="snprofile.php?uid=';
+		echo $this->uid;
+		echo '&do=News" method="POST">
+<table cellpadding="1" cellspacing="1" id="links">
+	<tbody>
+    	<tr>
+            <td>
+                <label class="label" for="newsImage">';
+		echo LANGUI_PROFILE_T1;
+		echo '</label><br />
+                <input name="image" id="newsImage" style="width:90%" type="text" class="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label" for="newsSite">';
+		echo LANGUI_PROFILE_T3;
+		echo '</label><br />
+                <input name="url" id="newsSite" style="width:90%" type="text" class="text" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="label" for="newsyoutube">';
+		echo LANGUI_PROFILE_T4;
+		echo '</label><br />
+                <input name="youtube" id="newsyoutube" style="width:90%" type="text" class="text" />
+            </td>
+        </tr>
+    	<tr>
+            <td>
+            	<label class="label" for="newsbox">';
+		echo LANGUI_PROFILE_T2;
+		echo '</label><br />
+            	<textarea id="newsbox" style="width:90%" name="news" class="text"></textarea>
+            </td>
+        </tr>
+        <tr>
+        	<td class="btn"><input type="image" value="" name="s1" id="btn_send" class="dynamic_img" src="assets/x.gif" alt="إرسال" /></td>
+        </tr>
+    </tbody>
+</table>
+</form>
+<br />
+';
+	}
+
+	$i = 0;
+
+	while ($i < count( $this->topics )) {
+		echo '<div id="';
+		echo $this->topics[$i]['news']['ID'];
+		echo '" class="coldiv">
+  <table border="0" cellpadding="0" cellspacing="0" width="500" id="post_';
+		echo $this->topics[$i]['news']['ID'];
+		echo '">
+    <tbody>
+      <tr>
+        <td></td>
+        <td>
+        ';
+
+		if ($this->myData['id'] == $this->uid) {
+			echo '        ';
+			echo '<s';
+			echo 'pan class="delete_button"><a href="snprofile.php?uid=';
+			echo $this->uid;
+			echo '&DNid=';
+			echo $this->topics[$i]['news']['ID'];
+			echo '">X</a></span>
+        ';
+		}
+
+		echo '        </td>
+      </tr>
+      <tr>
+        <td width="54" valign="top" rowspan="2"><a href="snprofile.php?uid=';
+		echo $this->userData['id'];
+		echo '"><img width="50" height="50" src="';
+		echo $this->userData['avatar'];
+		echo '" /></a></td>
+        <td width="436"><font size="2" style="font-weight:bold;"> <a href="snprofile.php?uid=';
+		echo $this->userData['id'];
+		echo '">';
+		echo $this->userData['name'];
+		echo '</a> </font></td>
+      </tr>
+      <!--start news -->
+      <tr>
+        <td>
+        <table cellpadding="0" cellspacing="0" border="0">
+        	<tr>
+        ';
+
+		if (!empty( $this->topics[$i]['news']['image'] )) {
+			echo '        	<td valign="middle" width="90" height="90"><img align="absmiddle" width="90" height="90" class="imgborder" src="';
+			echo $this->topics[$i]['news']['image'];
+			echo '" /></td>
+        ';
+		}
+
+		echo '         ';
+
+		if (!empty( $this->topics[$i]['news']['youtube'] )) {
+			echo '        	<td valign="middle">
+                <div id="youtube-auto-thumbnails">
+                	<a title="';
+			echo $this->topics[$i]['news']['youtube'];
+			echo '" href="';
+			echo $this->topics[$i]['news']['youtube'];
+			echo '"><img border="0" align="absmiddle" width="90" height="90" class="imgborder" src="images/play.gif" alt=""></a>
+                </div>
+            </td>
+        ';
+		}
+
+		echo '        ';
+
+		if (!empty( $this->topics[$i]['news']['url'] )) {
+			$info = array();
+			$tags = get_meta_tags( $this->topics[$i]['news']['url'] );
+			$info['title'] = (isset( $tags['title'] ) ? $tags['title'] : $this->topics[$i]['news']['url']);
+			$info['description'] = (isset( $tags['description'] ) ? $tags['description'] : $this->topics[$i]['news']['url']);
+			echo '        	<td valign="middle" width="90" height="90">
+            <h3>';
+			echo $info['title'];
+			echo '</h3>
+            ';
+			echo $info['description'];
+			echo '<br />
+            <a href="';
+			echo $this->topics[$i]['news']['url'];
+			echo '">';
+			echo $this->topics[$i]['news']['url'];
+			echo '</a>
+            </td>
+        ';
+		}
+
+		echo '            <td>
+            	';
+		echo $this->topics[$i]['news']['message'];
+		echo '            </td>
+        	</tr>
+        </table><br />
+        <font color="#CCCCCC"><abbr class="timeago" title="';
+		echo date( 'c', $this->topics[$i]['news']['date'] );
+		echo '">';
+		echo date( 'F j, Y', $this->topics[$i]['news']['date'] );
+		echo '</abbr></font>
+        </td>
+      </tr>
+      <!--end news -->
+      ';
+
+		if (isset( $this->topics[$i]['news']['comment'] )) {
+			$t = 0;
+
+			while ($t < count( $this->topics[$i]['news']['comment'] )) {
+				echo '      <tr>
+      	<td>&nbsp;</td>
+        <td>
+        <div id="comment_';
+				echo $this->topics[$i]['news']['comment'][$t]['ID'];
+				echo '">
+    <div class="comment_ui">
+    <div class="comment_text">
+
+	';
+
+				if (( $this->myData['id'] == $this->uid || $this->myData['id'] == $this->topics[$i]['news']['comment'][$t]['userid'] )) {
+					echo '        ';
+					echo '<s';
+					echo 'pan class="delete_button"><a href="snprofile.php?uid=';
+					echo $this->uid;
+					echo '&DCid=';
+					echo $this->topics[$i]['news']['comment'][$t]['ID'];
+					echo '">X</a></span>
+    ';
+				}
+
+				echo '
+<table border="0" cellpadding="0" cellspacing="0" class="com" id="';
+				echo $this->topics[$i]['news']['comment'][$t]['ID'];
+				echo '">
+  <tr>
+   <td rowspan="2" valign="top" width="30" height="30"><a href="snprofile.php?uid=';
+				echo $this->topics[$i]['news']['comment'][$t]['userid'];
+				echo '"><img src="';
+				echo $this->topics[$i]['news']['comment'][$t]['avatar'];
+				echo '" width="30" height="30" /></a></td>
+   <td>
+    <a href="snprofile.php?uid=';
+				echo $this->topics[$i]['news']['comment'][$t]['userid'];
+				echo '" style="font-weight:bold">
+    <div>';
+				echo $this->topics[$i]['news']['comment'][$t]['username'];
+				echo '</div></a>
+	<font size="2">';
+				echo $this->topics[$i]['news']['comment'][$t]['comment'];
+				echo '</font></td>
+</tr>
+<tr>
+  <td><abbr class="timeago" title="';
+				echo date( 'c', $this->topics[$i]['news']['comment'][$t]['date'] );
+				echo '">';
+				echo date( 'F j, Y', $this->topics[$i]['news']['comment'][$t]['date'] );
+				echo '</abbr></td>
+</tr>
+</table>
+
+</div>
+</div>
+</div>
+        </td>
+      </tr>
+      ';
+				++$t;
+			}
+		}
+
+		echo '      ';
+
+		if ($this->isFriend) {
+			echo '      <tr>
+        <td>&nbsp;</td>
+        <td>
+          <div class="newcomment">
+            <form name="comment" id="comment';
+			echo $this->topics[$i]['news']['ID'];
+			echo '" class="comment" method="post" action="?uid=';
+			echo $this->uid;
+			echo '&do=comment">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <input type="hidden" value="';
+			echo $this->topics[$i]['news']['ID'];
+			echo '" name="topicid">
+                <input type="hidden" value="';
+			echo $this->uid;
+			echo '" name="to">
+                <tbody>
+                  <tr>
+                    <td valign="top" rowspan="2"><img width="30" height="30" src="';
+			echo $this->myData['avatar'];
+			echo '" /></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" colspan="2"><textarea cols="65" class="text" name="comment" style="overflow: hidden;"></textarea>
+                      <br>
+                      	<p class="btn">
+							<input type="image" value="" name="s1" id="btn_send" class="dynamic_img" src="assets/x.gif" alt="إرسال" tabindex="4;">			
+						</p>';
+			echo '
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div></td>
+      </tr>
+      ';
+		}
+
+		echo '      <tr>
+        <td colspan="2"><hr /></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+';
+		++$i;
+	}
+
+	echo '<table>
+	<tr>
+        <td class="table_body"><div align="center">';
+	echo $this->getPreviousLink();
+	echo ' &nbsp; | &nbsp; ';
+	echo $this->getNextLink();
+	echo '</div></td>
+        <td class="table_body"><div align="center">
+        ';
+	echo '<s';
+	echo 'elect name="p" onchange="window.location.href=(\'snprofile.php?uid=';
+	echo $this->uid;
+	echo '&p=\'+this.value)">
+        ';
+	$i = 1;
+	$c = 0;
+
+	while ($i <= $this->pageCount) {
+		echo '            <option value="';
+		echo $c;
+		echo '"';
+
+		if (( isset( $_GET['p'] ) && $_GET['p'] == $c )) {
+			echo ' selected="selected"';
+		}
+
+		echo '>';
+		echo $i;
+		echo '</option>
+        ';
+		++$i;
+		++$c;
+	}
+
+	echo '        </select>
+        </div></td>
+	</tr>
+</table>
+<div id="footpanel">
+    <div class="onlineWidget">
+        <div class="panel">
+        ';
+	$online = 0;
+	foreach ($this->friendList as $friendLists) {
+		if (1000 <= $friendLists[3]) {
+			$img = 'bullet_black.png';
+		} 
+else {
+			$img = 'bullet_green.png';
+			++$online;
+		}
+
+		echo '            <a href="javascript:void(0)" onClick="javascript:chatWith(\'';
+		echo $friendLists[1];
+		echo '_-_';
+		echo $friendLists[0];
+		echo '\')">
+            <img src="';
+		echo $friendLists[2];
+		echo '" align="absmiddle" border="0" alt="';
+		echo $friendLists[1];
+		echo '" title="';
+		echo $friendLists[1];
+		echo '" width="33" height="30" />&nbsp;
+            ';
+		echo $friendLists[1];
+		echo '</a>
+            &nbsp;<img align="absmiddle" src="assets/default/img/';
+		echo $img;
+		echo '" /> 
+        ';
+	}
+
+	echo '        </div>
+        <div class="count">';
+	echo $online;
+	echo '</div>
+        <div class="label">online</div>
+        
+        <div class="arrow"></div>
+    </div>
+</div>
+';
+	echo '<s';
+	echo 'cript type="text/javascript">
+jQuery(document).ready(function() {
+  jQuery("abbr.timeago").timeago();
+});
+</script>';
+?>
+
+
