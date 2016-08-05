@@ -3,8 +3,16 @@ $AppConfig = array (
 	'db' 					=> array (
 		'host'				=> 'localhost',
 		'user'				=> 'root',
-		'password'			=> '',
-		'database'			=> 'tatar-wars'
+		'password'			=> '070810111213a',
+		'database'			=> 'trav'
+	),
+	'Game' 	=> array (
+		'speed'	      	=> '40', //Game Speed
+		'attack'        => '10', // Troops Speed
+		'capacity'      => '2', // capacity
+		'carry'         => '1', // carry
+		'cranny'        => '2', // Granny Capacity
+		'market'        => '4', // for trader 1 is normaly
 	),
 	'page' 		=> array (
 		'en_title'			=> 'Tatar war',
@@ -20,7 +28,7 @@ $AppConfig = array (
 		'adminPassword'		=> '1',
 		'admin_email'		=> 'alpha@test.shit',			// the email for admin account (set it before setup)
 		'email' 			=> '@.',			// the email for others (like activation, forget password, ..etc)
-	    'install_key' => 'installgame',
+	    'install_key' => '123456',
         'destroy' => 'destroy_game',  //delete everything in the server
         'securty_key' => '666DAFEDuebw9je02jeeB666'
 	),

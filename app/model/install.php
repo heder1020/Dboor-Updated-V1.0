@@ -8,13 +8,9 @@ class SetupModel extends ModelBase {
       $this->_createMap( $map_size );
 
       if ($this->_createAdminPlayer( $map_size, $adminEmail )) {
-         $raiseTime = 10 / $GLOBALS['GameMetadata']['game_speed'];
-         $raiseTime *= 2592000;
+         $raiseTime = $GLOBALS['GameMetadata']['natar_rise'];
          $raiseTime = intval( $raiseTime );
 
-         if ($raiseTime < 2592000) {
-            $raiseTime = 2592000;
-         }
 
          $queueModel = new QueueModel(  );
          new  QueueTask ($queueModel->addTask( QS_TATAR_RAISE, 0, $raiseTime ) );
@@ -444,7 +440,7 @@ OPTIMIZE TABLE `g_banner`, `g_chat`, `g_settings`, `g_summary`, `g_words`, `priv
          $queryBatch = NULL;
          ++$i;
       }
-   $this->provider->executeQuery("UPDATE `p_villages` SET `resources` = '1 2001 2000 2000 1000 0,2 2000 2000 2000 1000 0,3 2000 2000 2000 1000 0,4 2000 2000 2000 1000 0' WHERE `p_villages`.`is_oasis` = 1");
+   $this->provider->executeQuery("UPDATE `p_villages` SET `resources` = '1 2001*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['speed']." 1000*".$GLOBALS['GameMetadata']['capacity']." 0,2 2001*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['speed']." 1000*".$GLOBALS['GameMetadata']['capacity']." 0,3 2001*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['speed']." 1000*".$GLOBALS['GameMetadata']['capacity']." 0,4 2001*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['capacity']." 2000*".$GLOBALS['GameMetadata']['speed']." 1000*".$GLOBALS['GameMetadata']['capacity']." 0' WHERE `p_villages`.`is_oasis` = 1");
    }
 
    function _createAdminPlayer($map_size, $adminEmail) {

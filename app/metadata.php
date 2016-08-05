@@ -1,4 +1,12 @@
 <?php
+require_once("config.php");
+
+$attack=$AppConfig['Game']['attack'];
+$Market=$AppConfig['Game']['market'];
+$carry=$AppConfig['Game']['carry'];
+$capacity=$AppConfig['Game']['capacity'];
+$cranny=$AppConfig['Game']['cranny'];
+$speed=($AppConfig['Game']['speed']);
 
 $SetupMetadata = array (
 
@@ -136,9 +144,23 @@ $GameMetadata = array (
 
 	 */
 
-	'game_speed' => 100,
+	'game_speed' => $speed,
+	
+	/**
 
+	 * Capacity multiplier
 
+	 */
+	 
+	'capacity'=>$capacity,
+	
+	/**
+
+	 * natars rise time in seconds
+
+	 */
+	 
+	'natar_rise'=> 86430, // 1 month by default. 
 
 	/**
 
@@ -198,19 +220,19 @@ $GameMetadata = array (
 
 	'tribes' => array (
 
-		'1'	=> array ( 'dual_build' => TRUE,   'merchants_capacity' => 500,   'merchants_velocity' => 16,	'crannyFactor' => 1,		'wall_css' => 'd2_11'  	),			// �������
+	'1'=> array ( 'dual_build' => TRUE,   'merchants_capacity' => ($Market*500)/$speed,   'merchants_velocity' => $attack* 16,'crannyFactor' => 1,'wall_css' => 'd2_11'  ),// ???????
 
-		'2'	=> array ( 'dual_build' => FALSE, 'merchants_capacity' => 1000, 'merchants_velocity' => 12,	'crannyFactor' => 2/3,	'wall_css' => 'd2_12'  	),			// �������
+	'2'=> array ( 'dual_build' => FALSE, 'merchants_capacity' => ($Market*1000)/$speed, 'merchants_velocity' => $attack* 12,'crannyFactor' => 2/3,'wall_css' => 'd2_12'  ),// ???????
 
-		'3'	=> array ( 'dual_build' => FALSE, 'merchants_capacity' => 750,   'merchants_velocity' => 24,	'crannyFactor' => 1,		'wall_css' => 'd2_1'  	),			// �������
+	'3'=> array ( 'dual_build' => FALSE, 'merchants_capacity' => ($Market*750)/$speed,   'merchants_velocity' => $attack* 24,'crannyFactor' => 1,'wall_css' => 'd2_1'  ),// ???????
 
-		'4'	=> array ( 'dual_build' => FALSE, 'merchants_capacity' => 0,       'merchants_velocity' => 0,	'crannyFactor' => 1,		'wall_css' => ''  			),			// ������
+	'4'=> array ( 'dual_build' => FALSE, 'merchants_capacity' => 0,       'merchants_velocity' => 0,'crannyFactor' => 1,'wall_css' => ''  ),// ??????
 
-		'5'	=> array ( 'dual_build' => FALSE, 'merchants_capacity' => 0,       'merchants_velocity' => 0,	'crannyFactor' => 1,		'wall_css' => ''  			),			// ������
+	'5'=> array ( 'dual_build' => FALSE, 'merchants_capacity' => 0,       'merchants_velocity' => 0,'crannyFactor' => 1,'wall_css' => ''  ),// ??????
 
-		'6'	=> array ( 'dual_build' => TRUE,   'merchants_capacity' => 1500,  'merchants_velocity' => 22,	'crannyFactor' => 2/3,	'wall_css' => 'd2_11'  	),			// ����
+	'6'=> array ( 'dual_build' => TRUE,   'merchants_capacity' => ($Market*1500)/$speed,  'merchants_velocity' => $attack* 22,'crannyFactor' => 2/3,'wall_css' => 'd2_11'  ),// ????
 
-		'7'	=> array ( 'dual_build' => TRUE, 	 'merchants_capacity' => 1200,  'merchants_velocity' => 20,	'crannyFactor' => 1,		'wall_css' => 'd2_11' 	),			// �����
+	'7'=> array ( 'dual_build' => TRUE,  'merchants_capacity' => ($Market*1200)/$speed,  'merchants_velocity' => $attack* 20,'crannyFactor' => 1,'wall_css' => 'd2_11' ),// ?????
 
 	),
 
@@ -324,1539 +346,1540 @@ $GameMetadata = array (
 
 	'troops' => array (
 
-		'1'	=> array(
+		'1'=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 6, 'carry_load' => 40, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 1, 'velocity' => ($attack * 6)/$speed, 'carry_load' => $carry * 40, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 2000,
+			'training_time_consume' => 2000,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( '1' => 120, '2' => 100, '3' => 180, '4' => 40 ),
+			'training_resources'   => array( '1' => 120, '2' => 100, '3' => 180, '4' => 40 ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'2'	=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 5, 'carry_load' => 20, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 65, 'defense_cavalry' => 35, 'is_cavalry' => FALSE, 
+		'2'=> array(
 
-			'gold_needed'						=> 1,
+			'for_tribe_id' => 1, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry *20, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 65, 'defense_cavalry' => 35, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 8400,
+			'gold_needed'=> 1,
 
-			'training_time_consume' 	=> 2200,
+			'research_time_consume' => 8400,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'training_time_consume' => 2200,
 
-			'research_resources' 			=> array( '1' => 700, '2' => 620, '3' => 1480, '4' => 580 ),
+			'trainer_building' => array( 19,29 ),
 
-			'training_resources'   			=> array( '1' => 100, '2' => 130, '3' => 160, '4' => 70 ),
+			'research_resources' => array( '1' => 700, '2' => 620, '3' => 1480, '4' => 580 ),
 
-			'pre_requests' 					=> array( '22' => 1, '13' => 1 )
+			'training_resources'   => array( '1' => 100, '2' => 130, '3' => 160, '4' => 70 ),
 
+			'pre_requests' => array( '22' => 1, '13' => 1 )
+
 		),
+
 
-			
 
-		'3'	=> array(
+		'3'=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 7, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 70, 'defense_infantry' => 40, 'defense_cavalry' => 25, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 1, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 50, 'crop_consumption' => 1, 'attack_value' => 70, 'defense_infantry' => 40, 'defense_cavalry' => 25, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 9000,
+			'research_time_consume' => 9000,
 
-			'training_time_consume' 	=> 2400,
+			'training_time_consume' => 2400,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 1000, '2' => 740, '3' => 1880, '4' => 640 ),
+			'research_resources' => array( '1' => 1000, '2' => 740, '3' => 1880, '4' => 640 ),
 
-			'training_resources'   			=> array( '1' => 150, '2' => 160, '3' => 210, '4' => 80 ),
+			'training_resources'   => array( '1' => 150, '2' => 160, '3' => 210, '4' => 80 ),
 
-			'pre_requests' 					=> array( '22' => 5, '12' => 1 )
+			'pre_requests' => array( '22' => 5, '12' => 1 )
 
 		),
 
-			
 
-		'4'	=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 16, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 20, 'defense_cavalry' => 10, 'is_cavalry' => TRUE, 
+		'4'=> array(
 
-			'gold_needed'						=> 1,
+			'for_tribe_id' => 1, 'velocity' => ($attack * 16)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 20, 'defense_cavalry' => 10, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 6900,
+			'gold_needed'=> 1,
 
-			'training_time_consume' 	=> 1700,
+			'research_time_consume' => 6900,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'training_time_consume' => 1700,
 
-			'research_resources' 			=> array( '1' => 940, '2' => 740, '3' => 360, '4' => 400 ),
+			'trainer_building' => array( 20,30 ),
 
-			'training_resources'   			=> array( '1' => 140, '2' => 160, '3' => 20, '4' => 40 ),
+			'research_resources' => array( '1' => 940, '2' => 740, '3' => 360, '4' => 400 ),
 
-			'pre_requests' 					=> array( '20' => 1, '22' => 5 )
+			'training_resources'   => array( '1' => 140, '2' => 160, '3' => 20, '4' => 40 ),
 
+			'pre_requests' => array( '20' => 1, '22' => 5 )
+
 		),
 
-			
 
-		'5'	=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 14, 'carry_load' => 100, 'crop_consumption' => 3, 'attack_value' => 120, 'defense_infantry' => 65, 'defense_cavalry' => 50, 'is_cavalry' => TRUE, 
+		'5'=> array(
 
-			'gold_needed'						=> 2,
+			'for_tribe_id' => 1, 'velocity' => ($attack * 14)/$speed, 'carry_load' => $carry * 100, 'crop_consumption' => 3, 'attack_value' => 120, 'defense_infantry' => 65, 'defense_cavalry' => 50, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 11700,
+			'gold_needed'=> 2,
 
-			'training_time_consume' 	=> 3300,
+			'research_time_consume' => 11700,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'training_time_consume' => 3300,
 
-			'research_resources' 			=> array( '1' => 3400, '2' => 1860, '3' => 2760, '4' => 760 ),
+			'trainer_building' => array( 20,30 ),
 
-			'training_resources'   			=> array( '1' => 550, '2' => 440, '3' => 320, '4' => 100 ),
+			'research_resources' => array( '1' => 3400, '2' => 1860, '3' => 2760, '4' => 760 ),
 
-			'pre_requests' 					=> array( '20' => 5, '22' => 5 )
+			'training_resources'   => array( '1' => 550, '2' => 440, '3' => 320, '4' => 100 ),
 
+			'pre_requests' => array( '20' => 5, '22' => 5 )
+
 		),
+
 
-			
 
-		'6'	=> array(
+		'6'=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 10, 'carry_load' => 70, 'crop_consumption' => 4, 'attack_value' => 180, 'defense_infantry' => 80, 'defense_cavalry' => 105, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 1, 'velocity' => ($attack * 10)/$speed, 'carry_load' => $carry * 70, 'crop_consumption' => 4, 'attack_value' => 180, 'defense_infantry' => 80, 'defense_cavalry' => 105, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 2,
+			'gold_needed'=> 2,
 
-			'research_time_consume' 	=> 15000,
+			'research_time_consume' => 15000,
 
-			'training_time_consume' 	=> 4400,
+			'training_time_consume' => 4400,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 3400, '2' => 2660, '3' => 6600, '4' => 1240 ),
+			'research_resources' => array( '1' => 3400, '2' => 2660, '3' => 6600, '4' => 1240 ),
 
-			'training_resources'   			=> array( '1' => 550, '2' => 640, '3' => 800, '4' => 180 ),
+			'training_resources'   => array( '1' => 550, '2' => 640, '3' => 800, '4' => 180 ),
 
-			'pre_requests' 					=> array( '20' => 10, '22' => 5 )
+			'pre_requests' => array( '20' => 10, '22' => 5 )
 
 		),
 
-			
 
-		'7'	=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
+		'7'=> array(
 
-			'gold_needed'						=> 3,
+			'for_tribe_id' => 1, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 15600,
+			'gold_needed'=> 3,
 
-			'training_time_consume' 	=> 4600,
+			'research_time_consume' => 15600,
 
-			'trainer_building' 				=> array( 21 ),
+			'training_time_consume' => 4600,
 
-			'research_resources' 			=> array( '1' => 5500, '2' => 1540, '3' => 4200, '4' => 580 ),
+			'trainer_building' => array( 21 ),
 
-			'training_resources'   			=> array( '1' => 900, '2' => 360, '3' => 500, '4' => 70 ),
+			'research_resources' => array( '1' => 5500, '2' => 1540, '3' => 4200, '4' => 580 ),
 
-			'pre_requests' 					=> array( '22' => 10, '21' => 1 )
+			'training_resources'   => array( '1' => 900, '2' => 360, '3' => 500, '4' => 70 ),
 
+			'pre_requests' => array( '22' => 10, '21' => 1 )
+
 		),
+
 
-			
 
-		'8'	=> array(
+		'8'=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 3, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 75, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 1, 'velocity' => ($attack * 3)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 6, 'attack_value' => 75, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 28800,
+			'research_time_consume' => 28800,
 
-			'training_time_consume' 	=> 9000,
+			'training_time_consume' => 9000,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 5800, '2' => 5500, '3' => 5000, '4' => 700 ),
+			'research_resources' => array( '1' => 5800, '2' => 5500, '3' => 5000, '4' => 700 ),
 
-			'training_resources'   			=> array( '1' => 950, '2' => 1350, '3' => 600, '4' => 90 ),
+			'training_resources'   => array( '1' => 950, '2' => 1350, '3' => 600, '4' => 90 ),
 
-			'pre_requests' 					=> array( '21' => 10, '22' => 15 )
+			'pre_requests' => array( '21' => 10, '22' => 15 )
 
 		),
 
 
 
-		'9'	=> array(
+		'9'=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 5, 'attack_value' => 50, 'defense_infantry' => 40, 'defense_cavalry' => 30, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 1, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 5, 'attack_value' => 50, 'defense_infantry' => 40, 'defense_cavalry' => 30, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 24475,
+			'research_time_consume' => 24475,
 
-			'training_time_consume' 	=> 90700,
+			'training_time_consume' => 90700,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array( '1' => 15880, '2' => 13800, '3' => 36400, '4' => 22660 ),
+			'research_resources' => array( '1' => 15880, '2' => 13800, '3' => 36400, '4' => 22660 ),
 
-			'training_resources'   			=> array( '1' => 30750, '2' =>27200, '3' => 45000, '4' => 37500 ),
+			'training_resources'   => array( '1' => 30750, '2' =>27200, '3' => 45000, '4' => 37500 ),
 
-			'pre_requests' 					=> array( '16' => 10, '22' => 20 )
+			'pre_requests' => array( '16' => 10, '22' => 20 )
 
 		),
 
-		
 
-		'10'	=> array(
 
-			'for_tribe_id' => 1, 'velocity' => 5, 'carry_load' => 3000, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 80, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
+		'10'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 1, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 3000, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 80, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 26900,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'training_time_consume' => 26900,
 
-			'research_resources' 			=> array(),
+			'trainer_building' => array( 25,26 ),
 
-			'training_resources'   			=> array( '1' => 5800, '2' => 5300, '3' => 7200, '4' => 5500 ),
+			'research_resources' => array(),
 
-			'pre_requests' 					=> array(),
+			'training_resources'   => array( '1' => 5800, '2' => 5300, '3' => 7200, '4' => 5500 ),
 
-			'help_pre_requests' 			=> array( '26|25' => 10 )
+			'pre_requests' => array(  ),
 
+			'help_pre_requests' => array( '26|25' => 10 )
+
 		),
 
-		
 
-		'11'	=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 7, 'carry_load' => 60, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 20, 'defense_cavalry' => 5, 'is_cavalry' => FALSE, 
+		'11'=> array(
 
-			'gold_needed'						=> 1,
+			'for_tribe_id' => 2, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 60, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 20, 'defense_cavalry' => 5, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 1,
 
-			'training_time_consume' 	=> 900,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'training_time_consume' => 900,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array( 19,29 ),
 
-			'training_resources'   			=> array( '1' => 95, '2' => 75, '3' => 40, '4' => 40 ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( '1' => 95, '2' => 75, '3' => 40, '4' => 40 ),
 
+			'pre_requests' => array( )
+
 		),
 
 
 
-		'12'	=> array(
+		'12'=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 7, 'carry_load' => 40, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 35, 'defense_cavalry' => 60, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 2, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 40, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 35, 'defense_cavalry' => 60, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 6000,
+			'research_time_consume' => 6000,
 
-			'training_time_consume' 	=> 1400,
+			'training_time_consume' => 1400,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 970, '2' => 380, '3' => 880, '4' => 400 ),
+			'research_resources' => array( '1' => 970, '2' => 380, '3' => 880, '4' => 400 ),
 
-			'training_resources'   			=> array( '1' => 145, '2' => 70, '3' => 85, '4' => 40 ),
+			'training_resources'   => array( '1' => 145, '2' => 70, '3' => 85, '4' => 40 ),
 
-			'pre_requests' 					=> array( '22' => 1 )
+			'pre_requests' => array( '22' => 1 )
 
 		),
 
 
 
-		'13'	=> array(
+		'13'=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 6, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 30, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 2, 'velocity' => ($attack * 6)/$speed, 'carry_load' => $carry * 50, 'crop_consumption' => 1, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 30, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 6300,
+			'research_time_consume' => 6300,
 
-			'training_time_consume' 	=> 1500,
+			'training_time_consume' => 1500,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
+			'research_resources' => array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
 
-			'training_resources'   			=> array( '1' => 130, '2' => 120, '3' => 170, '4' => 70 ),
+			'training_resources'   => array( '1' => 130, '2' => 120, '3' => 170, '4' => 70 ),
 
-			'pre_requests' 					=> array( '22' => 3, '12' => 1 )
+			'pre_requests' => array( '22' => 3, '12' => 1 )
 
 		),
+
 
-			
 
-		'14'	=> array(
+		'14'=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 9, 'carry_load' => 0, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 5, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 2, 'velocity' => ($attack * 9)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 5, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 6000,
+			'research_time_consume' => 6000,
 
-			'training_time_consume' 	=> 1400,
+			'training_time_consume' => 1400,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 1060, '2' => 500, '3' => 600, '4' => 460 ),
+			'research_resources' => array( '1' => 1060, '2' => 500, '3' => 600, '4' => 460 ),
 
-			'training_resources'   			=> array( '1' => 160, '2' => 100, '3' => 50, '4' => 50 ),
+			'training_resources'   => array( '1' => 160, '2' => 100, '3' => 50, '4' => 50 ),
 
-			'pre_requests' 					=> array( '22' => 1, '15' => 5 )
+			'pre_requests' => array( '22' => 1, '15' => 5 )
 
 		),
 
-			
 
-		'15'	=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 10, 'carry_load' => 110, 'crop_consumption' => 2, 'attack_value' => 55, 'defense_infantry' => 100, 'defense_cavalry' => 40, 'is_cavalry' => TRUE, 
+		'15'=> array(
 
-			'gold_needed'						=> 2,
+			'for_tribe_id' => 2, 'velocity' => ($attack * 10)/$speed, 'carry_load' => $carry * 110, 'crop_consumption' => 2, 'attack_value' => 55, 'defense_infantry' => 100, 'defense_cavalry' => 40, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 10800,
+			'gold_needed'=> 2,
 
-			'training_time_consume' 	=> 3000,
+			'research_time_consume' => 10800,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'training_time_consume' => 3000,
 
-			'research_resources' 			=> array( '1' => 2320, '2' => 1180, '3' => 2520, '4' => 610 ),
+			'trainer_building' => array( 20,30 ),
 
-			'training_resources'   			=> array( '1' => 370, '2' => 270, '3' => 290, '4' => 75 ),
+			'research_resources' => array( '1' => 2320, '2' => 1180, '3' => 2520, '4' => 610 ),
 
-			'pre_requests' 					=> array( '22' => 5, '20' => 3 )
+			'training_resources'   => array( '1' => 370, '2' => 270, '3' => 290, '4' => 75 ),
 
+			'pre_requests' => array( '22' => 5, '20' => 3 )
+
 		),
+
 
-			
 
-		'16'	=> array(
+		'16'=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 9, 'carry_load' => 80, 'crop_consumption' => 3, 'attack_value' => 150, 'defense_infantry' => 50, 'defense_cavalry' => 75, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 2, 'velocity' => ($attack * 9)/$speed, 'carry_load' => $carry * 80, 'crop_consumption' => 3, 'attack_value' => 150, 'defense_infantry' => 50, 'defense_cavalry' => 75, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 2,
+			'gold_needed'=> 2,
 
-			'research_time_consume' 	=> 12900,
+			'research_time_consume' => 12900,
 
-			'training_time_consume' 	=> 3700,
+			'training_time_consume' => 3700,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
+			'research_resources' => array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
 
-			'training_resources'   			=> array( '1' => 450, '2' => 515, '3' => 480, '4' => 80 ),
+			'training_resources'   => array( '1' => 450, '2' => 515, '3' => 480, '4' => 80 ),
 
-			'pre_requests' 					=> array( '20' => 10, '22' => 15 )
+			'pre_requests' => array( '20' => 10, '22' => 15 )
 
 		),
 
-			
 
-		'17'	=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 65, 'defense_infantry' => 30, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
+		'17'=> array(
 
-			'gold_needed'						=> 3,
+			'for_tribe_id' => 2, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 65, 'defense_infantry' => 30, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 14400,
+			'gold_needed'=> 3,
 
-			'training_time_consume' 	=> 4200,
+			'research_time_consume' => 14400,
 
-			'trainer_building' 				=> array( 21 ),
+			'training_time_consume' => 4200,
 
-			'research_resources' 			=> array( '1' => 6100, '2' => 1300, '3' => 3000, '4' => 580 ),
+			'trainer_building' => array( 21 ),
 
-			'training_resources'   			=> array( '1' => 1000, '2' => 300, '3' => 350, '4' => 70 ),
+			'research_resources' => array( '1' => 6100, '2' => 1300, '3' => 3000, '4' => 580 ),
 
-			'pre_requests' 					=> array( '22' => 10, '21' => 1 )
+			'training_resources'   => array( '1' => 1000, '2' => 300, '3' => 350, '4' => 70 ),
 
+			'pre_requests' => array( '22' => 10, '21' => 1 )
+
 		),
 
-			
 
-		'18'	=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 3, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 50, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
+		'18'=> array(
 
-			'gold_needed'						=> 3,
+			'for_tribe_id' => 2, 'velocity' => ($attack * 3)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 6, 'attack_value' => 50, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 28800,
+			'gold_needed'=> 3,
 
-			'training_time_consume' 	=> 9000,
+			'research_time_consume' => 28800,
 
-			'trainer_building' 				=> array( 21 ),
+			'training_time_consume' => 9000,
 
-			'research_resources' 			=> array( '1' => 5500, '2' => 4900, '3' => 5000, '4' => 520 ),
+			'trainer_building' => array( 21 ),
 
-			'training_resources'   			=> array( '1' => 900, '2' => 1200, '3' => 600, '4' => 60 ),
+			'research_resources' => array( '1' => 5500, '2' => 4900, '3' => 5000, '4' => 520 ),
 
-			'pre_requests' 					=> array( '21' => 10, '22' => 15 )
+			'training_resources'   => array( '1' => 900, '2' => 1200, '3' => 600, '4' => 60 ),
 
+			'pre_requests' => array( '21' => 10, '22' => 15 )
+
 		),
 
 
 
-		'19'	=> array(
+		'19'=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 4, 'attack_value' => 40, 'defense_infantry' => 60, 'defense_cavalry' => 40, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 2, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 4, 'attack_value' => 40, 'defense_infantry' => 60, 'defense_cavalry' => 40, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 19425,
+			'research_time_consume' => 19425,
 
-			'training_time_consume' 	=> 70500,
+			'training_time_consume' => 70500,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array( '1' => 18250, '2' => 13500, '3' => 20400, '4' => 16480 ),
+			'research_resources' => array( '1' => 18250, '2' => 13500, '3' => 20400, '4' => 16480 ),
 
-			'training_resources'   			=> array( '1' => 35500, '2' => 26600, '3' => 25000, '4' => 27200 ),
+			'training_resources'   => array( '1' => 35500, '2' => 26600, '3' => 25000, '4' => 27200 ),
 
-			'pre_requests' 					=> array( '16' => 5, '22' => 20 )
+			'pre_requests' => array( '16' => 5, '22' => 20 )
 
 		),
 
-		'20'	=> array(
+		'20'=> array(
 
-			'for_tribe_id' => 2, 'velocity' => 5, 'carry_load' => 3000, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 80, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 2, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 3000, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 80, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 31000,
+			'training_time_consume' => 31000,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array(),
+			'research_resources' => array(),
 
-			'training_resources'   			=> array( '1' => 7200, '2' => 5500, '3' => 5800, '4' => 6500 ),
+			'training_resources'   => array( '1' => 7200, '2' => 5500, '3' => 5800, '4' => 6500 ),
 
-			'pre_requests' 					=> array(),
+			'pre_requests' => array(  ),
 
-			'help_pre_requests' 			=> array( '26|25' => 10 )
+			'help_pre_requests' => array( '26|25' => 10 )
 
 		),
+
 
-		
 
-		'21'	=> array(
+		'21'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 7, 'carry_load' => 30, 'crop_consumption' => 1, 'attack_value' => 15, 'defense_infantry' => 40, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 30, 'crop_consumption' => 1, 'attack_value' => 15, 'defense_infantry' => 40, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 1300,
+			'training_time_consume' => 1300,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( '1' => 100, '2' => 130, '3' => 55, '4' => 30 ),
+			'training_resources'   => array( '1' => 100, '2' => 130, '3' => 55, '4' => 30 ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
 
 
-		'22'	=> array(
+		'22'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 6, 'carry_load' => 45, 'crop_consumption' => 1, 'attack_value' => 65, 'defense_infantry' => 35, 'defense_cavalry' => 20, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 6)/$speed, 'carry_load' => $carry * 45, 'crop_consumption' => 1, 'attack_value' => 65, 'defense_infantry' => 35, 'defense_cavalry' => 20, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 7200,
+			'research_time_consume' => 7200,
 
-			'training_time_consume' 	=> 1800,
+			'training_time_consume' => 1800,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 940, '2' => 700, '3' => 1680, '4' => 520 ),
+			'research_resources' => array( '1' => 940, '2' => 700, '3' => 1680, '4' => 520 ),
 
-			'training_resources'   			=> array( '1' => 140, '2' => 150, '3' => 185, '4' => 60 ),
+			'training_resources'   => array( '1' => 140, '2' => 150, '3' => 185, '4' => 60 ),
 
-			'pre_requests' 					=> array( '22' => 1, '12' => 1 )
+			'pre_requests' => array( '22' => 1, '12' => 1 )
 
 		),
 
-			
 
-		'23'	=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 17, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 20, 'defense_cavalry' => 10, 'is_cavalry' => TRUE, 
+		'23'=> array(
 
-			'gold_needed'						=> 1,
+			'for_tribe_id' => 3, 'velocity' => ($attack * 17)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 20, 'defense_cavalry' => 10, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 6900,
+			'gold_needed'=> 1,
 
-			'training_time_consume' 	=> 1700,
+			'research_time_consume' => 6900,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'training_time_consume' => 1700,
 
-			'research_resources' 			=> array( '1' => 1120, '2' => 700, '3' => 360, '4' => 400 ),
+			'trainer_building' => array( 20,30 ),
 
-			'training_resources'   			=> array( '1' => 170, '2' => 150, '3' => 20, '4' => 40 ),
+			'research_resources' => array( '1' => 1120, '2' => 700, '3' => 360, '4' => 400 ),
 
-			'pre_requests' 					=> array( '22' => 5, '20' => 1 )
+			'training_resources'   => array( '1' => 170, '2' => 150, '3' => 20, '4' => 40 ),
 
+			'pre_requests' => array( '22' => 5, '20' => 1 )
+
 		),
+
 
-			
 
-		'24'	=> array(
+		'24'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 19, 'carry_load' => 75, 'crop_consumption' => 2, 'attack_value' => 90, 'defense_infantry' => 25, 'defense_cavalry' => 40, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 19)/$speed, 'carry_load' => $carry * 75, 'crop_consumption' => 2, 'attack_value' => 90, 'defense_infantry' => 25, 'defense_cavalry' => 40, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 11100,
+			'research_time_consume' => 11100,
 
-			'training_time_consume' 	=> 3100,
+			'training_time_consume' => 3100,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 2200, '2' => 1900, '3' => 2040, '4' => 520 ),
+			'research_resources' => array( '1' => 2200, '2' => 1900, '3' => 2040, '4' => 520 ),
 
-			'training_resources'   			=> array( '1' => 350, '2' => 450, '3' => 230, '4' => 60 ),
+			'training_resources'   => array( '1' => 350, '2' => 450, '3' => 230, '4' => 60 ),
 
-			'pre_requests' 					=> array( '20' => 3, '22' => 5 )
+			'pre_requests' => array( '20' => 3, '22' => 5 )
 
 		),
 
-			
 
-		'25'	=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 16, 'carry_load' => 35, 'crop_consumption' => 2, 'attack_value' => 45, 'defense_infantry' => 115, 'defense_cavalry' => 55, 'is_cavalry' => TRUE, 
+		'25'=> array(
 
-			'gold_needed'						=> 2,
+			'for_tribe_id' => 3, 'velocity' => ($attack * 16)/$speed, 'carry_load' => $carry * 35, 'crop_consumption' => 2, 'attack_value' => 45, 'defense_infantry' => 115, 'defense_cavalry' => 55, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 11400,
+			'gold_needed'=> 2,
 
-			'training_time_consume' 	=> 3200,
+			'research_time_consume' => 11400,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'training_time_consume' => 3200,
 
-			'research_resources' 			=> array( '1' => 2260, '2' => 1420, '3' => 2440, '4' => 880 ),
+			'trainer_building' => array( 20,30 ),
 
-			'training_resources'   			=> array( '1' => 360, '2' => 330, '3' => 280, '4' => 120 ),
+			'research_resources' => array( '1' => 2260, '2' => 1420, '3' => 2440, '4' => 880 ),
 
-			'pre_requests' 					=> array( '20' => 5, '22' => 5 )
+			'training_resources'   => array( '1' => 360, '2' => 330, '3' => 280, '4' => 120 ),
 
+			'pre_requests' => array( '20' => 5, '22' => 5 )
+
 		),
 
-			
 
-		'26'	=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 13, 'carry_load' => 65, 'crop_consumption' => 3, 'attack_value' => 140, 'defense_infantry' => 50, 'defense_cavalry' => 165, 'is_cavalry' => TRUE, 
+		'26'=> array(
 
-			'gold_needed'						=> 2,
+			'for_tribe_id' => 3, 'velocity' => ($attack * 13)/$speed, 'carry_load' => $carry * 65, 'crop_consumption' => 3, 'attack_value' => 140, 'defense_infantry' => 50, 'defense_cavalry' => 165, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 13500,
+			'gold_needed'=> 2,
 
-			'training_time_consume' 	=> 3900,
+			'research_time_consume' => 13500,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'training_time_consume' => 3900,
 
-			'research_resources' 			=> array( '1' => 3100, '2' => 2580, '3' => 5600, '4' => 1180 ),
+			'trainer_building' => array( 20,30 ),
 
-			'training_resources'   			=> array( '1' => 500, '2' => 620, '3' => 675, '4' => 170 ),
+			'research_resources' => array( '1' => 3100, '2' => 2580, '3' => 5600, '4' => 1180 ),
 
-			'pre_requests' 					=> array( '20' => 10, '22' => 15 )
+			'training_resources'   => array( '1' => 500, '2' => 620, '3' => 675, '4' => 170 ),
 
+			'pre_requests' => array( '20' => 10, '22' => 15 )
+
 		),
 
 
 
-		'27'	=> array(
+		'27'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 50, 'defense_infantry' => 30, 'defense_cavalry' => 105, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 50, 'defense_infantry' => 30, 'defense_cavalry' => 105, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 16800,
+			'research_time_consume' => 16800,
 
-			'training_time_consume' 	=> 5000,
+			'training_time_consume' => 5000,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 5800, '2' => 2320, '3' => 2840, '4' => 610 ),
+			'research_resources' => array( '1' => 5800, '2' => 2320, '3' => 2840, '4' => 610 ),
 
-			'training_resources'   			=> array( '1' => 950, '2' => 555, '3' => 330, '4' => 75 ),
+			'training_resources'   => array( '1' => 950, '2' => 555, '3' => 330, '4' => 75 ),
 
-			'pre_requests' 					=> array( '22' => 10, '21' => 1 )
+			'pre_requests' => array( '22' => 10, '21' => 1 )
 
 		),
 
 
 
-		'28'	=> array(
+		'28'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 3, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 70, 'defense_infantry' => 45, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 3)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 6, 'attack_value' => 70, 'defense_infantry' => 45, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 28800,
+			'research_time_consume' => 28800,
 
-			'training_time_consume' 	=> 9000,
+			'training_time_consume' => 9000,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 5860, '2' => 5900, '3' => 5240, '4' => 700 ),
+			'research_resources' => array( '1' => 5860, '2' => 5900, '3' => 5240, '4' => 700 ),
 
-			'training_resources'   			=> array( '1' => 960, '2' => 1450, '3' => 630, '4' => 90 ),
+			'training_resources'   => array( '1' => 960, '2' => 1450, '3' => 630, '4' => 90 ),
 
-			'pre_requests' 					=> array( '21' => 10, '22' => 15 )
+			'pre_requests' => array( '21' => 10, '22' => 15 )
 
 		),
 
 
 
-		'29'	=> array(
+		'29'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 5, 'carry_load' => 0, 'crop_consumption' => 4, 'attack_value' => 40, 'defense_infantry' => 50, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 4, 'attack_value' => 40, 'defense_infantry' => 50, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 24475,
+			'research_time_consume' => 24475,
 
-			'training_time_consume' 	=> 90700,
+			'training_time_consume' => 90700,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array( '1' => 15880, '2' => 22900, '3' => 25200, '4' => 22660 ),
+			'research_resources' => array( '1' => 15880, '2' => 22900, '3' => 25200, '4' => 22660 ),
 
-			'training_resources'   			=> array( '1' => 30750, '2' => 45400, '3' => 31000, '4' => 37500 ),
+			'training_resources'   => array( '1' => 30750, '2' => 45400, '3' => 31000, '4' => 37500 ),
 
-			'pre_requests' 					=> array( '16' => 10, '22' => 20 )
+			'pre_requests' => array( '16' => 10, '22' => 20 )
 
 		),
 
 
 
-		'30'	=> array(
+		'30'=> array(
 
-			'for_tribe_id' => 3, 'velocity' => 5, 'carry_load' => 3000, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 80, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 3, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 3000, 'crop_consumption' => 1, 'attack_value' => 0, 'defense_infantry' => 80, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 22700,
+			'training_time_consume' => 22700,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array(),
+			'research_resources' => array(),
 
-			'training_resources'   			=> array( '1' => 5500, '2' => 7000, '3' => 5300, '4' => 4900 ),
+			'training_resources'   => array( '1' => 5500, '2' => 7000, '3' => 5300, '4' => 4900 ),
 
-			'pre_requests' 					=> array(),
+			'pre_requests' => array(  ),
 
-			'help_pre_requests' 			=> array( '26|25' => 10 )
+			'help_pre_requests' => array( '26|25' => 10 )
 
 		),
+
 
-		
 
-		'31'	=> array(
+		'31'=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 25, 'defense_cavalry' => 20, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 25, 'defense_cavalry' => 20, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'32'	=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 1, 'attack_value' => 20, 'defense_infantry' => 35, 'defense_cavalry' => 40, 'is_cavalry' => TRUE, 
+		'32'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 1, 'attack_value' => 20, 'defense_infantry' => 35, 'defense_cavalry' => 40, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'33'	=> array(
+		'33'=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 1, 'attack_value' => 60, 'defense_infantry' => 40, 'defense_cavalry' => 60, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 1, 'attack_value' => 60, 'defense_infantry' => 40, 'defense_cavalry' => 60, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'34'	=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 1, 'attack_value' => 80, 'defense_infantry' => 66, 'defense_cavalry' => 50, 'is_cavalry' => TRUE, 
+		'34'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 1, 'attack_value' => 80, 'defense_infantry' => 66, 'defense_cavalry' => 50, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
 
-			
 
-		'35'	=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 50, 'defense_infantry' => 70, 'defense_cavalry' => 33, 'is_cavalry' => TRUE, 
+		'35'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 2, 'attack_value' => 50, 'defense_infantry' => 70, 'defense_cavalry' => 33, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'36'	=> array(
+		'36'=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 100, 'defense_infantry' => 80, 'defense_cavalry' => 70, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 2, 'attack_value' => 100, 'defense_infantry' => 80, 'defense_cavalry' => 70, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'37'	=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 250, 'defense_infantry' => 140, 'defense_cavalry' => 200, 'is_cavalry' => TRUE, 
+		'37'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 250, 'defense_infantry' => 140, 'defense_cavalry' => 200, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'38'	=> array(
+		'38'=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 450, 'defense_infantry' => 380, 'defense_cavalry' => 240, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 450, 'defense_infantry' => 380, 'defense_cavalry' => 240, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'39'	=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 200, 'defense_infantry' => 170, 'defense_cavalry' => 250, 'is_cavalry' => TRUE, 
+		'39'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 200, 'defense_infantry' => 170, 'defense_cavalry' => 250, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
 
-			
 
-		'40'	=> array(
 
-			'for_tribe_id' => 4, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 5, 'attack_value' => 600, 'defense_infantry' => 440, 'defense_cavalry' => 520, 'is_cavalry' => TRUE, 
+		'40'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 4, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 5, 'attack_value' => 600, 'defense_infantry' => 440, 'defense_cavalry' => 520, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'41'	=> array(
+		'41'=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 30, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 100, 'defense_infantry' => 110, 'defense_cavalry' => 310, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 5, 'velocity' => ($attack * 30)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 100, 'defense_infantry' => 110, 'defense_cavalry' => 310, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'42'	=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 40, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 120, 'defense_infantry' => 220, 'defense_cavalry' => 330, 'is_cavalry' => FALSE, 
+		'42'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 5, 'velocity' => ($attack * 40)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 120, 'defense_infantry' => 220, 'defense_cavalry' => 330, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'43'	=> array(
+		'43'=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 50, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 100, 'defense_infantry' => 310, 'defense_cavalry' => 170, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 5, 'velocity' => ($attack * 50)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 100, 'defense_infantry' => 310, 'defense_cavalry' => 170, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'44'	=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 60, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 200, 'defense_infantry' => 200, 'defense_cavalry' => 200, 'is_cavalry' => TRUE, 
+		'44'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 5, 'velocity' => ($attack * 60)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 200, 'defense_infantry' => 200, 'defense_cavalry' => 200, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
 
-			
 
-		'45'	=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 70, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 300, 'defense_infantry' => 430, 'defense_cavalry' => 210, 'is_cavalry' => TRUE, 
+		'45'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 5, 'velocity' => ($attack * 70)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 300, 'defense_infantry' => 430, 'defense_cavalry' => 210, 'is_cavalry' => TRUE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'46'	=> array(
+		'46'=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 30, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 120, 'defense_infantry' => 210, 'defense_cavalry' => 300, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 5, 'velocity' => ($attack * 30)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 120, 'defense_infantry' => 210, 'defense_cavalry' => 300, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'47'	=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 30, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 190, 'defense_infantry' => 210, 'defense_cavalry' => 100, 'is_cavalry' => FALSE, 
+		'47'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 5, 'velocity' => ($attack * 30)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 190, 'defense_infantry' => 210, 'defense_cavalry' => 100, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
+
 
-			
 
-		'48'	=> array(
+		'48'=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 25, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 100, 'defense_infantry' => 70, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 5, 'velocity' => ($attack * 25)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 100, 'defense_infantry' => 70, 'defense_cavalry' => 80, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 0,
+			'training_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'trainer_building' => array(  ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( ),
+			'training_resources'   => array( ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-			
 
-		'49'	=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 50, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 90, 'defense_infantry' => 120, 'defense_cavalry' => 130, 'is_cavalry' => FALSE, 
+		'49'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 5, 'velocity' => ($attack * 50)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 90, 'defense_infantry' => 120, 'defense_cavalry' => 130, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
 
-			
 
-		'50'	=> array(
 
-			'for_tribe_id' => 5, 'velocity' => 40, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 70, 'defense_infantry' => 100, 'defense_cavalry' => 120, 'is_cavalry' => FALSE, 
+		'50'=> array(
 
-			'gold_needed'						=> 0,
+			'for_tribe_id' => 5, 'velocity' => ($attack * 40)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 70, 'defense_infantry' => 100, 'defense_cavalry' => 120, 'is_cavalry' => FALSE, 
 
-			'research_time_consume' 	=> 0,
+			'gold_needed'=> 0,
 
-			'training_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'trainer_building' 				=> array(),
+			'training_time_consume' => 0,
 
-			'research_resources' 			=> array( ),
+			'trainer_building' => array(  ),
 
-			'training_resources'   			=> array( ),
+			'research_resources' => array( ),
 
-			'pre_requests' 					=> array( )
+			'training_resources'   => array( ),
 
+			'pre_requests' => array( )
+
 		),
 
 
 
-		'51'	=> array(
+		'51'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 6, 'carry_load' => 40, 'crop_consumption' => 1, 'attack_value' => 40, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 80, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 20, 'defense_cavalry' => 5, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 2000,
+			'training_time_consume' => 720,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( '1' => 120, '2' => 100, '3' => 180, '4' => 40 ),
+			'training_resources'   => array( '1' => 90, '2' => 50, '3' => 70, '4' => 30 ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
-		'52'	=> array(
+		'52'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 6, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 70, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 40, 'crop_consumption' => 1, 'attack_value' => 10, 'defense_infantry' => 90, 'defense_cavalry' => 35, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 6300,
+			'research_time_consume' => 6300,
 
-			'training_time_consume' 	=> 1500,
+			'training_time_consume' => 1500,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
+			'research_resources' => array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
 
-			'training_resources'   			=> array( '1' => 130, '2' => 120, '3' => 170, '4' => 70 ),
+			'training_resources'   => array( '1' => 95, '2' => 88, '3' => 230, '4' => 70 ),
 
-			'pre_requests' 					=> array( '22' => 3, '12' => 1 )
+			'pre_requests' => array( '22' => 3, '12' => 1 )
 
 		),
 
-		'53'	=> array(
+		'53'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 7, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 70, 'defense_infantry' => 40, 'defense_cavalry' => 25, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 30, 'crop_consumption' => 2, 'attack_value' => 100, 'defense_infantry' => 15, 'defense_cavalry' => 20, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 9000,
+			'research_time_consume' => 9000,
 
-			'training_time_consume' 	=> 2400,
+			'training_time_consume' => 2400,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 1000, '2' => 740, '3' => 1880, '4' => 640 ),
+			'research_resources' => array( '1' => 2215, '2' => 1250, '3' => 2000, '4' => 640 ),
 
-			'training_resources'   			=> array( '1' => 150, '2' => 160, '3' => 210, '4' => 80 ),
+			'training_resources'   => array( '1' => 195, '2' => 125, '3' => 250, '4' => 100 ),
 
-			'pre_requests' 					=> array( '22' => 5, '12' => 1 )
+			'pre_requests' => array( '22' => 5, '12' => 1, '19' => 5 )
 
 		),
 
-		'54'	=> array(
+		'54'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 0, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 0, 'defense_infantry' => 8, 'defense_cavalry' => 0, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 7000,
+			'research_time_consume' => 7000,
 
-			'training_time_consume' 	=> 1360,
+			'training_time_consume' => 1360,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 1060, '2' => 500, '3' => 600, '4' => 460 ),
+			'research_resources' => array( '1' => 1060, '2' => 500, '3' => 600, '4' => 460 ),
 
-			'training_resources'   			=> array( '1' => 210, '2' => 240, '3' => 30, '4' => 60 ),
+			'training_resources'   => array( '1' => 210, '2' => 240, '3' => 30, '4' => 60 ),
 
-			'pre_requests' 					=> array( '22' => 1, '15' => 5 )
+			'pre_requests' => array( '22' => 1, '15' => 5 )
 
 		),
 
-		'55'	=> array(
+		'55'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 9, 'carry_load' => 80, 'crop_consumption' => 3, 'attack_value' => 150, 'defense_infantry' => 50, 'defense_cavalry' => 75, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 10)/$speed, 'carry_load' => $carry * 110, 'crop_consumption' => 2, 'attack_value' => 60, 'defense_infantry' => 40, 'defense_cavalry' => 110, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 2,
+			'gold_needed'=> 2,
 
-			'research_time_consume' 	=> 12900,
+			'research_time_consume' => 12900,
 
-			'training_time_consume' 	=> 3700,
+			'training_time_consume' => 3700,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
+			'research_resources' => array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
 
-			'training_resources'   			=> array( '1' => 450, '2' => 515, '3' => 480, '4' => 80 ),
+			'training_resources'   => array( '1' => 320, '2' => 410, '3' => 610, '4' => 100 ),
 
-			'pre_requests' 					=> array( '20' => 10, '22' => 15 )
+			'pre_requests' => array( '20' => 10, '22' => 10 )
 
 		),
 
-		'56'	=> array(
+		'56'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 10, 'carry_load' => 65, 'crop_consumption' => 4, 'attack_value' => 170, 'defense_infantry' => 140, 'defense_cavalry' => 80, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 10)/$speed, 'carry_load' => $carry * 50, 'crop_consumption' => 5, 'attack_value' => 200, 'defense_infantry' => 10, 'defense_cavalry' => 10, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 2,
+			'gold_needed'=> 2,
 
-			'research_time_consume' 	=> 12900,
+			'research_time_consume' => 12900,
 
-			'training_time_consume' 	=> 4120,
+			'training_time_consume' => 4120,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
+			'research_resources' => array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
 
-			'training_resources'   			=> array( '1' => 825, '2' => 960, '3' => 1200, '4' => 270 ),
+			'training_resources'   => array( '1' => 850, '2' => 900, '3' => 1250, '4' => 300 ),
 
-			'pre_requests' 					=> array( '22' => 15, '20' => 10 )
+			'pre_requests' => array( '22' => 15, '20' => 15 )
 
 		),
 
-		'57'	=> array(
+		'57'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 15600,
+			'research_time_consume' => 15600,
 
-			'training_time_consume' 	=> 4600,
+			'training_time_consume' => 4600,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 5500, '2' => 1540, '3' => 4200, '4' => 580 ),
+			'research_resources' => array( '1' => 5500, '2' => 1540, '3' => 4200, '4' => 580 ),
 
-			'training_resources'   			=> array( '1' => 900, '2' => 360, '3' => 500, '4' => 70 ),
+			'training_resources'   => array( '1' => 300, '2' => 550, '3' => 1800, '4' => 70 ),
 
-			'pre_requests' 					=> array( '22' => 10, '21' => 1 )
+			'pre_requests' => array( '22' => 10, '21' => 1 )
 
 		),
 
-		'58'	=> array(
+		'58'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 3, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 50, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 3)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 6, 'attack_value' => 75, 'defense_infantry' => 60, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 28800,
+			'research_time_consume' => 28800,
 
-			'training_time_consume' 	=> 9000,
+			'training_time_consume' => 9000,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 5500, '2' => 4900, '3' => 5000, '4' => 520 ),
+			'research_resources' => array( '1' => 5500, '2' => 4900, '3' => 5000, '4' => 520 ),
 
-			'training_resources'   			=> array( '1' => 900, '2' => 1200, '3' => 600, '4' => 60 ),
+			'training_resources'   => array( '1' => 950, '2' => 820, '3' => 1560, '4' => 70 ),
 
-			'pre_requests' 					=> array( '21' => 10, '22' => 15 )
+			'pre_requests' => array( '21' => 10, '22' => 15 )
 
 		),
 
-		'59'	=> array(
+		'59'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 5, 'attack_value' => 80, 'defense_infantry' => 50, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 5, 'attack_value' => 80, 'defense_infantry' => 50, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 19425,
+			'research_time_consume' => 19425,
 
-			'training_time_consume' 	=> 94300,
+			'training_time_consume' => 94300,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array( '1' => 18250, '2' => 13500, '3' => 20400, '4' => 16480 ),
+			'research_resources' => array( '1' => 18250, '2' => 13500, '3' => 20400, '4' => 16480 ),
 
-			'training_resources'   			=> array( '1' => 46125, '2' => 40800, '3' => 67500, '4' => 65250 ),
+			'training_resources'   => array( '1' => 35040, '2' => 25000, '3' => 72000, '4' => 45805 ),
 
-			'pre_requests' 					=> array( '16' => 10, '22' => 20 )
+			'pre_requests' => array( '16' => 10, '22' => 20 )
 
 		),
 
-		'60'	=> array(
+		'60'=> array(
 
-			'for_tribe_id' => 6, 'velocity' => 5, 'carry_load' => 3000, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 40, 'defense_cavalry' => 40, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 6, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 3000, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 40, 'defense_cavalry' => 40, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 30500,
+			'training_time_consume' => 30500,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array(),
+			'research_resources' => array(),
 
-			'training_resources'   			=> array( '1' => 8700, '2' => 7950, '3' => 10800, '4' => 8250 ),
+			'training_resources'   => array( '1' => 6570, '2' => 8500, '3' => 11205, '4' => 8250 ),
 
-			'pre_requests' 					=> array(),
+			'pre_requests' => array(  ),
 
-			'help_pre_requests' 			=> array( '26|25' => 10 )
+			'help_pre_requests' => array( '26|25' => 10 )
 
 		),
+
 
-			
 
-		'99'	=> array(
+		'99'=> array(
 
-			'for_tribe_id' => -1 /* for all tribes */, 'velocity' => 0, 'carry_load' => 0, 'crop_consumption' => 0, 'attack_value' => 0, 'defense_infantry' => 0, 'defense_cavalry' => 0, 'is_cavalry' => NULL, 
+			'for_tribe_id' => -1 /* for all tribes */, 'velocity' => ($attack * 0)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 0, 'attack_value' => 0, 'defense_infantry' => 0, 'defense_cavalry' => 0, 'is_cavalry' => NULL, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 210,
+			'training_time_consume' => 210,
 
-			'trainer_building' 				=> array( 36 ),
+			'trainer_building' => array( 36 ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( '1' => 20, '2' => 30, '3' => 10, '4' => 20 ),
+			'training_resources'   => array( '1' => 20, '2' => 30, '3' => 10, '4' => 20 ),
 
-			'pre_requests' 					=> array( )
+			'pre_requests' => array( )
 
 		),
 
 
 
-		'100'	=> array(
+		'100'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 6, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 20, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 6)/$speed, 'carry_load' => $carry * 50, 'crop_consumption' => 1, 'attack_value' => 20, 'defense_infantry' => 35, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 1824,
+			'training_time_consume' => 1824,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( ),
+			'research_resources' => array( ),
 
-			'training_resources'   			=> array( '1' => 180, '2' => 150, '3' => 225, '4' => 45 ),
+			'training_resources'   => array( '1' => 180, '2' => 150, '3' => 225, '4' => 45 ),
 
-			'pre_requests' 					=> array()
+			'pre_requests' => array(  )
 
 		),
 
-		'101'	=> array(
+		'101'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 5, 'carry_load' => 45, 'crop_consumption' => 1, 'attack_value' => 65, 'defense_infantry' => 30, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 45, 'crop_consumption' => 1, 'attack_value' => 65, 'defense_infantry' => 30, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 6000,
+			'research_time_consume' => 6000,
 
-			'training_time_consume' 	=> 2000,
+			'training_time_consume' => 2000,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
+			'research_resources' => array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
 
-			'training_resources' 			=> array( '1' => 150, '2' => 195, '3' => 240, '4' => 105 ),
+			'training_resources' => array( '1' => 150, '2' => 195, '3' => 240, '4' => 105 ),
 
-			'pre_requests' 					=> array( '22' => 3, '12' => 1 )
+			'pre_requests' => array( '22' => 3, '12' => 1 )
 
 		),
 
-		'102'	=> array(
+		'102'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 7, 'carry_load' => 50, 'crop_consumption' => 1, 'attack_value' => 100, 'defense_infantry' => 90, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 7)/$speed, 'carry_load' => $carry * 50, 'crop_consumption' => 1, 'attack_value' => 100, 'defense_infantry' => 90, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 6300,
+			'research_time_consume' => 6300,
 
-			'training_time_consume' 	=> 2160,
+			'training_time_consume' => 2160,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
+			'research_resources' => array( '1' => 880, '2' => 580, '3' => 1560, '4' => 580 ),
 
-			'training_resources'   			=> array( '1' => 225, '2' => 240, '3' => 315, '4' => 120 ),
+			'training_resources'   => array( '1' => 225, '2' => 240, '3' => 315, '4' => 120 ),
 
-			'pre_requests' 					=> array( '22' => 10, '12' => 1 )
+			'pre_requests' => array( '22' => 10, '12' => 1 )
 
 		),
 
-		'103'	=> array(
+		'103'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 20, 'carry_load' => 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 0, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 20)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 2, 'attack_value' => 0, 'defense_infantry' => 10, 'defense_cavalry' => 0, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 1,
+			'gold_needed'=> 1,
 
-			'research_time_consume' 	=> 7000,
+			'research_time_consume' => 7000,
 
-			'training_time_consume' 	=> 1360,
+			'training_time_consume' => 1360,
 
-			'trainer_building' 				=> array( 19,29 ),
+			'trainer_building' => array( 19,29 ),
 
-			'research_resources' 			=> array( '1' => 1060, '2' => 500, '3' => 600, '4' => 460 ),
+			'research_resources' => array( '1' => 1060, '2' => 500, '3' => 600, '4' => 460 ),
 
-			'training_resources'   			=> array( '1' => 210, '2' => 240, '3' => 30, '4' => 60 ),
+			'training_resources'   => array( '1' => 210, '2' => 240, '3' => 30, '4' => 60 ),
 
-			'pre_requests' 					=> array( '22' => 1, '15' => 5 )
+			'pre_requests' => array( '22' => 1, '15' => 5 )
 
 		),
 
-		'104'	=> array(
+		'104'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 14, 'carry_load' => 100, 'crop_consumption' => 3, 'attack_value' => 155, 'defense_infantry' => 80, 'defense_cavalry' => 50, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 14)/$speed, 'carry_load' => $carry * 100, 'crop_consumption' => 3, 'attack_value' => 155, 'defense_infantry' => 80, 'defense_cavalry' => 50, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 2,
+			'gold_needed'=> 2,
 
-			'research_time_consume' 	=> 10800,
+			'research_time_consume' => 10800,
 
-			'training_time_consume' 	=> 3240,
+			'training_time_consume' => 3240,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 2320, '2' => 1180, '3' => 2520, '4' => 610 ),
+			'research_resources' => array( '1' => 2320, '2' => 1180, '3' => 2520, '4' => 610 ),
 
-			'training_resources'   			=> array( '1' => 825, '2' => 660, '3' => 480, '4' => 150 ),
+			'training_resources'   => array( '1' => 825, '2' => 660, '3' => 480, '4' => 150 ),
 
-			'pre_requests' 					=> array( '22' => 5, '20' => 5 )
+			'pre_requests' => array( '22' => 5, '20' => 5 )
 
 		),
 
-		'105'	=> array(
+		'105'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 10, 'carry_load' => 65, 'crop_consumption' => 4, 'attack_value' => 170, 'defense_infantry' => 140, 'defense_cavalry' => 80, 'is_cavalry' => TRUE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 10)/$speed, 'carry_load' => $carry * 65, 'crop_consumption' => 4, 'attack_value' => 170, 'defense_infantry' => 140, 'defense_cavalry' => 80, 'is_cavalry' => TRUE, 
 
-			'gold_needed'						=> 2,
+			'gold_needed'=> 2,
 
-			'research_time_consume' 	=> 12900,
+			'research_time_consume' => 12900,
 
-			'training_time_consume' 	=> 4120,
+			'training_time_consume' => 4120,
 
-			'trainer_building' 				=> array( 20,30 ),
+			'trainer_building' => array( 20,30 ),
 
-			'research_resources' 			=> array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
+			'research_resources' => array( '1' => 2800, '2' => 2160, '3' => 4040, '4' => 640 ),
 
-			'training_resources'   			=> array( '1' => 825, '2' => 960, '3' => 1200, '4' => 270 ),
+			'training_resources'   => array( '1' => 825, '2' => 960, '3' => 1200, '4' => 270 ),
 
-			'pre_requests' 					=> array( '22' => 15, '20' => 10 )
+			'pre_requests' => array( '22' => 15, '20' => 10 )
 
 		),
 
-		'106'	=> array(
+		'106'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 3, 'attack_value' => 60, 'defense_infantry' => 30, 'defense_cavalry' => 75, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 14400,
+			'research_time_consume' => 14400,
 
-			'training_time_consume' 	=> 6400,
+			'training_time_consume' => 6400,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 6100, '2' => 1300, '3' => 3000, '4' => 580 ),
+			'research_resources' => array( '1' => 6100, '2' => 1300, '3' => 3000, '4' => 580 ),
 
-			'training_resources'   			=> array( '1' => 1350, '2' => 540, '3' => 750, '4' => 105 ),
+			'training_resources'   => array( '1' => 1350, '2' => 540, '3' => 750, '4' => 105 ),
 
-			'pre_requests' 					=> array( '22' => 10, '21' => 1 )
+			'pre_requests' => array( '22' => 10, '21' => 1 )
 
 		),
 
-		'107'	=> array(
+		'107'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 3, 'carry_load' => 0, 'crop_consumption' => 6, 'attack_value' => 60, 'defense_infantry' => 45, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 3)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 6, 'attack_value' => 60, 'defense_infantry' => 45, 'defense_cavalry' => 10, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 3,
+			'gold_needed'=> 3,
 
-			'research_time_consume' 	=> 28800,
+			'research_time_consume' => 28800,
 
-			'training_time_consume' 	=> 10800,
+			'training_time_consume' => 10800,
 
-			'trainer_building' 				=> array( 21 ),
+			'trainer_building' => array( 21 ),
 
-			'research_resources' 			=> array( '1' => 5500, '2' => 4900, '3' => 5000, '4' => 520 ),
+			'research_resources' => array( '1' => 5500, '2' => 4900, '3' => 5000, '4' => 520 ),
 
-			'training_resources'   			=> array( '1' => 1425, '2' => 2025, '3' => 900, '4' => 135 ),
+			'training_resources'   => array( '1' => 1425, '2' => 2025, '3' => 900, '4' => 135 ),
 
-			'pre_requests' 					=> array( '21' => 10, '22' => 15 )
+			'pre_requests' => array( '21' => 10, '22' => 15 )
 
 		),
 
-		'108'	=> array(
+		'108'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 4, 'carry_load' => 0, 'crop_consumption' => 5, 'attack_value' => 80, 'defense_infantry' => 50, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 4)/$speed, 'carry_load' => $carry * 0, 'crop_consumption' => 5, 'attack_value' => 80, 'defense_infantry' => 50, 'defense_cavalry' => 50, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 19425,
+			'research_time_consume' => 19425,
 
-			'training_time_consume' 	=> 94300,
+			'training_time_consume' => 94300,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array( '1' => 18250, '2' => 13500, '3' => 20400, '4' => 16480 ),
+			'research_resources' => array( '1' => 18250, '2' => 13500, '3' => 20400, '4' => 16480 ),
 
-			'training_resources'   			=> array( '1' => 46125, '2' => 40800, '3' => 67500, '4' => 65250 ),
+			'training_resources'   => array( '1' => 46125, '2' => 40800, '3' => 67500, '4' => 65250 ),
 
-			'pre_requests' 					=> array( '16' => 10, '22' => 20 )
+			'pre_requests' => array( '16' => 10, '22' => 20 )
 
 		),
 
-		'109'	=> array(
+		'109'=> array(
 
-			'for_tribe_id' => 7, 'velocity' => 5, 'carry_load' => 3000, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 40, 'defense_cavalry' => 40, 'is_cavalry' => FALSE, 
+			'for_tribe_id' => 7, 'velocity' => ($attack * 5)/$speed, 'carry_load' => $carry * 3000, 'crop_consumption' => 1, 'attack_value' => 30, 'defense_infantry' => 40, 'defense_cavalry' => 40, 'is_cavalry' => FALSE, 
 
-			'gold_needed'						=> 0,
+			'gold_needed'=> 0,
 
-			'research_time_consume' 	=> 0,
+			'research_time_consume' => 0,
 
-			'training_time_consume' 	=> 30500,
+			'training_time_consume' => 30500,
 
-			'trainer_building' 				=> array( 25,26 ),
+			'trainer_building' => array( 25,26 ),
 
-			'research_resources' 			=> array(),
+			'research_resources' => array(),
 
-			'training_resources'   			=> array( '1' => 8700, '2' => 7950, '3' => 10800, '4' => 8250 ),
+			'training_resources'   => array( '1' => 8700, '2' => 7950, '3' => 10800, '4' => 8250 ),
 
-			'pre_requests' 					=> array(),
+			'pre_requests' => array(  ),
 
-			'help_pre_requests' 			=> array( '26|25' => 10 )
+			'help_pre_requests' => array( '26|25' => 10 )
 
 		)
 
 	),
+
 
 
 
@@ -3114,7 +3137,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 1700, 'time_consume' => 2000, 'cp' => 1, 'people_inc' => 1,
+					'value' => 1700 * $capacity, 'time_consume' => 2000, 'cp' => 1, 'people_inc' => 1,
 
 					'resources' => array( '1' => 130, '2' => 160, '3' => 90, '4' => 40 )
 
@@ -3124,7 +3147,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 2000, 'time_consume' => 2620, 'cp' => 1, 'people_inc' => 1,
+					'value' => 2000 * $capacity, 'time_consume' => 2620, 'cp' => 1, 'people_inc' => 1,
 
 					'resources' => array( '1' => 165, '2' => 205, '3' => 115, '4' => 50 )
 
@@ -3134,7 +3157,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 2500, 'time_consume' => 3340, 'cp' => 2, 'people_inc' => 1,
+					'value' => 2500 * $capacity, 'time_consume' => 3340, 'cp' => 2, 'people_inc' => 1,
 
 					'resources' => array( '1' => 215, '2' => 260, '3' => 145, '4' => 65 )
 
@@ -3144,7 +3167,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 3100, 'time_consume' => 4170, 'cp' => 2, 'people_inc' => 1,
+					'value' => 3100 * $capacity, 'time_consume' => 4170, 'cp' => 2, 'people_inc' => 1,
 
 					'resources' => array( '1' => 275, '2' => 335, '3' => 190, '4' => 85 )
 
@@ -3154,7 +3177,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 4000, 'time_consume' => 5140, 'cp' => 2, 'people_inc' => 1,
+					'value' => 4000 * $capacity, 'time_consume' => 5140, 'cp' => 2, 'people_inc' => 1,
 
 					'resources' => array( '1' => 350, '2' => 430, '3' => 240, '4' => 105 )
 
@@ -3164,7 +3187,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 5000, 'time_consume' => 6260, 'cp' => 3, 'people_inc' => 1,
+					'value' => 5000 * $capacity, 'time_consume' => 6260, 'cp' => 3, 'people_inc' => 1,
 
 					'resources' => array( '1' => 445, '2' => 550, '3' => 310, '4' => 135 )
 
@@ -3174,7 +3197,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 6300, 'time_consume' => 7570, 'cp' => 4, 'people_inc' => 1,
+					'value' => 6300 * $capacity, 'time_consume' => 7570, 'cp' => 4, 'people_inc' => 1,
 
 					'resources' => array( '1' => 570, '2' => 705, '3' => 395, '4' => 175 )
 
@@ -3184,7 +3207,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 7800, 'time_consume' => 9080, 'cp' => 4, 'people_inc' => 1,
+					'value' => 7800 * $capacity, 'time_consume' => 9080, 'cp' => 4, 'people_inc' => 1,
 
 					'resources' => array( '1' => 730, '2' => 900, '3' => 505, '4' => 225 )
 
@@ -3194,7 +3217,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 9600, 'time_consume' => 10830, 'cp' => 5, 'people_inc' => 1,
+					'value' => 9600 * $capacity, 'time_consume' => 10830, 'cp' => 5, 'people_inc' => 1,
 
 					'resources' => array( '1' => 935, '2' => 1155, '3' => 650, '4' => 290 )
 
@@ -3204,7 +3227,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 11800, 'time_consume' => 12860, 'cp' => 6, 'people_inc' => 1,
+					'value' => 11800 * $capacity, 'time_consume' => 12860, 'cp' => 6, 'people_inc' => 1,
 
 					'resources' => array( '1' => 1200, '2' => 1475, '3' => 830, '4' => 370 )
 
@@ -3214,7 +3237,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 14400, 'time_consume' => 15220, 'cp' => 7, 'people_inc' => 2,
+					'value' => 14400 * $capacity, 'time_consume' => 15220, 'cp' => 7, 'people_inc' => 2,
 
 					'resources' => array( '1' => 1535, '2' => 1890, '3' => 1065, '4' => 470 )
 
@@ -3224,7 +3247,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 17600, 'time_consume' => 17950, 'cp' => 9, 'people_inc' => 2,
+					'value' => 17600 * $capacity, 'time_consume' => 17950, 'cp' => 9, 'people_inc' => 2,
 
 					'resources' => array( '1' => 1965, '2' => 2420, '3' => 1360, '4' => 605 )
 
@@ -3234,7 +3257,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 21400, 'time_consume' => 21130, 'cp' => 11, 'people_inc' => 2,
+					'value' => 21400 * $capacity, 'time_consume' => 21130, 'cp' => 11, 'people_inc' => 2,
 
 					'resources' => array( '1' => 2515, '2' => 3095, '3' => 1740, '4' => 775 )
 
@@ -3244,7 +3267,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 25900, 'time_consume' => 24810, 'cp' => 13, 'people_inc' => 2,
+					'value' => 25900 * $capacity, 'time_consume' => 24810, 'cp' => 13, 'people_inc' => 2,
 
 					'resources' => array( '1' => 3220, '2' => 3960, '3' => 2230, '4' => 990 )
 
@@ -3254,7 +3277,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 31300, 'time_consume' => 29080, 'cp' => 15, 'people_inc' => 2,
+					'value' => 31300 * $capacity, 'time_consume' => 29080, 'cp' => 15, 'people_inc' => 2,
 
 					'resources' => array( '1' => 4120, '2' => 5070, '3' => 2850, '4' => 1270 )
 
@@ -3264,7 +3287,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 37900, 'time_consume' => 34030, 'cp' => 18, 'people_inc' => 2,
+					'value' => 37900 * $capacity, 'time_consume' => 34030, 'cp' => 18, 'people_inc' => 2,
 
 					'resources' => array( '1' => 5275, '2' => 6490, '3' => 3650, '4' => 1625 )
 
@@ -3274,7 +3297,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 45700, 'time_consume' => 39770, 'cp' => 22, 'people_inc' => 2,
+					'value' => 45700 * $capacity, 'time_consume' => 39770, 'cp' => 22, 'people_inc' => 2,
 
 					'resources' => array( '1' => 6750, '2' => 8310, '3' => 4675, '4' => 2075 )
 
@@ -3284,7 +3307,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 55100, 'time_consume' => 46440, 'cp' => 27, 'people_inc' => 2,
+					'value' => 55100 * $capacity, 'time_consume' => 46440, 'cp' => 27, 'people_inc' => 2,
 
 					'resources' => array( '1' => 8640, '2' => 10635, '3' => 5980, '4' => 2660 )
 
@@ -3294,7 +3317,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 66400, 'time_consume' => 54170, 'cp' => 32, 'people_inc' => 2,
+					'value' => 66400 * $capacity, 'time_consume' => 54170, 'cp' => 32, 'people_inc' => 2,
 
 					'resources' => array( '1' => 11060, '2' => 13610, '3' => 7655, '4' => 3405 )
 
@@ -3304,7 +3327,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 80000, 'time_consume' => 63130, 'cp' => 38, 'people_inc' => 2,
+					'value' => 80000 * $capacity, 'time_consume' => 63130, 'cp' => 38, 'people_inc' => 2,
 
 					'resources' => array( '1' => 14155, '2' => 17420, '3' => 9800, '4' => 4355 )
 
@@ -3332,7 +3355,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 1700, 'time_consume' => 1600, 'cp' => 1, 'people_inc' => 1,
+					'value' => 1700 * $capacity, 'time_consume' => 1600, 'cp' => 1, 'people_inc' => 1,
 
 					'resources' => array( '1' => 80, '2' => 100, '3' => 70, '4' => 20 )
 
@@ -3342,7 +3365,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 2000, 'time_consume' => 2160, 'cp' => 1, 'people_inc' => 1,
+					'value' => 2000 * $capacity, 'time_consume' => 2160, 'cp' => 1, 'people_inc' => 1,
 
 					'resources' => array( '1' => 100, '2' => 130, '3' => 90, '4' => 25 )
 
@@ -3352,7 +3375,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 2500, 'time_consume' => 2800, 'cp' => 2, 'people_inc' => 1,
+					'value' => 2500 * $capacity, 'time_consume' => 2800, 'cp' => 2, 'people_inc' => 1,
 
 					'resources' => array( '1' => 130, '2' => 165, '3' => 115, '4' => 35 )
 
@@ -3362,7 +3385,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 3100, 'time_consume' => 3550, 'cp' => 2, 'people_inc' => 1,
+					'value' => 3100 * $capacity, 'time_consume' => 3550, 'cp' => 2, 'people_inc' => 1,
 
 					'resources' => array( '1' => 170, '2' => 210, '3' => 145, '4' => 40 )
 
@@ -3372,7 +3395,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 4000, 'time_consume' => 4420, 'cp' => 2, 'people_inc' => 1,
+					'value' => 4000 * $capacity, 'time_consume' => 4420, 'cp' => 2, 'people_inc' => 1,
 
 					'resources' => array( '1' => 215, '2' => 270, '3' => 190, '4' => 55 )
 
@@ -3382,7 +3405,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 5000, 'time_consume' => 5420, 'cp' => 3, 'people_inc' => 1,
+					'value' => 5000 * $capacity, 'time_consume' => 5420, 'cp' => 3, 'people_inc' => 1,
 
 					'resources' => array( '1' => 275, '2' => 345, '3' => 240, '4' => 70 )
 
@@ -3392,7 +3415,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 6300, 'time_consume' => 6590, 'cp' => 4, 'people_inc' => 1,
+					'value' => 6300 * $capacity, 'time_consume' => 6590, 'cp' => 4, 'people_inc' => 1,
 
 					'resources' => array( '1' => 350, '2' => 440, '3' => 310, '4' => 90 )
 
@@ -3402,7 +3425,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 7800, 'time_consume' => 7950, 'cp' => 4, 'people_inc' => 1,
+					'value' => 7800 * $capacity, 'time_consume' => 7950, 'cp' => 4, 'people_inc' => 1,
 
 					'resources' => array( '1' => 450, '2' => 565, '3' => 395, '4' => 115 )
 
@@ -3412,7 +3435,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 9600, 'time_consume' => 9520, 'cp' => 5, 'people_inc' => 1,
+					'value' => 9600 * $capacity, 'time_consume' => 9520, 'cp' => 5, 'people_inc' => 1,
 
 					'resources' => array( '1' => 575, '2' => 720, '3' => 505, '4' => 145 )
 
@@ -3422,7 +3445,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 11800, 'time_consume' => 11340, 'cp' => 6, 'people_inc' => 1,
+					'value' => 11800 * $capacity, 'time_consume' => 11340, 'cp' => 6, 'people_inc' => 1,
 
 					'resources' => array( '1' => 740, '2' => 920, '3' => 645, '4' => 185 )
 
@@ -3432,7 +3455,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 14400, 'time_consume' => 13450, 'cp' => 7, 'people_inc' => 2,
+					'value' => 14400 * $capacity, 'time_consume' => 13450, 'cp' => 7, 'people_inc' => 2,
 
 					'resources' => array( '1' => 945, '2' => 1180, '3' => 825, '4' => 235 )
 
@@ -3442,7 +3465,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 17600, 'time_consume' => 15910, 'cp' => 9, 'people_inc' => 2,
+					'value' => 17600 * $capacity, 'time_consume' => 15910, 'cp' => 9, 'people_inc' => 2,
 
 					'resources' => array( '1' => 1210, '2' => 1510, '3' => 1060, '4' => 300 )
 
@@ -3452,7 +3475,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 21400, 'time_consume' => 18750, 'cp' => 11, 'people_inc' => 2,
+					'value' => 21400 * $capacity, 'time_consume' => 18750, 'cp' => 11, 'people_inc' => 2,
 
 					'resources' => array( '1' => 1545, '2' => 1935, '3' => 1355, '4' => 385 )
 
@@ -3462,7 +3485,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 25900, 'time_consume' => 22050, 'cp' => 13, 'people_inc' => 2,
+					'value' => 25900 * $capacity, 'time_consume' => 22050, 'cp' => 13, 'people_inc' => 2,
 
 					'resources' => array( '1' => 1980, '2' => 2475, '3' => 1735, '4' => 495 )
 
@@ -3472,7 +3495,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 31300, 'time_consume' => 25880, 'cp' => 15, 'people_inc' => 2,
+					'value' => 31300 * $capacity, 'time_consume' => 25880, 'cp' => 15, 'people_inc' => 2,
 
 					'resources' => array( '1' => 2535, '2' => 3170, '3' => 2220, '4' => 635 )
 
@@ -3482,7 +3505,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 37900, 'time_consume' => 30320, 'cp' => 18, 'people_inc' => 2,
+					'value' => 37900 * $capacity, 'time_consume' => 30320, 'cp' => 18, 'people_inc' => 2,
 
 					'resources' => array( '1' => 3245, '2' => 4055, '3' => 2840, '4' => 810 )
 
@@ -3492,7 +3515,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 45700, 'time_consume' => 35470, 'cp' => 22, 'people_inc' => 2,
+					'value' => 45700 * $capacity, 'time_consume' => 35470, 'cp' => 22, 'people_inc' => 2,
 
 					'resources' => array( '1' => 4155, '2' => 5190, '3' => 3635, '4' => 1040 )
 
@@ -3502,7 +3525,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 55100, 'time_consume' => 41450, 'cp' => 27, 'people_inc' => 2,
+					'value' => 55100 * $capacity, 'time_consume' => 41450, 'cp' => 27, 'people_inc' => 2,
 
 					'resources' => array( '1' => 5315, '2' => 6645, '3' => 4650, '4' => 1330 )
 
@@ -3512,7 +3535,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 66400, 'time_consume' => 48380, 'cp' => 32, 'people_inc' => 2,
+					'value' => 66400 * $capacity, 'time_consume' => 48380, 'cp' => 32, 'people_inc' => 2,
 
 					'resources' => array( '1' => 6805, '2' => 8505, '3' => 5955, '4' => 1700 )
 
@@ -3522,7 +3545,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 80000, 'time_consume' => 56420, 'cp' => 38, 'people_inc' => 2,
+					'value' => 80000 * $capacity, 'time_consume' => 56420, 'cp' => 38, 'people_inc' => 2,
 
 					'resources' => array( '1' => 8710, '2' => 10890, '3' => 7620, '4' => 2180 )
 
