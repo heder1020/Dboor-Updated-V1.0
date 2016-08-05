@@ -21,7 +21,7 @@ To Do list.
 
 =Bugs=
 
-- Fix Natar spawn time.
+-Fix Natar spawn time.
 
 =Improvements=
 
@@ -29,4 +29,4 @@ To Do list.
 
 =Rewriting=
 
-- Rewrite database class to MySqli from MySQL.
+-Rewrite database class to MySqli from MySQL.
