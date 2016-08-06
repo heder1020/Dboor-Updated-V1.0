@@ -13,11 +13,16 @@ Live version of script will be available soon.
 
 #Changelog
 -Deleted one backdoor script
+
 -Fixed issues where you can't login
+
 -Improved configs system so you can configurate troops speed ,  trops
-carry,, merchant carry.
+carry, merchant carry.
+
 -Warehouse and Grannary capacity can be modified.
+
 -Natars spawn time fixed, you can set the value by yourself
+
 -Install improved, now oasis will have resources depending on server
 speed and capacity multiplier.
 
