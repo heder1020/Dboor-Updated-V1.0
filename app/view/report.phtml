@@ -1,5 +1,8 @@
 <?php
-
+// hotfix for non static methods adding it here since there is multiple places where static method was called
+	// easier to call new class once and call the function from it once we need it, than create new class all the time right?
+	$report_client = new ReportHelper();
+	
 	require_once( LANG_UI_PATH . 'report.php' );
 	echo '<h1>';
 	echo LANGUI_RPT_T1;
@@ -63,8 +66,8 @@
 		while ($this->dataList->next()) {
 			++$_c;
 			$isAttack = $this->dataList->row['from_player_id'] == $this->player->playerId;
-			$rptRelativeResult = ReportHelper::getreportresultrelative( $this->dataList->row['rpt_result'], $isAttack );
-			$btext = ReportHelper::getreportresulttext( $rptRelativeResult );
+			$rptRelativeResult = $report_client->getReportResultRelative( $this->dataList->row['rpt_result'], $isAttack );
+			$btext = $report_client->getReportResultText( $rptRelativeResult );
 			$_rptResultCss = ($rptRelativeResult == 100 ? 10 : $rptRelativeResult);
 			echo '		<tr>			<td class="sel"><input class="check" type="checkbox" name="dr[]" value="';
 			echo $this->dataList->row['id'];
@@ -78,7 +81,7 @@
 			echo $this->dataList->row['id'];
 			echo '">';
 			echo $this->getVillageName( $this->dataList->row['from_player_id'], $this->dataList->row['from_village_name'] );
-			echo ReportHelper::getreportactiontext( $this->dataList->row['rpt_cat'] );
+			echo $report_client->getReportActionText( $this->dataList->row['rpt_cat'] );
 			echo $this->getVillageName( $this->dataList->row['to_player_id'], $this->dataList->row['to_village_name'] );
 			echo '</a>';
 
@@ -122,7 +125,7 @@
 		echo LANGUI_RPT_T7;
 		echo ':</th>			<th>';
 		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
-		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $report_client->getReportActionText( $this->reportData['rpt_cat'] );
 		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
 		echo '</th>		</tr>		<tr>			<td class="sent">';
 		echo LANGUI_RPT_T8;
@@ -198,7 +201,7 @@ else {
 		echo LANGUI_RPT_T7;
 		echo ':</th>			<th>';
 		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
-		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $report_client->getReportActionText( $this->reportData['rpt_cat'] );
 		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
 		echo '</th>		</tr>		<tr>			<td class="sent">';
 		echo LANGUI_RPT_T8;
@@ -309,7 +312,7 @@ else {
 		echo LANGUI_RPT_T7;
 		echo ':</th>			<th>';
 		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
-		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $report_client->getReportActionText( $this->reportData['rpt_cat'] );
 		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
 		echo '</th>		</tr>		<tr>			<td class="sent">';
 		echo LANGUI_RPT_T8;
@@ -700,7 +703,7 @@ else {
 		echo LANGUI_RPT_T7;
 		echo ':</th>			<th>';
 		echo $this->getVillageName( $this->reportData['from_player_id'], $this->reportData['from_village_name'] );
-		echo ReportHelper::getreportactiontext( $this->reportData['rpt_cat'] );
+		echo $report_client->getReportActionText( $this->reportData['rpt_cat'] );
 		echo $this->getVillageName( $this->reportData['to_player_id'], $this->reportData['to_village_name'] );
 		echo '</th>		</tr>		<tr>			<td class="sent">';
 		echo LANGUI_RPT_T8;

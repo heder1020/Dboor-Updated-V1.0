@@ -1,5 +1,8 @@
 <?php
-
+// hotfix for non static methods adding it here since there is multiple places where static method was called
+	// easier to call new class once and call the function from it once we need it, than create new class all the time right?
+	$webhelper_client = new WebHelper();
+	
 	require_once( LANG_UI_PATH . 'v2v.php' );
 
 	if ($this->pageState == 1) {
@@ -718,7 +721,7 @@ else {
 			<td colspan="11">';
 			echo text_in_lang;
 			echo ' ';
-			echo WebHelper::secondstostring( $this->targetVillage['needed_time'] );
+			echo $webhelper_client->secondstostring( $this->targetVillage['needed_time'] );
 			echo ' ';
 			echo LANGUI_V2V_T17;
 			echo '</td>
@@ -846,7 +849,7 @@ else {
 			echo '"><div class="in">';
 			echo text_in_lang;
 			echo ' ';
-			echo WebHelper::secondstostring( $this->backTroopsProperty['time'] );
+			echo $webhelper_client->secondstostring( $this->backTroopsProperty['time'] );
 			echo ' ';
 			echo LANGUI_V2V_T17;
 			echo '</div></td>

@@ -761,8 +761,9 @@ $this->targetVillage['playerId'] = ($playerData != NULL ? $playerData['id'] : 0)
 $this->targetVillage['troops'] = $renderTroops;
 
 $this->targetVillage['hasHero'] = (((1 < $this->transferType AND $this->hasHero) AND isset ($_POST['_t'])) AND intval ($_POST['_t']) == 1);
-
-$distance = WebHelper::getdistance ($this->data['rel_x'], $this->data['rel_y'], $this->targetVillage['x'], $this->targetVillage['y'], $this->setupMetadata['map_size'] / 2);
+// hotfix for non-static methods
+$web_client = new Webhelper();
+$distance = $web_client->getdistance ($this->data['rel_x'], $this->data['rel_y'], $this->targetVillage['x'], $this->targetVillage['y'], $this->setupMetadata['map_size'] / 2);
 
 $this->targetVillage['needed_time'] = intval ($distance / $this->_getTheSlowestTroopSpeed ($renderTroops) * 3600);
 

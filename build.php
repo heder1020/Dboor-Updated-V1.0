@@ -337,11 +337,12 @@
 		}
 
 		function _canCancelWarTask($taskType, $taskId) {
-			if (!QueueTask::iscancelabletask( $taskType )) {
+			
+			if (!$this->queueModel->iscancelabletask( $taskType )) {
 				return FALSE;
 			}
 
-			$timeout = QueueTask::getmaxcanceltimeout( $taskType );
+			$timeout = $this->queueModel->getmaxcanceltimeout( $taskType );
 
 			if (0 - 1 < $timeout) {
 				$_task = NULL;
