@@ -1,5 +1,8 @@
 <?php
-
+	// hotfix for non static methods adding it here since there is multiple places where static method was called
+	// easier to call new class once and call the function from it once we need it, than create new class all the time right?
+	$webhelper_client = new WebHelper();
+	
 	require_once( LANG_UI_PATH . 'custbuilds.php' );
 	echo '<p></p><p></p>
 
@@ -183,7 +186,7 @@ else {
 			echo ' ';
 			echo '<s';
 			echo 'pan id="timer1">';
-			echo WebHelper::secondstostring( $taskTable['remainingSeconds'] );
+			echo $webhelper_client->secondstostring( $taskTable['remainingSeconds'] );
 			echo '</span> ';
 			echo time_hour_lang;
 			echo '</div>
@@ -402,7 +405,7 @@ else {
 			echo ' ';
 			echo '<s';
 			echo 'pan id="timer1">';
-			echo WebHelper::secondstostring( $taskTable['remainingSeconds'] );
+			echo $webhelper_client->secondstostring( $taskTable['remainingSeconds'] );
 			echo '</span> ';
 			echo time_hour_lang;
 			echo '</div>
@@ -1171,7 +1174,7 @@ else {
 					echo ' ';
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $taskTable['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $taskTable['remainingSeconds'] );
 					echo '</span> ';
 					echo time_hour_lang;
 					echo '</div>

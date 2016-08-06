@@ -11,7 +11,7 @@ class MysqlModel
         $this->provider->close();
     }
 }
-class MysqlResultSet
+class MysqlResultSet extends MysqlProvider
 {
     public $_result = NULL;
     public $row = NULL;
@@ -21,7 +21,7 @@ class MysqlResultSet
     }
     public function next()
     {
-        $this->row   = mysql_fetch_array( $this->_result, MYSQL_ASSOC );
+        $this->row   = mysqli_fetch_array( $this->_result);
         $returnValue = $this->row != NULL;
         if ( !$returnValue ) {
             $this->free();
@@ -30,7 +30,7 @@ class MysqlResultSet
     }
     public function free( )
     {
-        mysql_free_result( $this->_result );
+        mysqli_free_result( $this->_result );
         unset( $row );
     }
 }
@@ -54,11 +54,8 @@ class MysqlProvider
         if ( $this->_conn != NULL ) {
             return TRUE;
         }
-        $c[ $connKey ] = $this->_conn = mysql_connect( $this->properties[ 'host' ], $this->properties[ 'user' ], $this->properties[ 'password' ] );
+        $c[ $connKey ] = $this->_conn = mysqli_connect( $this->properties[ 'host' ], $this->properties[ 'user' ], $this->properties[ 'password' ],$this->properties[ 'database' ]);
         if ( $this->_conn == NULL ) {
-            return FALSE;
-        }
-        if ( mysql_select_db( $this->properties[ 'database' ] ) == NULL ) {
             return FALSE;
         }
         return TRUE;
@@ -68,7 +65,7 @@ class MysqlProvider
         if ( $this->_conn == NULL ) {
             return;
         }
-        mysql_close( $this->_conn );
+        mysqli_close( $this->_conn );
         $this->_conn = NULL;
     }
     public function executeQuery( $sqlStatement, $sqlParams = NULL )
@@ -119,7 +116,7 @@ class MysqlProvider
         if ( $sqlParams != NULL && is_array( $sqlParams ) ) {
             $safe_params = array( );
             foreach ( $sqlParams as $paramValue ) {
-                $safe_params[ ] = mysql_real_escape_string( $paramValue, $this->_conn );
+                $safe_params[ ] = mysqli_real_escape_string ($this->_conn,$paramValue);
             }
             $sqlStatement = vsprintf( $sqlStatement, $safe_params );
         }
@@ -127,16 +124,16 @@ class MysqlProvider
             echo $sqlStatement;
             echo "<hr/>";
         }
-        $result = mysql_query( $sqlStatement, $this->_conn );
+        $result = mysqli_query($this->_conn, $sqlStatement);
         switch ( $executionType ) {
             case 1:
                 return;
             case 2:
-                return mysql_affected_rows( $this->_conn );
+                return mysqli_affected_rows($this->_conn);
             case 3:
-                $row         = mysql_fetch_row( $result );
+                $row         = mysqli_fetch_row($result);
                 $returnValue = $row[ 0 ];
-                mysql_free_result( $result );
+                mysqli_free_result( $result );
                 return $returnValue;
             case 4:
                 return new MysqlResultSet( $result );

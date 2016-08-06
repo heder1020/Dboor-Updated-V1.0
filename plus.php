@@ -1,10 +1,4 @@
 <?php
-
-
-
-
-
-
 	require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 	class GPage extends SecureGamePage {
 		var $packageIndex = -1;
@@ -91,8 +85,9 @@
 			if (isset( $tasks[constant( 'QS_PLUS' . ( $action + 1 ) )] )) {
 				$time = $tasks[constant( 'QS_PLUS' . ( $action + 1 ) )][0]['remainingSeconds'];
 			}
-
-			return (0 < $time ? time_remain_lang . ' <span id="timer1">' . WebHelper::secondstostring( $time ) . '</span> ' . time_hour_lang : '');
+			// hotfix for non static methods
+			$webhelper_client = new WebHelper();
+			return (0 < $time ? time_remain_lang . ' <span id="timer1">' . 	$webhelper_client->secondstostring( $time ) . '</span> ' . time_hour_lang : '');
 		}
 
 		function getPlusAction($action) {

@@ -1,5 +1,7 @@
 <?php
-
+	// hotfix for non static methods adding it here since there is multiple places where static method was called
+	// easier to call new class once and call the function from it once we need it, than create new class all the time right?
+	$webhelper_client = new WebHelper();
 require_once( LANG_UI_PATH . 'plus.php' );
 echo '<h1><p><b>';
 echo LANGUI_PLUS_T1;

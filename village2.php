@@ -1,10 +1,4 @@
 <?php
-
-
-
-
-
-
 	require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 	class GPage extends ProcessVillagePage {
 		var $showLevelsStr = null;
@@ -17,7 +11,9 @@
 
 		function load() {
 			parent::load();
-			$cookie = ClientData::getinstance();
+			// hot-fix for non static methods
+			$cookie_client = new ClientData();
+			$cookie = $cookie_client->getinstance();
 			$this->showLevelsStr = ($cookie->showLevels ? 'on' : 'off');
 		}
 

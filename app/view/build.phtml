@@ -1,7 +1,10 @@
 <?php
 
 	require_once( LANG_UI_PATH . 'build.php' );
-
+	// hotfix for non static methods adding it here since there is multiple places where static method was called
+	// easier to call new class once and call the function from it once we need it, than create new class all the time right?
+	$webhelper_client = new WebHelper();
+	
 	if (!$this->buildProperties['emptyPlace']) {
 		echo '<div id="build" class="gid';
 		echo $this->buildProperties['building']['item_id'];
@@ -153,7 +156,7 @@ else {
 				echo '" title="';
 				echo text_period_lang;
 				echo '">';
-				echo WebHelper::secondstostring( $this->buildProperties['level']['calc_consume'] );
+				echo $webhelper_client->secondstostring( $this->buildProperties['level']['calc_consume'] );
 				echo '		';
 				echo $this->getResourceGoldExchange( $this->buildProperties['level']['resources'], $this->buildProperties['building']['item_id'], $this->buildingIndex );
 				echo '		<br>';
@@ -292,7 +295,7 @@ function showPane(list) {
 				echo '" title="';
 				echo text_period_lang;
 				echo '">';
-				echo WebHelper::secondstostring( $build['levels'][0]['time_consume'] / $this->gameSpeed * ( $this->data['time_consume_percent'] / 100 ) );
+				echo $webhelper_client->secondstostring( $build['levels'][0]['time_consume'] / $this->gameSpeed * ( $this->data['time_consume_percent'] / 100 ) );
 				echo '				';
 				echo $this->getResourceGoldExchange( $neededResources, $item_id, $this->buildingIndex );
 				echo '			</td>

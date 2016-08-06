@@ -1,9 +1,4 @@
 <?php
-
-
-
-
-
 require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 require_once( MODEL_PATH . 'guide.php' );
 class GPage extends VillagePage {
@@ -113,7 +108,9 @@ class GPage extends VillagePage {
 
 	function handleNoQuiz($m, $quizStep) {
 		$time = floor( 36000 / $this->gameMetadata['game_speed'] );
-		$this->guideData['quiztime'] = WebHelper::secondstostring( $time );
+		// hotfix for nont static methods
+		$webhelper_client = new WebHelper();
+		$this->guideData['quiztime'] = $webhelper_client->secondstostring( $time );
 		$result = 0;
 		switch ($quizStep) {
 		case 0: {

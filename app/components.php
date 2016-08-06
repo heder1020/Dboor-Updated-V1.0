@@ -99,11 +99,15 @@ class Player {
 	var $gameStatus = null;
 
 	function getKey() {
-		return md5( WebHelper::getdomain(  ) );
+		// hot-fix for non static methods
+		$webhelper_client = new WebHelper();
+		return md5( $webhelper_client->getdomain());
 	}
 
 	function getInstance() {
-		$key = Player::getkey(  );
+		// hot-fix for non static methods
+		$key_client = new Player();
+		$key = $key_client->getkey();
 		return (isset( $_SESSION[$key] ) ? $_SESSION[$key] : NULL);
 	}
 
@@ -130,8 +134,10 @@ class ClientData {
 
 	function getInstance() {
 		$cookie = new ClientData(  );
-		$key = Player::getkey(  );
-
+		// hot-fix for non static methods
+		$key_client = new Player();
+		$key = $key_client->getkey();
+		//
 		if (isset( $_COOKIE[$key] )) {
 			$obj = unserialize( base64_decode( $_COOKIE[$key] ) );
 
@@ -161,9 +167,12 @@ class ClientData {
 	function clear() {
 		$this->uname = '';
 		$this->upwd = '';
-		setcookie( Player::getkey(  ) );
-		setcookie( 'lvl' );
-		setcookie( 'lng' );
+		// hot-fix for non static methods
+		$key_client = new Player();
+		$key = $key_client->getkey();
+		setcookie($key);
+		setcookie('lvl');
+		setcookie('lng');
 	}
 }
 

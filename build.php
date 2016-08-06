@@ -1,8 +1,4 @@
 <?php
-
-
-
-
 	require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 	require_once( MODEL_PATH . 'build.php' );
 	class GPage extends VillagePage {
@@ -1519,7 +1515,9 @@
 
 			if (!$this->isResourcesAvailable( $neededResources )) {
 				$neededTime = $this->getNeededTime( $neededResources );
-				return '<span class="none">' . (0 < $neededTime ? buildings_p_willenoughresat . ' ' . WebHelper::secondstostring( $neededTime ) . ' ' . time_hour_lang : buildings_p_notenoughres2) . '</span>';
+				// hotfix for non static methods
+				$webhelper_client = new WebHelper();
+				return '<span class="none">' . (0 < $neededTime ? buildings_p_willenoughresat . ' ' . $webhelper_client->secondstostring( $neededTime ) . ' ' . time_hour_lang : buildings_p_notenoughres2) . '</span>';
 			}
 
 			return '';
@@ -1558,7 +1556,9 @@
 			}
 
 			$neededTime = $this->getNeededTime( $neededResources );
-			return '<span class="none">' . (0 < $neededTime ? buildings_p_willenoughresat . ' ' . WebHelper::secondstostring( $neededTime ) . ' ' . time_hour_lang : buildings_p_notenoughres2) . '</span>';
+			// hotfix for non stati methods
+			$webhelper_client = new WebHelper();
+			return '<span class="none">' . (0 < $neededTime ? buildings_p_willenoughresat . ' ' . $webhelper_client->secondstostring( $neededTime ) . ' ' . time_hour_lang : buildings_p_notenoughres2) . '</span>';
 		}
 
 		function _canAcceptOffer($needResources, $giveResources, $villageId, $onlyForAlliance, $allianceId, $maxTime, $distance) {

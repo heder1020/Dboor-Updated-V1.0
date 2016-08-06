@@ -22,7 +22,8 @@ class GPage extends DefaultPage {
 	}
 
 	function load() {
-		$cookie = ClientData::getinstance();
+		$coockie_client = new ClientData();
+		$cookie = $coockie_client->getinstance();
 		$m = new IndexModel();
 		$bannerModel = new AdvertisingModel();
 		$this->banner = $bannerModel->GetBanner( 1 );

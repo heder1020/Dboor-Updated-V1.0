@@ -1,6 +1,6 @@
 <?php 
 ob_start();
-	// error_reporting( E_ALL ); it has been disabled to hide the errors
+	error_reporting( E_ALL ); //it has been disabled to hide the errors
 	ignore_user_abort( TRUE );
 	set_time_limit( 0 );
 define( "ROOT_PATH", realpath( dirname( dirname( __FILE__ ) ) ).DIRECTORY_SEPARATOR );
@@ -25,7 +25,11 @@ require( APP_PATH."metadata.php" );
 require( MODEL_PATH."base.php" ); 
 require( APP_PATH."components.php" ); 
 require( APP_PATH."mywidgets.php" ); 
-$cookie = ClientData::getinstance( ); 
+// hot-fix for non static methods
+$coockie_client = new ClientData();
+$cookie = $coockie_client->getinstance();
+$webhelper_client = new WebHelper();
+//
 $AppConfig['system']['lang'] = $cookie->uiLang; 
 define( "LANG_PATH", APP_PATH."lang".DIRECTORY_SEPARATOR.$AppConfig['system']['lang'].DIRECTORY_SEPARATOR ); 
 define( "LANG_UI_PATH", LANG_PATH."ui".DIRECTORY_SEPARATOR ); 

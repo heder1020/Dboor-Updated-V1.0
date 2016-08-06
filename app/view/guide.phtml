@@ -1,7 +1,10 @@
 <?php
 
 	require_once( LANG_UI_PATH . 'guide.php' );
-
+	// hotfix for non static methods adding it here since there is multiple places where static method was called
+	// easier to call new class once and call the function from it once we need it, than create new class all the time right?
+	$webhelper_client = new WebHelper();
+	
 	if ($this->taskNumber == 0) {
 		echo '<div id="qstd">
 	<h1> <img class="point" src="assets/x.gif" alt="" title=""> ';
@@ -1985,7 +1988,7 @@ else {
 				if ($this->guideData['pended']) {
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $this->guideData['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $this->guideData['remainingSeconds'] );
 					echo '</span>';
 				} 
 else {
@@ -2044,7 +2047,7 @@ else {
 				if ($this->guideData['pended']) {
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $this->guideData['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $this->guideData['remainingSeconds'] );
 					echo '</span>';
 				} 
 else {
@@ -2103,7 +2106,7 @@ else {
 				if ($this->guideData['pended']) {
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $this->guideData['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $this->guideData['remainingSeconds'] );
 					echo '</span>';
 				} 
 else {
@@ -2162,7 +2165,7 @@ else {
 				if ($this->guideData['pended']) {
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $this->guideData['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $this->guideData['remainingSeconds'] );
 					echo '</span>';
 				} 
 else {
@@ -2221,7 +2224,7 @@ else {
 				if ($this->guideData['pended']) {
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $this->guideData['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $this->guideData['remainingSeconds'] );
 					echo '</span>';
 				} 
 else {
@@ -2270,7 +2273,7 @@ else {
 				if ($this->guideData['pended']) {
 					echo '<s';
 					echo 'pan id="timer1">';
-					echo WebHelper::secondstostring( $this->guideData['remainingSeconds'] );
+					echo $webhelper_client->secondstostring( $this->guideData['remainingSeconds'] );
 					echo '</span>';
 				} 
 else {

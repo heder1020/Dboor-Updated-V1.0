@@ -54,8 +54,10 @@ class MyWidget extends Widget {
 
 			exit(0);return; 
 		}
-
-		$this->player = Player::getInstance();
+		
+		// hot-fix for non static methods
+		$instance_clien = new Player();
+		$this->player = $instance_clien->getInstance();
 		
 		// check for game license, don't check for logged player
 		/* if ($this->player == NULL) {	
