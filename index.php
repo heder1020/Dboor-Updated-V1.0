@@ -1,9 +1,4 @@
 <?php
-
-
-
-
-
 require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 require_once( MODEL_PATH . 'index.php' );
 require_once( MODEL_PATH . 'advertising.php' );
@@ -47,7 +42,8 @@ class GPage extends DefaultPage {
 			}
 
 			$this->password = $_POST['password'];
-			$result = $m->getLoginResult( $this->name, $this->password, WebHelper::getclientip() );
+			$webhelper_client = new WebHelper();
+			$result = $m->getLoginResult( $this->name, $this->password, $webhelper_client->getclientip() );
 
 			if ($result == NULL) {
 				$this->setError( $m, login_result_msg_notexists, 1 );
