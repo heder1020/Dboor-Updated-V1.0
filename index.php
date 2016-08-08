@@ -102,5 +102,5 @@ class GPage extends DefaultPage {
 
 $p = new GPage();
 $p->run();
-?>
+
 

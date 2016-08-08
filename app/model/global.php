@@ -40,6 +40,7 @@ class GlobalModel extends ModelBase {
 				p.selected_village_id, p.villages_id, p.villages_data,
 				p.friend_players,
 				p.gold_num,
+                                p.silver_num,
 				p.notes,
 				p.week_attack_points,
 				p.week_defense_points,

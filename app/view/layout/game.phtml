@@ -179,7 +179,7 @@ else {
 			echo '</a></p>';
 		}
 
-			echo '<!-- By Bazaid @ DAFED Team --!>';
+			
 
 		if ($this->data['player_type'] == PLAYERTYPE_ADMIN) {
 			echo '<p>
@@ -197,18 +197,25 @@ else {
 			echo '</a>
             </p>';
 		}
-	}
-
-
-	if ($this->player != NULL) {
+	
 		echo '
-		<p>
-			<a href="plus.php?t=2 "><b><font color="#FF6F0F">';
-		echo LANGUI_GAME_MENU9;
-		echo '</font></b></a>
-		</p>
+                    <p>
+                        <a href="plus.php?t=2 ">
+                            <b>
+                                <font color="#FF6F0F">
+                                    '.LANGUI_GAME_MENU9.' [ '.$this->data['gold_num'].' ]
+                                </font>
+                            </b>
+                        </a>
 		';
-
+                
+                echo '
+                        <a href="plus.php?t=3 ">
+                                    Silver Coins [ '.$this->data['silver_num'].' ]
+                        </a>
+                    </p>
+		';
+                
 		if ($this->isPlayerInDeletionProgress()) {
 			echo '<p class="deltimer"><a href="profile.php?t=4">';
 			echo LANGUI_GAME_PLAYERDEL;

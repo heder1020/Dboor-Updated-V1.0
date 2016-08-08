@@ -182,8 +182,7 @@ loadProviderHtml();
 
 	if ($this->providerType == 'paypal') {
 		require_once( LIB_PATH . 'paypal.class.php' );
-		paypal_class;
-		$p = new ();
+		$p = new paypal_class();
 
 		if ($this->payment['testMode']) {
 			$p->paypal_url = 'https://www.sandbox.paypal.com/cgi-bin/webscr';

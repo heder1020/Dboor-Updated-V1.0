@@ -127,7 +127,16 @@ class RegisterModel extends ModelBase {
 	}
 
 	function createNewPlayer($playerName, $playerEmail, $playerPassword, $tribeId, $position, $villageName, $mapSize, $playerType, $villageCount = 1, $snID = 0) {
-		$this->provider->executeQuery( 'INSERT p_players
+		
+            global $AppConfig;
+                
+                if($AppConfig['system']['new_user_activaiton'] == true) {
+                    $accountType = 0;
+                } else {
+                    $accountType = 1;
+                }
+                
+                $this->provider->executeQuery( 'INSERT p_players
 			SET
 				tribe_id=\'%s\',
 				name=\'%s\',
@@ -140,7 +149,7 @@ class RegisterModel extends ModelBase {
 				player_type=%s,
 				gold_num=0,
 				snid=%s,
-				medals=\'0::\'', array( $tribeId, $playerName, md5( $playerPassword ), $playerEmail, ($playerType == PLAYERTYPE_ADMIN ? 1 : 0), $playerType, intval( $snID ) ) );
+				medals=\'0::\'', array( $tribeId, $playerName, md5( $playerPassword ), $playerEmail, ($playerType == PLAYERTYPE_ADMIN ? 1 : $accountType), $playerType, intval( $snID ) ) );
 		$playerId = $this->provider->fetchScalar( 'SELECT LAST_INSERT_ID() FROM p_players' );
 
 		if (!$playerId) {

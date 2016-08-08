@@ -1,10 +1,4 @@
 <?php
-
-
-
-
-
-
 	require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 	require_once( MODEL_PATH . 'register.php' );
 	class GPage extends GamePage {
@@ -69,15 +63,22 @@
 					$m->dispose();
 					return null;
 				}
+                                
+                                
+                                
+                                if($this->appConfig['system']['new_user_activaiton']== true){
+                                    $web_client = new WebHelper();
+                                    $link = $web_client->getbaseurl() . 'activate.php?id=' . $result['activationCode'];
+                                    $to = $email;
+                                    $from = $this->appConfig['system']['email'];
+                                    $subject = register_player_txt_regmail_sub;
+                                    $message = sprintf( register_player_txt_regmail_body, $name, $name, $pwd, $link, $link );
+                                    $web_client->sendmail( $to, $from, $subject, $message );
+                                }
+                                    $m->dispose();
+                                    $this->success = TRUE;
 
-				$m->dispose();
-				$link = WebHelper::getbaseurl() . 'activate.php?id=' . $result['activationCode'];
-				$to = $email;
-				$from = $this->appConfig['system']['email'];
-				$subject = register_player_txt_regmail_sub;
-				$message = sprintf( register_player_txt_regmail_body, $name, $name, $pwd, $link, $link );
-				WebHelper::sendmail( $to, $from, $subject, $message );
-				$this->success = TRUE;
+                                
 			}
 
 		}

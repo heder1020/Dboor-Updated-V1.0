@@ -167,6 +167,7 @@ CREATE TABLE `p_players` (
   `house_name` varchar(255) DEFAULT NULL,
   `registration_date` datetime DEFAULT NULL,
   `gold_num` int(11) DEFAULT \'0\',
+  `silver_num` int(11) DEFAULT \'0\',
   `agent_for_players` varchar(255) DEFAULT NULL,
   `my_agent_players` varchar(255) DEFAULT NULL,
   `custom_links` text,

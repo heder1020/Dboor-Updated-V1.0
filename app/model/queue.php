@@ -25,6 +25,7 @@ class QueueModel extends ModelBase {
 			$this->provider->executeQuery( 'UPDATE p_players p SET p.gold_num=p.gold_num-%s WHERE p.id=%s', array( $goldCost, $playerId ) );
 			$this->_changeUpdateKey(  );
 		}
+                
 
 	}
 
@@ -739,6 +740,7 @@ class QueueModel extends ModelBase {
 	}
 
 	function _updateVillage($updateBuilding, $updateKey = TRUE, $newTroops = NULL) {
+            global $AppConfig;
 		$expr = '';
 		$resources = '';
 		foreach ($this->page->resources as $k => $v) {
@@ -767,6 +769,7 @@ class QueueModel extends ModelBase {
 			}
 
 			$expr = 'v.buildings=\'' . $expr . '\',';
+                        
 		}
 
 
@@ -788,7 +791,12 @@ class QueueModel extends ModelBase {
 				v.last_update_date=NOW()
 			WHERE
 				v.id=%s AND v.player_id=%s', array( $resources, $cp, $this->page->data['selected_village_id'], $this->page->player->playerId ) );
-	}
+	
+                
+                if($AppConfig['Game']['silver_coins'] == true) {
+                    $this->provider->executeQuery( 'UPDATE p_players p SET p.silver_num=silver_num+%s WHERE p.id=%s', array( $AppConfig['Game']['silver_coins_rate'], $this->page->player->playerId ) );
+                }
+            }
 }
 
 ?>

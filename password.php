@@ -6,8 +6,9 @@
 		var $pageState = -1;
 		var $playerId = null;
         public $n = 666;
-		public $key = $this->appConfig['system']['securty_key']] );
+		public $key;
  		function GPage() {
+                        $this->key = $this->appConfig['system']['securty_key'];
 			parent::gamepage();
 			$this->viewFile = 'password.phtml';
 			$this->contentCssClass = 'activate';
