@@ -22,7 +22,7 @@
 <p></p>
 ';
 	}
-
+	
 	echo '<form method="post" name="snd" action="build.php?id=';
 	echo $this->buildingIndex;
 	echo '">
@@ -55,7 +55,8 @@
 				$timeFactor -= $this->gameMetadata['items'][41]['levels'][$flvl - 1]['value'] / 100;
 			}
 		}
-
+		
+		
 		$lvlTime = intval( $buildingMetadata['training_time_consume'] / $this->gameSpeed * ( 10 / ( $this->buildProperties['building']['level'] + 9 ) ) * $timeFactor );
 		$maxNumber = $this->_getMaxTrainNumber( $tid, $this->buildings[$this->buildingIndex]['item_id'] );
 		$manual = ($tid == 99 ? '4,36' : '3,' . $tid);
@@ -223,7 +224,6 @@ else {
 				$_f = FALSE;
 				$nextTroopTime = $troopTime;
 			}
-
 			echo '		<tr>
 			<td class="desc"><img class="unit u';
 			echo $tid;
@@ -244,7 +244,6 @@ else {
 		</tr>
 		';
 		}
-
 		echo '		<tr class="next"><td colspan="2">';
 		echo ($this->buildProperties['building']['item_id'] == 36 ? LANGUI_CUSTBU_TRP_t13 : LANGUI_CUSTBU_TRP_t14);
 		echo ' ';

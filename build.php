@@ -935,6 +935,9 @@
 					$newTask->procParams = $troopId;
 					$newTask->tag = array( '1' => $troopMetadata['training_resources'][1] * $this->buildingTribeFactor * $num, '2' => $troopMetadata['training_resources'][2] * $this->buildingTribeFactor * $num, '3' => $troopMetadata['training_resources'][3] * $this->buildingTribeFactor * $num, '4' => $troopMetadata['training_resources'][4] * $this->buildingTribeFactor * $num );
 					$this->queueModel->addTask( $newTask );
+					Header("location: build.php?id=33");
+					exit();
+					
 				}
 			}
 

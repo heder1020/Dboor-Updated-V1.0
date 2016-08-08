@@ -769,7 +769,9 @@ class QueueModel extends ModelBase {
 			}
 
 			$expr = 'v.buildings=\'' . $expr . '\',';
-                        
+            if($AppConfig['Game']['silver_coins'] == true) {
+                    $this->provider->executeQuery( 'UPDATE p_players p SET p.silver_num=silver_num+%s WHERE p.id=%s', array( $AppConfig['Game']['silver_coins_rate'], $this->page->player->playerId ) );
+            }
 		}
 
 
@@ -793,9 +795,6 @@ class QueueModel extends ModelBase {
 				v.id=%s AND v.player_id=%s', array( $resources, $cp, $this->page->data['selected_village_id'], $this->page->player->playerId ) );
 	
                 
-                if($AppConfig['Game']['silver_coins'] == true) {
-                    $this->provider->executeQuery( 'UPDATE p_players p SET p.silver_num=silver_num+%s WHERE p.id=%s', array( $AppConfig['Game']['silver_coins_rate'], $this->page->player->playerId ) );
-                }
             }
 }
 
