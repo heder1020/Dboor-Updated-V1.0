@@ -20,3 +20,7 @@ Live version of script will be available soon.
 - Install improved, now oasis will have resources depending on server speed and capacity multiplier.
 - Fixed non static method errors , they won't bother you anymore.
 - Remake of mysql class to mysqli so you can run this script on phpversions > 5.4
+- Fixed few more errors related to non-static methods.
+- Fixed few major issues / left overs after decode with broken syntax.
+- Added option to disable / enable email activation after new user registration.
+- Added new feature silver coins, now you can enable / disable this system and set up the ratio of silver coins given for player for his actions. (will be hot-fixed and improved later).
