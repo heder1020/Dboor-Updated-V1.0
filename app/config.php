@@ -13,8 +13,8 @@ $AppConfig = array (
 		'carry'         => '2.5', // carry
 		'cranny'        => '100000', // Granny Capacity
 		'market'        => '10000', // for trader 1 is normaly
-                'silver_coins'  => true,
-                'silver_coins_rate' => '2',
+        'silver_coins'  => true,
+        'silver_coins_rate' => '2',
 	),
 	'page' 		=> array (
 		'en_title'			=> 'Tatar war',

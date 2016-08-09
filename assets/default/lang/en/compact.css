@@ -2,29 +2,29 @@
 p.custDir {text-align:left;direction:ltr;}
 img{border:0;}h1,h2,span,form,img,li{margin:0;padding:0;}h1{margin-bottom:8px;}p{margin:14px 0;padding:0;}
 label{white-space:nowrap;}#msfilter{width:1px;height:1px;position:absolute;z-index:99;}
-.hide{display:none;}div#header{width:100%;min-width:980px;height:67px;}div#mid{float:left;width:100%;min-width:980px;margin-bottom:15px;}
-div#content{float:left;min-height:450px;position:relative;overflow:hidden;}div.universal{width:502px;padding:0 25px 0;}
-div.login{width:502px;padding:0 25px 0;}div.logout{width:502px;padding:0 25px 0;}
-div.signup{width:502px;padding:0 25px 0;}div.activate{width:502px;padding:0 25px 0;}
-div.banned_cn{width:502px;padding:0 25px 0;}div.player{width:502px;padding:43px 25px 0;}
-div.alliance{width:502px;padding:43px 25px 0;}div.forum{width:502px;padding:43px 25px 0;}
-div.statistics{width:502px;padding:43px 25px 0;}div.cropfinder{width:502px;padding:43px 25px 0;}
-div.reports{width:502px;padding:43px 25px 0;}div.messages{width:502px;padding:43px 25px 0;}
-div.a2b{width:502px;padding:43px 25px 0;}div.village3{width:502px;padding:43px 25px 0;}
-div.plus{width:502px;padding:43px 25px 0;}div.warsim{width:502px;padding:43px 25px 0;}
-div.map{width:552px;padding:43px 0 0;}div.support{width:502px;padding:15px 25px 0;}
-div.village1{width:537px;padding-top:43px;padding-left:0;padding-bottom:0;padding-left:15px;}
-div.village2{width:540px;padding:43px 6px 0;}div.build{width:552px;}div#build{width:502px;padding:43px 25px 0;}
+.hide{display:none;}div#header{width:100%;min-width:1200px;height:67px;}div#mid{float:left;width:100%;min-width:1200px;margin-bottom:15px;}
+div#content{float:left;min-height:450px;position:relative;overflow:hidden;}div.universal{width:722px;padding:0 25px 0;}
+div.login{width:722px;padding:0 25px 0;}div.logout{width:722px;padding:0 25px 0;}
+div.signup{width:722px;padding:0 25px 0;}div.activate{width:722px;padding:0 25px 0;}
+div.banned_cn{width:722px;padding:0 25px 0;}div.player{width:722px;padding:43px 25px 0;}
+div.alliance{width:722px;padding:43px 25px 0;}div.forum{width:722px;padding:43px 25px 0;}
+div.statistics{width:722px;padding:43px 25px 0;}div.cropfinder{width:722px;padding:43px 25px 0;}
+div.reports{width:722px;padding:43px 25px 0;}div.messages{width:722px;padding:43px 25px 0;}
+div.a2b{width:722px;padding:43px 25px 0;}div.village3{width:722px;padding:43px 25px 0;}
+div.plus{width:722px;padding:43px 25px 0;}div.warsim{width:722px;padding:43px 25px 0;}
+div.map{width:552px;padding:43px 0 0;}div.support{width:722px;padding:15px 25px 0;}
+div.village1{width:700px;padding-top:43px;padding-left:0;padding-bottom:0;padding-left:15px;}
+div.village2{width:540px;padding:43px 6px 0;}div.build{width:750px;}div#build{width:722px;padding:43px 25px 0;}
 div.error_site{width:552px;padding:0;}p.btn{text-align:center;}div#textmenu{margin:14px 0;}
 div.clear{clear:both;width:0;height:0;}table{margin:0;}td.aligned_coords{width:84px;padding:2px 0;white-space:nowrap;}
 td.aligned_coords div{float:left;}td.aligned_coords div.cox{width:38px;text-align:right;}
 td.aligned_coords div.pi{width:8px;text-align:center;}td.aligned_coords div.coy{width:38px;text-align:left;}
-span.dur{white-space:nowrap;}div#sysmsg{width:502px;margin:auto;}div#ce{position:fixed;left:0;top:0;z-index:999;}
+span.dur{white-space:nowrap;}div#sysmsg{width:722px;margin:auto;}div#ce{position:fixed;left:0;top:0;z-index:999;}
 div.popup3{position:absolute;display:inline;width:430px;height:456px;z-index:80;border:0 solid #000;padding-top:31px;padding-bottom:0;padding-left:20px;right:-600px;top:99px;}
 div.popup3 div#drag{position:absolute;left:11px;top:11px;height:20px;width:408px;z-index:2;cursor:move;background-color:#F3F3F3;}
 img.popup4{position:absolute;width:30px;height:30px;z-index:81;border:0 solid #000;right:0;top:0;}
 div#ltime{width:220px;height:15px;position:absolute;top:42px;left:5px;z-index:3;}
-div#dynamic_header{width:100%;min-width:980px;height:28px;background-color:#747273;overflow:hidden;}
+div#dynamic_header{width:100%;min-width:1200px;height:28px;background-color:#747273;overflow:hidden;}
 body.mod1 div#dynamic_header{height:70px;}body.mod1 div#dynamic_header div.dyn1{float:left;width:780px;height:70px;}
 body.mod1 div#dynamic_header div.dyn2{float:left;width:151px;height:70px;}body.mod1 iframe#ad_iframe{position:absolute;left:168px;width:468px;height:60px;z-index:10;}
 body.mod1 div#ltime{top:83px;}body.mod1 div#res{top:137px;}body.mod2 div#dynamic_header{height:100px;}
@@ -62,7 +62,7 @@ div.village1 img.rf10{left:205px;top:136px;}div.village1 img.rf11{left:260px;top
 div.village1 img.rf12{left:33px;top:165px;}div.village1 img.rf13{left:84px;top:158px;}
 div.village1 img.rf14{left:151px;top:178px;}div.village1 img.rf15{left:230px;top:192px;}
 div.village1 img.rf16{left:79px;top:211px;}div.village1 img.rf17{left:132px;top:223px;}
-div.village1 img.rf18{left:182px;top:227px;}div.village1 div#map_details{float:right;width:229px;margin-top:-29px;margin-left:1px;}
+div.village1 img.rf18{left:182px;top:227px;}div.village1 div#map_details{float:right;width:350px;margin-top:-29px;margin-left:1px;}
 div.village1 div#map_details table{margin-bottom:14px;}div.village1 table#building_contract{clear:both;margin:0 25px;}
 div.village2 h1{position:absolute;left:25px;z-index:30;}div.village2 div#village_map{width:540px;height:448px;position:relative;}
 div.village2 div#village_map img{position:absolute;}div.village2 div#village_map img.ww{z-index:20;left:155px;}
@@ -395,8 +395,8 @@ div.village1 table#movements td.typ img{float:left;position:relative;top:3px;mar
 div.village1 table#movements div.mov{float:left;}div.village1 table#movements div.dur_r{float:left;padding-left:2px;}
 div.village1 table#movements td.wrap{line-height:10px;}div.village1 table#movements div.dur_l{float:left;padding-bottom:2px;}
 div.village1 table#production td.res{width:20%;}div.village1 table#production td.per{width:40%;}
-div.village1 table#troops td.un{width:80%;}div.village1 table#building_contract{width:502px;}
-div.village2 table#building_contract{line-height:19px;width:502px;background:none;}
+div.village1 table#troops td.un{width:80%;}div.village1 table#building_contract{width:722px;}
+div.village2 table#building_contract{line-height:19px;width:722px;background:none;}
 div.village2 table#building_contract thead th{background:none;text-align:left;}
 div.village2 table#building_contract tbody td{background:none;padding:1px 2px;}div.village2 table#building_contract td.ico{width:18px;padding-left:4px;}
 div.village3 table th,div.village3 table td{padding:2px 4px;}div.village3 table tbody td{white-space:nowrap;text-align:center;}
@@ -429,15 +429,15 @@ div.map table#troop_info .val{font-weight:bold;}div.map table#troop_info ul{marg
 div.map table#troop_info.rep tbody{line-height:16px;}div.map table#troop_info.rep img{float:left;margin-left:5px;}
 div.map table#distribution{width:227px;}div.map table#distribution .ico{width:10%;}
 div.map table#distribution .val{width:10%;text-align:left;padding-left:10px;}div.map table#distribution .val{font-weight:bold;}
-div.map table#options{width:502px;}div.map table#options tbody td{padding-left:4px;}
-div.map table#raidFavs{width:502px;}div.map table#raidFavs thead td{white-space:nowrap;}
+div.map table#options{width:722px;}div.map table#options tbody td{padding-left:4px;}
+div.map table#raidFavs{width:722px;}div.map table#raidFavs thead td{white-space:nowrap;}
 div.map table#raidFavs th,div.map table#raidFavs td{padding:2px 7px;text-align:center;}
 div.map table#raidFavs td.del{padding:2px;width:4%;}div.map table#raidFavs td.vil{text-align:left;}
 div.map table#raidFavs td.vil img{float:left;}div.map table#raidFavs td.aligned_coords{width:94px;padding:2px 0;}
 div.map table#raidFavs td.aligned_coords div.cox,div.map table#raidFavs td.aligned_coords div.coy{width:42px;}
 div.map table#raidFavs td.rep{text-align:left;width:20%;white-space:nowrap;}div.map table#raidFavs td.rep img{float:left;margin-left:3px;}
 div.map table#raidFavs td.goods{width:10%;}div.map table#raidFavs td.lost{width:10%;}
-div.map table#raidDetails{width:502px;}div.map table#raidDetails th,div.map table#raidDetails td{padding:2px 7px;text-align:center;}
+div.map table#raidDetails{width:722px;}div.map table#raidDetails th,div.map table#raidDetails td{padding:2px 7px;text-align:center;}
 div.map table#raidDetails td.day{width:25px;height:100px;}div.map table#raidDetails td.day div.booty,div.map table#raidDetails td.day div.lost{position:relative;width:12px;height:100px;}
 div.map table#raidDetails td.day div.booty{float:left;background-color:#CAFFC9;}
 div.map table#raidDetails td.day div.booty div.value{background-color:#00BC00;}div.map table#raidDetails td.day div.lost{float:left;background-color:#FFD0B1;}
@@ -519,7 +519,7 @@ div.alliance table.dipl,div.alliance div#box{width:60%;}div.alliance table.dipl 
 div.alliance table.infos{width:37%;}div.alliance table.infos td{padding:2px;}div.alliance table td.none{text-align:center;}
 div.alliance table td.acc{width:25%;text-align:center;}div.alliance table#diplomacy input.text{width:94%;}
 div.alliance table#diplomacy input.radio{margin:3px;}div.alliance table#own td.wait{width:25%;}
-div.forum table{width:502px;}div.forum table td,div.forum table th{padding:2px 7px;}
+div.forum table{width:722px;}div.forum table td,div.forum table th{padding:2px 7px;}
 div.forum table td.ico{width:32px;text-align:center;padding:5px;white-space:nowrap;}
 div.forum table td.ico a img{margin:2px;}div.forum table td.tit{padding:5px;}div.forum table td.cou{width:62px;text-align:center;}
 div.forum table td.last{width:120px;text-align:left;padding-top:2px;padding-left:5px;padding-bottom:2px;padding-left:2px;white-space:nowrap;}
@@ -1367,16 +1367,16 @@ body.v35 div.i4{background-image:url(../../img/vip/m4-ltr.gif);}div#mtop a#plus{
 img#btn_plus{background-color:transparent;background-position:left top;background-repeat:no-repeat;height:21px;left:62px;position:absolute;top:19px;width:21px;}
 img#btn_plus.active{background-image:url(../../img/vip/plus-active.png);}img#btn_plus.inactive{background-image:url(../../img/vip/plus-inactive.png);}
 img.day,img.night{left:5px;top:-57px;}div.peace{left:5px;top:-65px;}div#stime{display:inline;height:0;left:0;top:0;width:0;}
-div#ltime,body.mod1 div#ltime,body.mod2 div#ltime,body.mod3 div#ltime{left:0;min-width:980px;top:21px;width:100%;z-index:1;}
-div#ltime div#ltimeWrap{margin:0 auto 0 auto;width:910px;}div#res,body.mod1 div#res,body.mod2 div#res,body.mod3 div#res{left:0;min-width:980px;top:85px;width:100%;z-index:2;}
+div#ltime,body.mod1 div#ltime,body.mod2 div#ltime,body.mod3 div#ltime{left:0;min-width:1200px;top:21px;width:100%;z-index:1;}
+div#ltime div#ltimeWrap{margin:0 auto 0 auto;width:910px;}div#res,body.mod1 div#res,body.mod2 div#res,body.mod3 div#res{left:0;min-width:1200px;top:85px;width:100%;z-index:2;}
 div#resWrap{left:50%;margin-left:-335px;position:relative;width:552px;}div#res table{background-color:transparent;}
-div#res table td{background-color:transparent;}div#mid{background-image:none;float:none;height:auto;margin:0 auto;width:980px;}
+div#res table td{background-color:transparent;}div#mid{background-image:none;float:none;height:auto;margin:0 auto;width:1100px;}
 div#content,body.mod1 div#content,body.mod2 div#content,body.mod3 div#content{height:auto!important;height:450px;min-height:450px;}
-div#side_navi{background:transparent url(../../img/vip/shadow-b-rtl.png) no-repeat right top;height:auto!important;height:453px;min-height:453px;width:155px;}
+div#side_navi{background:transparent url(../../img/vip/shadow-b-rtl.png) no-repeat right top;height:auto!important;height:453px;min-height:453px;width:150px;}
 div#side_navi a#logo{visibility:hidden;}div#side_navi a#logo img{height:28px;}div#side_navi a:hover{background:transparent url(../../img/vip/menu-bg-ltr.gif) no-repeat left top;}
 div#side_info,body.mod1 div#side_info,body.mod2 div#side_info,body.mod3 div#side_info{background:transparent url(../../img/vip/shadow-a-rtl.png) no-repeat left top;height:auto!important;height:453px;margin-left:0;min-height:453px;padding-left:16px;width:257px;z-index:3;}
 .footer-stopper{float:left;margin-bottom:100px;}.ie6 .footer-stopper,.ie7 .footer-stopper{height:100px;}
-div#footer{background:#F1F1F1 url(../../img/vip/footer-line.png) repeat-x center top;bottom:0;height:50px;left:0;min-width:980px;position:absolute;left:0;}
+div#footer{background:#F1F1F1 url(../../img/vip/footer-line.png) repeat-x center top;bottom:0;height:50px;left:0;min-width:1200px;position:absolute;left:0;}
 div#footer div#mfoot{margin:0 auto;width:905px;}
 .ie6 div#footer div#mfoot{}
 div#footer div.footer-menu{color:#797979;color:#797979;font-size:.8em;}div#footer div#mfoot a,div#footer div#mfoot a:visited,div#footer div#mfoot a:active{color:#797979;}
