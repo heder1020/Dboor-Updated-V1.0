@@ -1,6 +1,6 @@
 <?php 
 ob_start();
-	error_reporting( E_ALL ); //it has been disabled to hide the errors
+	//error_reporting( E_ALL ); //it has been disabled to hide the errors
 	ignore_user_abort( TRUE );
 	set_time_limit( 0 );
 define( "ROOT_PATH", realpath( dirname( dirname( __FILE__ ) ) ).DIRECTORY_SEPARATOR );
