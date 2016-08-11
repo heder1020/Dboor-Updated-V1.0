@@ -1,25 +1,23 @@
+<!DOCTYPE HTML>
 <?php
 	require_once( LANG_UI_PATH . 'game.php' );
 ?>
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 	<html>
 	<head>
-	<title><? echo $this->appConfig['page'][$this->appConfig['system']['lang'] . '_title'];?></title>
+	<title><?$this->appConfig['page'][$this->appConfig['system']['lang'] . '_title'];?></title>
 	<meta http-equiv="cache-control" content="max-age=0" />
 	<meta http-equiv="pragma" content="no-cache" />
 	<meta http-equiv="expires" content="0" />
 	<meta http-equiv="imagetoolbar" content="no" />
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-	<meta content="<? echo $this->appConfig['page']['meta-tag'];?>" name="description"> 
-	<meta content="<? echo $this->appConfig['page']['meta-tag'];?>" name="keywords">
-	<link href="assets/default/lang/<? echo $this->appConfig['system']['lang']."/lang.css".$this->getAssetVersion();?>rel="stylesheet" type="text/css"/>
-	<link href="assets/default/lang/<?echo $this->appConfig['system']['lang']."/compact.css".$this->getAssetVersion();?>" rel="stylesheet" type="text/css" />
-	<meta name="google-site-verification" content="vTjsRxnpRzHRJvw5E3uOiAA-jcGayHNOw_SEAD93-fc" />
+	<meta content="<?echo $this->appConfig['page']['meta-tag'];?>" name="description"> 
+	<meta content="$this->appConfig['page']['meta-tag'];" name="keywords">
+	<link href="assets/default/lang/<?echo $this->appConfig['system']['lang'].'/lang.css'.$this->getAssetVersion();?>" rel="stylesheet" type="text/css" />
+	<link href="assets/default/lang/<?echo $this->appConfig['system']['lang'].'/compact.css'.$this->getAssetVersion();?>" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
-	<script type="text/javascript">
-		var d3l=<? echo ($this->appConfig['system']['lang'] == 'ar' ? '180' : '-600');?>;
-	</script>
-	<script src="assets/core.js<? echo $this->getAssetVersion();?>"type="text/javascript"></script>
+    <script type="text/javascript">
+	var d3l=<? echo($this->appConfig['system']['lang'] == 'ar' ? '180' : '-600');?>;</script>
+	<script src="assets/core.js<?echo $this->getAssetVersion();?>" type="text/javascript"></script>
 	</head>
 	
 <body class="v35 webkit">
@@ -84,7 +82,7 @@
 		echo '<a href="'.$this->appConfig['system']['forum_url'].'" target="_blank">'.LANGUI_GAME_T1.'</a>';
 		echo '<a href="'.$this->appConfig['system']['social_url'].'" target="_blank">'.LANGUI_GAME_T2.'</a>';
 		echo '<a href="chat.php">'.LANGUI_GAME_MENU12.'</a>';
-		echo '<a href="snprofile.php?uid='.$this->player->playerId.'">'.LANGUI_GAME_T3.'</a>';
+		//echo '<a href="snprofile.php?uid='.$this->player->playerId.'">'.LANGUI_GAME_T3.'</a>';
 		echo '<a href="friends.php">'.LANGUI_GAME_T4.'</a>';
 		
 		echo "<br />";

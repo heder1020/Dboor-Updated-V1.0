@@ -397,7 +397,7 @@ class WarBattleModel extends BattleModel
         $doTroopsBack    = TRUE;
         $villageCaptured = FALSE;
         $captureResult   = '';
-        if ( $procInfo[ 'troopsArray' ][ 'hasKing' ] && !$toVillageRow[ 'is_oasis' ] && !$warResult[ 'all_attack_killed' ] && $taskRow[ 'proc_type' ] != QS_WAR_ATTACK_PLUNDER && !$toVillageRow[ 'is_capital' ] && !$villageTotallyDestructed && $warResult[ 'all_defense_killed' ] && $toVillageRow[ 'player_id' ] != $fromVillageRow[ 'player_id' ] && !$toVillageRow[ 'is_artefacts' ] ) {
+        if ( $procInfo[ 'troopsArray' ][ 'hasKing' ] && !$toVillageRow[ 'is_oasis' ] && !$warResult[ 'all_attack_killed' ] && $taskRow[ 'proc_type' ] != QS_WAR_ATTACK_PLUNDER && !$toVillageRow[ 'is_capital' ] && !$villageTotallyDestructed && $warResult[ 'all_defense_killed' ] && $toVillageRow[ 'player_id' ] != $fromVillageRow[ 'player_id' ] /*&& !$toVillageRow[ 'is_artefacts' ]*/ ) {
             $checkToVillageRow = $this->_getVillageInfo( $taskRow[ 'to_village_id' ] );
             $b25_26_exists     = FALSE;
             $bStr              = trim( $checkToVillageRow[ 'buildings' ] );
@@ -516,7 +516,7 @@ class WarBattleModel extends BattleModel
             }
         }
         $artefactResult = '';
-        if ( $procInfo[ 'troopsArray' ][ 'hasHero' ] && $toVillageRow[ 'artefacts' ] != '' && !$warResult[ 'all_attack_killed' ] && $warResult[ 'all_defense_killed' ] && $toVillageRow[ 'player_id' ] != $fromVillageRow[ 'player_id' ] && 10 <= $TreasuryLevel ) {
+        if ( $procInfo[ 'troopsArray' ][ 'hasHero' ] /*&& $toVillageRow[ 'artefacts' ] != ''*/ && !$warResult[ 'all_attack_killed' ] && $warResult[ 'all_defense_killed' ] && $toVillageRow[ 'player_id' ] != $fromVillageRow[ 'player_id' ] /*&& 10 <= $TreasuryLevel*/ ) {
             $checkToVillageRow = $this->_getVillageInfo( $taskRow[ 'to_village_id' ] );
             $b27_exists        = FALSE;
             $bStr              = trim( $checkToVillageRow[ 'buildings' ] );

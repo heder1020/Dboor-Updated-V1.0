@@ -1,6 +1,7 @@
 <?php
 
 	require_once( LANG_UI_PATH . 'alliance.php' );
+	$report_helper = new ReportHelper();
 
 	if (!$this->hasAlliance) {
 		echo '<h1>';
@@ -503,8 +504,8 @@ function showAllianceRole(uid) {
 		while ($this->lastReports->next()) {
 			++$_c;
 			$isAttack = $this->lastReports->row['isAttack'];
-			$rptRelativeResult = ReportHelper::getreportresultrelative( $this->lastReports->row['rpt_result'], $isAttack );
-			$btext = ReportHelper::getreportresulttext( $rptRelativeResult );
+			$rptRelativeResult = $report_helper->getreportresultrelative( $this->lastReports->row['rpt_result'], $isAttack );
+			$btext = $report_helper->getreportresulttext( $rptRelativeResult );
 			$_rptResultCss = ($rptRelativeResult == 100 ? 10 : $rptRelativeResult);
 			echo '		<tr>
 			<td class="sub">
@@ -519,7 +520,7 @@ function showAllianceRole(uid) {
 			echo $this->lastReports->row['id'];
 			echo '">';
 			echo $this->lastReports->row['from_player_name'];
-			echo ReportHelper::getreportactiontext( $this->lastReports->row['rpt_cat'] );
+			echo $report_helper->getreportactiontext( $this->lastReports->row['rpt_cat'] );
 			echo $this->lastReports->row['to_player_name'];
 			echo '</a></div>
 			</td>

@@ -21,7 +21,7 @@ class MysqlResultSet extends MysqlProvider
     }
     public function next()
     {
-        $this->row   = mysqli_fetch_array( $this->_result);
+        $this->row   = mysqli_fetch_assoc($this->_result);
         $returnValue = $this->row != NULL;
         if ( !$returnValue ) {
             $this->free();
@@ -30,7 +30,7 @@ class MysqlResultSet extends MysqlProvider
     }
     public function free( )
     {
-        mysqli_free_result( $this->_result );
+        mysqli_free_result($this->_result);
         unset( $row );
     }
 }

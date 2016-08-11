@@ -159,7 +159,7 @@ else {
 				echo $webhelper_client->secondstostring( $this->buildProperties['level']['calc_consume'] );
 				echo '		';
 				echo $this->getResourceGoldExchange( $this->buildProperties['level']['resources'], $this->buildProperties['building']['item_id'], $this->buildingIndex );
-				echo '		<br>';
+				echo '		<br/>';
 				echo $this->getActionText( $this->buildProperties['level']['resources'], $this->buildProperties['building']['item_id'] <= 4, TRUE, $this->buildProperties['building']['item_id'] );
 				echo '	</p>
 	';
@@ -169,10 +169,6 @@ else {
 		echo '</div>
 ';
 
-		if ($this->buildProperties['building']['item_id'] <= 4) {
-			echo $this->getFlashContent( 'assets/anm/res/r' . $this->buildProperties['building']['item_id'] . '.swf', 130, 160 );
-			return 1;
-		}
 	} 
 else {
 		echo '<s';

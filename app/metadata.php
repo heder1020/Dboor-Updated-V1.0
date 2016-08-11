@@ -12369,7 +12369,7 @@ $GameMetadata = array (
 
 		'37'	=> array (
 
-			'support_multiple' 	=> FALSE, 'built_in_capital' => TRUE, 'built_in_non_capital' => TRUE, 'built_in_special_only' => FALSE, 'max_lvl_in_non_capital' => NULL,
+			'support_multiple' 	=> FALSE, 'built_in_capital' => FALSE, 'built_in_non_capital' => FALSE, 'built_in_special_only' => FALSE, 'max_lvl_in_non_capital' => NULL,
 
 			'for_tribe_id' 			=> array( '1' => 1, '2' => 1, '3' => 1, '4' => 1, '6' => 1, '7' => 1 ),
 

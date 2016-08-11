@@ -1097,7 +1097,7 @@
 						$this->cpValue += $result->row['elapsedTimeInSeconds'] * ( $cpRate / 86400 );
 						$this->totalCpRate += $cpRate;
 						$this->totalCpValue += $this->cpValue;
-						$this->neededCpValue += intval( $this->gameMetadata['cp_for_new_village'] / $this->gameSpeed );
+						$this->neededCpValue += intval($this->gameMetadata['cp_for_new_village']);
 					}
 
 					$this->totalCpValue = floor( $this->totalCpValue );
