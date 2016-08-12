@@ -25,3 +25,8 @@ Live version of script will be available soon.
 - Fixed few major issues / left overs after decode with broken syntax.
 - Added option to disable / enable email activation after new user registration.
 - Added new feature silver coins, now you can enable / disable this system and set up the ratio of silver coins given for player for his actions. (will be hot-fixed and improved later).
+- Improved guide system, now rewards and requirements like (wheat donate mission) scales with server speed.
+- Improved register, now if you disabled email activation, it won't show that you must activate your account you can straight log in
+- Fixed issue with beginners protection time, now it has correct value and can be modified in metadata.php
+- Improved cranny , now it's capacity scales with configurations..
+- Fixed infinity loop with merchants sending on high speed servers (same as used to be with troops building).
