@@ -184,7 +184,7 @@ $GameMetadata = array (
 
 	 */
 
-	'player_protection_period'	=> 1555200,			// 3 days = (3 * 24 * 60 * 60) = 259200
+	'player_protection_period'	=> 60 * 60 * 24 * 3,			// 3 days = (3 * 24 * 60 * 60) = 259200
 
 
 
@@ -9519,7 +9519,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 100, 'time_consume' => 750, 'cp' => 1, 'people_inc' => 0,
+					'value' => 100*$cranny, 'time_consume' => 750, 'cp' => 1, 'people_inc' => 0,
 
 					'resources' => array( '1' => 40, '2' => 50, '3' => 30, '4' => 10 )
 
@@ -9529,7 +9529,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 130, 'time_consume' => 1170, 'cp' => 1, 'people_inc' => 0,
+					'value' => 130*$cranny, 'time_consume' => 1170, 'cp' => 1, 'people_inc' => 0,
 
 					'resources' => array( '1' => 50, '2' => 65, '3' => 40, '4' => 15 )
 
@@ -9539,7 +9539,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 170, 'time_consume' => 1660, 'cp' => 2, 'people_inc' => 0,
+					'value' => 170*$cranny, 'time_consume' => 1660, 'cp' => 2, 'people_inc' => 0,
 
 					'resources' => array( '1' => 65, '2' => 80, '3' => 50, '4' => 15 )
 
@@ -9549,7 +9549,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 220, 'time_consume' => 2220, 'cp' => 2, 'people_inc' => 0,
+					'value' => 220*$cranny, 'time_consume' => 2220, 'cp' => 2, 'people_inc' => 0,
 
 					'resources' => array( '1' => 85, '2' => 105, '3' => 65, '4' => 20 )
 
@@ -9559,7 +9559,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 280, 'time_consume' => 2880, 'cp' => 2, 'people_inc' => 0,
+					'value' => 280*$cranny, 'time_consume' => 2880, 'cp' => 2, 'people_inc' => 0,
 
 					'resources' => array( '1' => 105, '2' => 135, '3' => 80, '4' => 25 )
 
@@ -9569,7 +9569,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 360, 'time_consume' => 3640, 'cp' => 3, 'people_inc' => 1,
+					'value' => 360*$cranny, 'time_consume' => 3640, 'cp' => 3, 'people_inc' => 1,
 
 					'resources' => array( '1' => 135, '2' => 170, '3' => 105, '4' => 35 )
 
@@ -9579,7 +9579,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 460, 'time_consume' => 4520, 'cp' => 4, 'people_inc' => 1,
+					'value' => 460*$cranny, 'time_consume' => 4520, 'cp' => 4, 'people_inc' => 1,
 
 					'resources' => array( '1' => 175, '2' => 220, '3' => 130, '4' => 45 )
 
@@ -9589,7 +9589,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 600, 'time_consume' => 5540, 'cp' => 4, 'people_inc' => 1,
+					'value' => 600*$cranny, 'time_consume' => 5540, 'cp' => 4, 'people_inc' => 1,
 
 					'resources' => array( '1' => 225, '2' => 280, '3' => 170, '4' => 55 )
 
@@ -9599,7 +9599,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 770, 'time_consume' => 6730, 'cp' => 5, 'people_inc' => 1,
+					'value' => 770*$cranny, 'time_consume' => 6730, 'cp' => 5, 'people_inc' => 1,
 
 					'resources' => array( '1' => 290, '2' => 360, '3' => 215, '4' => 70 )
 
@@ -9609,7 +9609,7 @@ $GameMetadata = array (
 
 				array(
 
-					'value' => 1000, 'time_consume' => 8110, 'cp' => 6, 'people_inc' => 1,
+					'value' => 1000*$cranny, 'time_consume' => 8110, 'cp' => 6, 'people_inc' => 1,
 
 					'resources' => array( '1' => 370, '2' => 460, '3' => 275, '4' => 90 )
 
@@ -9627,9 +9627,9 @@ $GameMetadata = array (
 
 			'celebrations'			=> array (
 
-				'small'	=> array ('level' => 1,	 'value' => 500,		'time_consume' => 86400, 'resources' => array( '1' => 6400, '2' => 6650, '3' => 5940, '4' => 1340 )),
+				'small'	=> array ('level' => 1,	 'value' => 500*$speed,		'time_consume' => 86400, 'resources' => array( '1' => 6400, '2' => 6650, '3' => 5940, '4' => 1340 )),
 
-				'large'	=> array ('level' => 10, 'value' => 2000,		'time_consume' => 108000, 'resources' => array( '1' => 29700, '2' => 33250, '3' => 32000, '4' => 6700 ))
+				'large'	=> array ('level' => 10, 'value' => 2000*$speed,		'time_consume' => 108000, 'resources' => array( '1' => 29700, '2' => 33250, '3' => 32000, '4' => 6700 ))
 
 			),
 

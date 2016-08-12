@@ -215,7 +215,9 @@ else {
 ';
 		return 1;
 	}
-
+if($this->appConfig['system']['new_user_activaiton'] == false){
+	echo "<p>Account ".trim( $_POST['name'] )." , mow you can log in.</p>";
+} else {
 	echo '<p>
 ';
 	echo LANGUI_REG_T18;
@@ -239,6 +241,7 @@ else {
 	echo '</span>
 </p>
 ';
+}
 ?>
 
 

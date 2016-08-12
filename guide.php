@@ -143,7 +143,8 @@ class GPage extends VillagePage {
 		case 5: {
 				if (( ( !isset( $this->queueModel->tasksInQueue[QS_GUIDENOQUIZ] ) && isset( $_GET['v'] ) ) && trim( $_GET['v'] ) == 'y' )) {
 					$result = 1;
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 217, 247, 177, 207 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 217*$this->appConfig['Game']['speed'], 247*$this->appConfig['Game']['speed'], 177*$this->appConfig['Game']['speed'], 207*$this->appConfig['Game']['speed'] ) );
+					
 					$newTask = new QueueTask( QS_GUIDENOQUIZ, $this->player->playerId, $time );
 					$this->queueModel->addTask( $newTask );
 				}
@@ -293,7 +294,7 @@ class GPage extends VillagePage {
 
 						$this->clientAction = 1;
 						$m->setGuideTask( $this->player->playerId, '1,5' );
-						$m->addResourcesTo( $this->data['selected_village_id'], array( 40, 30, 20, 30 ) );
+						$m->addResourcesTo( $this->data['selected_village_id'], array( 40*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'], 20*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'] ) );
 					}
 				}
 
@@ -319,7 +320,7 @@ class GPage extends VillagePage {
 				if (( 0 < ( $count & 1 ) && 0 < ( $count & 2 ) )) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,6' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 50, 60, 30, 30 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 50*$this->appConfig['Game']['speed'], 60*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -350,7 +351,7 @@ class GPage extends VillagePage {
 					$this->clientAction = 1;
 					$this->taskState = 2;
 					$m->setGuideTask( $this->player->playerId, '1,8' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 60, 30, 40, 90 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 60*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'], 90*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -358,7 +359,7 @@ class GPage extends VillagePage {
 
 		case 8: {
 				if (( isset( $_GET['v'] ) && trim( $_GET['v'] ) == 'send' )) {
-					if ($this->resources[4]['current_value'] < 200) {
+					if ($this->resources[4]['current_value'] < 200*$this->appConfig['Game']['speed']) {
 						$this->taskState = 1;
 						return null;
 					}
@@ -367,7 +368,7 @@ class GPage extends VillagePage {
 					$this->taskState = 2;
 					$qid = $this->sendReinforcements();
 					$m->setGuideTask( $this->player->playerId, '1,9,' . $qid );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 0, 0, 0, 0 - 200 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 0, 0, 0, 0 - 200*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -404,7 +405,7 @@ class GPage extends VillagePage {
 				if (( ( ( 0 < ( $count & 1 ) && 0 < ( $count & 2 ) ) && 0 < ( $count & 4 ) ) && 0 < ( $count & 8 ) )) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,10,' . $quizArray[sizeof( $quizArray ) - 1] );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 100, 80, 40, 40 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 100*$this->appConfig['Game']['speed'], 80*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -429,7 +430,7 @@ class GPage extends VillagePage {
 				if ($m->isOpenedReport( $this->player->playerId )) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,12' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 75, 140, 40, 230 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 75*$this->appConfig['Game']['speed'], 140*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'], 230*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -448,7 +449,7 @@ class GPage extends VillagePage {
 				if ($result == 1) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,13' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 75, 80, 30, 50 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 75*$this->appConfig['Game']['speed'], 80*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'], 50*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -458,7 +459,7 @@ class GPage extends VillagePage {
 				if (( 0 < preg_match( '/\[#0\]/', $this->data['description1'] ) || 0 < preg_match( '/\[#0\]/', $this->data['description2'] ) )) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,14' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 120, 200, 140, 100 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 120*$this->appConfig['Game']['speed'], 200*$this->appConfig['Game']['speed'], 140*$this->appConfig['Game']['speed'], 100*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -478,7 +479,7 @@ class GPage extends VillagePage {
 				if ($result == 1) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,15' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 150, 180, 30, 130 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 150*$this->appConfig['Game']['speed'], 180*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'], 130*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -515,7 +516,7 @@ class GPage extends VillagePage {
 				if (( ( ( 0 < ( $count & 1 ) && 0 < ( $count & 2 ) ) && 0 < ( $count & 4 ) ) && 0 < ( $count & 8 ) )) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,16' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 60, 50, 40, 30 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 60*$this->appConfig['Game']['speed'], 50*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -529,7 +530,7 @@ class GPage extends VillagePage {
 						$this->taskState = 3;
 						$this->clientAction = 1;
 						$m->setGuideTask( $this->player->playerId, '1,17' );
-						$m->addResourcesTo( $this->data['selected_village_id'], array( 50, 30, 60, 20 ) );
+						$m->addResourcesTo( $this->data['selected_village_id'], array( 50*$this->appConfig['Game']['speed'], 30*$this->appConfig['Game']['speed'], 60*$this->appConfig['Game']['speed'], 20*$this->appConfig['Game']['speed'] ) );
 					}
 					else {
 						if ($this->guideData['wood'] < intval( $_GET['v'] )) {
@@ -558,7 +559,7 @@ class GPage extends VillagePage {
 				if ($result == 1) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,18' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 75, 75, 40, 40 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 75*$this->appConfig['Game']['speed'], 75*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -578,7 +579,7 @@ class GPage extends VillagePage {
 							$this->taskState = 4;
 							$this->clientAction = 1;
 							$m->setGuideTask( $this->player->playerId, '1,19' );
-							$m->addResourcesTo( $this->data['selected_village_id'], array( 100, 90, 100, 60 ) );
+							$m->addResourcesTo( $this->data['selected_village_id'], array( 100*$this->appConfig['Game']['speed'], 90*$this->appConfig['Game']['speed'], 100*$this->appConfig['Game']['speed'], 60*$this->appConfig['Game']['speed'] ) );
 						}
 						else {
 							$this->taskState = ($num < $playerRank ? 2 : 3);
@@ -631,7 +632,7 @@ class GPage extends VillagePage {
 						$m->setGuideTask( $this->player->playerId, '1,20,' . $this->taskState );
 						$this->taskState = ($this->taskState == 1 ? 3 : 4);
 						$this->clientAction = 1;
-						$m->addResourcesTo( $this->data['selected_village_id'], array( 80, 90, 60, 40 ) );
+						$m->addResourcesTo( $this->data['selected_village_id'], array( 80*$this->appConfig['Game']['speed'], 90*$this->appConfig['Game']['speed'], 60*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'] ) );
 					}
 				}
 
@@ -646,7 +647,7 @@ class GPage extends VillagePage {
 					foreach ($this->buildings as $build) {
 						if (( $build['item_id'] == 19 && 0 < $build['level'] )) {
 							$result = 1;
-							$m->addResourcesTo( $this->data['selected_village_id'], array( 70, 100, 90, 100 ) );
+							$m->addResourcesTo( $this->data['selected_village_id'], array( 70*$this->appConfig['Game']['speed'], 100*$this->appConfig['Game']['speed'], 90*$this->appConfig['Game']['speed'], 100*$this->appConfig['Game']['speed'] ) );
 							break;
 							continue;
 						}
@@ -657,7 +658,7 @@ class GPage extends VillagePage {
 						foreach ($this->buildings as $build) {
 							if (( $build['item_id'] == 10 && 0 < $build['level'] )) {
 								$result = 1;
-								$m->addResourcesTo( $this->data['selected_village_id'], array( 70, 120, 90, 50 ) );
+								$m->addResourcesTo( $this->data['selected_village_id'], array( 70*$this->appConfig['Game']['speed'], 120*$this->appConfig['Game']['speed'], 90*$this->appConfig['Game']['speed'], 50*$this->appConfig['Game']['speed'] ) );
 								break;
 								continue;
 							}
@@ -686,7 +687,7 @@ class GPage extends VillagePage {
 
 					if (2 <= $troops[$this->guideData['troop_id']]) {
 						$result = 1;
-						$m->addResourcesTo( $this->data['selected_village_id'], array( 300, 320, 360, 570 ) );
+						$m->addResourcesTo( $this->data['selected_village_id'], array( 300*$this->appConfig['Game']['speed'], 320*$this->appConfig['Game']['speed'], 360*$this->appConfig['Game']['speed'], 570*$this->appConfig['Game']['speed'] ) );
 					}
 				}
 				else {
@@ -694,7 +695,7 @@ class GPage extends VillagePage {
 						foreach ($this->buildings as $build) {
 							if (( $build['item_id'] == 17 && 0 < $build['level'] )) {
 								$result = 1;
-								$m->addResourcesTo( $this->data['selected_village_id'], array( 200, 200, 700, 450 ) );
+								$m->addResourcesTo( $this->data['selected_village_id'], array( 200*$this->appConfig['Game']['speed'], 200*$this->appConfig['Game']['speed'], 700*$this->appConfig['Game']['speed'], 450*$this->appConfig['Game']['speed'] ) );
 								break;
 								continue;
 							}
@@ -745,7 +746,7 @@ class GPage extends VillagePage {
 				if ($result == 1) {
 					$this->taskState = $this->clientAction = 1;
 					$m->setGuideTask( $this->player->playerId, '1,24' );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 100, 60, 90, 40 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 100*$this->appConfig['Game']['speed'], 60*$this->appConfig['Game']['speed'], 90*$this->appConfig['Game']['speed'], 40*$this->appConfig['Game']['speed'] ) );
 				}
 
 				break;
@@ -756,7 +757,7 @@ class GPage extends VillagePage {
 					$this->taskState = 1;
 					$this->clientAction = 100;
 					$m->setGuideTask( $this->player->playerId, GUIDE_QUIZ_COMPLETED );
-					$m->addResourcesTo( $this->data['selected_village_id'], array( 395, 315, 345, 230 ) );
+					$m->addResourcesTo( $this->data['selected_village_id'], array( 395*$this->appConfig['Game']['speed'], 315*$this->appConfig['Game']['speed'], 345*$this->appConfig['Game']['speed'], 230*$this->appConfig['Game']['speed'] ) );
 				}
 			}
 		}
@@ -842,7 +843,7 @@ class GPage extends VillagePage {
 
 	function sendReinforcements() {
 		$needed_time = floor( 18000 / $this->gameMetadata['game_speed'] );
-		$troopsStr = '31 1,32 0,33 0,34 0,35 0,36 0,37 0,38 0,39 0,40 0';
+		$troopsStr = '31 '. 1*$this->appConfig['Game']['speed'] .',32 0,33 0,34 0,35 0,36 0,37 0,38 0,39 0,40 0';
 		$catapultTargets = $carryResources = '';
 		$spyAction = 0;
 		$procParams = $troopsStr . '|0|' . $spyAction . '|' . $catapultTargets . '|' . $carryResources . '|||0';

@@ -530,6 +530,8 @@
 					$this->merchantProperty['showError'] = !$this->merchantProperty['confirm_snd'];
 					$distance = WebHelper::getdistance( $this->data['rel_x'], $this->data['rel_y'], $rel_x, $rel_y, $this->setupMetadata['map_size'] / 2 );
 					$this->merchantProperty['vRow_time'] = intval( $distance / $this->merchantProperty['speed'] * 3600 );
+					
+					
 
 					if (( ( ( !$this->merchantProperty['showError'] && $doSend ) && !$this->isGameTransientStopped() ) && !$this->isGameOver() )) {
 						$this->merchantProperty['confirm_snd'] = FALSE;
@@ -541,6 +543,8 @@
 						$newTask->procParams = $this->merchantProperty['vRow_merchant_num'] . '|' . ( $resources[1] . ' ' . $resources[2] . ' ' . $resources[3] . ' ' . $resources[4] );
 						$newTask->tag = $resources;
 						$this->queueModel->addTask( $newTask );
+						header("location: build.php?id=27");
+						exit();
 					}
 				}
 

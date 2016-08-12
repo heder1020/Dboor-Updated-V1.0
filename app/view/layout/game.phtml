@@ -123,7 +123,6 @@
 	?>
 	
 	</div>
-	
 <div id="content" class="<? echo $this->contentCssClass; ?>">
 	<? $this->printContent();?>
 </div>
@@ -227,8 +226,73 @@
 		<div id="cfoot"></div>
 	</div>
 </div>
-<?
+<?	
 	if ($this->player != NULL) {
+		echo '<div id="res">
+	<div id="resWrap">
+		<table cellpadding="1" cellspacing="1">';
+			echo '<tbody>';
+			
+				echo '<tr>';
+				
+					echo '<td>';
+						echo '<img src="assets/x.gif" class="r1" alt="'.item_title_1.'" title="'.item_title_1.'"/>';
+					echo '</td>';
+					echo '<td id="l4" title="'.$this->resources[1]['calc_prod_rate'].'">';
+						echo ''.$this->resources[1]['current_value'].'/'.$this->resources[1]['store_max_limit'];
+					echo '</td>';
+				
+					echo '<td>';
+						echo '<img src="assets/x.gif" class="r2" alt="'.item_title_2.'" title="'.item_title_2.'"/>';
+					echo '</td>';
+					echo '<td id="l3" title="'.$this->resources[2]['calc_prod_rate'].'">';
+						echo ''.$this->resources[2]['current_value'].'/'.$this->resources[2]['store_max_limit'];
+					echo '</td>';
+				
+					echo '<td>';
+						echo '<img src="assets/x.gif" class="r3" alt="'.item_title_3.'" title="'.item_title_3.'"/>';
+					echo '</td>';
+					echo '<td id="l2" title="'.$this->resources[3]['calc_prod_rate'].'">';
+						echo ''.$this->resources[3]['current_value'].'/'.$this->resources[3]['store_max_limit'];
+					echo '</td>';
+				
+					echo '<td>';
+						echo '<img src="assets/x.gif" class="r4" alt="'.item_title_4.'" title="'.item_title_4.'"/>';
+					echo '</td>';
+					echo '<td id="l1" title="'.$this->resources[4]['calc_prod_rate'].'">';
+						echo ''.$this->resources[4]['current_value'].'/'.$this->resources[4]['store_max_limit'];
+					echo '</td>';
+					
+				echo '</tr>';
+				
+
+		if (!$this->wrap) {
+			
+			echo '
+				<td>
+					<img src="assets/x.gif" class="r5" alt="'.LANGUI_GAME_CROPCONSUM.'" title="'.LANGUI_GAME_CROPCONSUM.'"/></td>
+				<td>';
+			echo $this->data['crop_consumption'];
+			echo '/';
+			echo $this->data['crop_consumption'] + $this->resources[4]['calc_prod_rate'];
+			echo '</td>';
+			echo "</tr>";
+			
+		} else {
+			
+			echo '
+				<td>
+					<img src="assets/x.gif" class="r5" alt="'.LANGUI_GAME_CROPCONSUM.'" title="'.LANGUI_GAME_CROPCONSUM.'"/></td>
+				<td>';
+			echo $this->data['crop_consumption'];
+			echo '/';
+			echo $this->data['crop_consumption'] + $this->resources[4]['calc_prod_rate'];
+			echo '</td>';
+			echo "</tr>";
+		}
+
+		echo '</tbody></table>';
+		echo "</div></div>";
 		
 		list( $usec, $sec ) = explode( ' ', microtime() );
 		echo '<div id="stime">
