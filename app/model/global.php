@@ -15,7 +15,7 @@ class GlobalModel extends ModelBase {
 
 	function getVillageData($playerId) {
 		$GameMetadata = $GLOBALS['GameMetadata'];
-		$protectionPeriod = intval($GameMetadata['player_protection_period']);
+		$protectionPeriod = intval( $GameMetadata['player_protection_period']);
 		$sessionTimeoutInSeconds = $GameMetadata['session_timeout'] * 60;
 		$data = $this->provider->fetchRow( 'SELECT
 				p.alliance_id,

@@ -1,5 +1,4 @@
 <?php
-die("Go back.");
 	require( '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php' );
 	require_once( MODEL_PATH . 'snprofile.php' );
 	class GPage extends SecureGamePage {

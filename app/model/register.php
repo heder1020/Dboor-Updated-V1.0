@@ -81,7 +81,7 @@ class RegisterModel extends ModelBase {
 				$resources .= ',';
 			}
 
-			$resources .= sprintf( '%s '. 1300*$GameMetadata['capacity'] .' '. 1500*$GameMetadata['capacity'] .' '. 1500*$GameMetadata['capacity'] .' %s 0', $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
+			$resources .= sprintf( '%s 1300 1500 1500 %s 0', $i, $farr[$i - 1] * 2 * $GameMetadata['game_speed'] );
 			++$i;
 		}
 

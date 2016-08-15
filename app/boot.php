@@ -1,15 +1,21 @@
 <?php 
-date_default_timezone_set('Europe/Helsinki');
 ob_start();
-//ini_set('display_errors', 'On');
-error_reporting( E_ALL ); //it has been disabled to hide the errors
-ignore_user_abort( TRUE );
-set_time_limit( 0 );
+	//ini_set('display_errors', 'On');
+	error_reporting( E_ALL ); //it has been disabled to hide the errors
+	ignore_user_abort( TRUE );
+	set_time_limit( 0 );
 define( "ROOT_PATH", realpath( dirname( dirname( __FILE__ ) ) ).DIRECTORY_SEPARATOR );
 define( "APP_PATH", ROOT_PATH."app".DIRECTORY_SEPARATOR ); 
 define( "LIB_PATH", ROOT_PATH."lib".DIRECTORY_SEPARATOR ); 
 define( "MODEL_PATH", APP_PATH."model".DIRECTORY_SEPARATOR ); 
 define( "VIEW_PATH", APP_PATH."view".DIRECTORY_SEPARATOR ); 
+
+/*
+	if (( isset( $_SERVER['HTTP_ACCEPT_ENCODING'] ) && substr_count( $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip' ) )) {
+		ob_implicit_flush( 0 );
+		( @ob_start( array( 'ob_gzhandler', 9 ) ) && header( 'Content-Encoding: gzip' ) );
+	}
+	*/
 header( "Date: ".gmdate( "D, d M Y H:i:s" )." GMT" ); 
 header( "Last-Modified: ".gmdate( "D, d M Y H:i:s" )." GMT" ); 
 require( APP_PATH."config.php" ); 

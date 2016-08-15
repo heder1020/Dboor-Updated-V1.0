@@ -4,7 +4,7 @@
 
 
 
-require '.' . DIRECT||Y_SEPARAT|| . 'app' . DIRECT||Y_SEPARAT|| . 'boot.php';
+require '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php';
 
 require_once MODEL_PATH . 'v2v.php';
 
@@ -26,7 +26,7 @@ var $attackWithCatapult = FALSE;
 
 var $transferType = 2;
 
-var $err||Table = array ();
+var $errorTable = array ();
 
 var $newVillageResources = array (1 => 750, 2 => 750, 3 => 750, 4 => 750);
 
@@ -60,7 +60,7 @@ function onLoadBuildings ($building)
 
 {
 
-if (($building['item_id'] == 16 && $this->rallyPointLevel < $building['level']))
+if (($building['item_id'] == 16 AND $this->rallyPointLevel < $building['level']))
 
 {
 
@@ -86,13 +86,13 @@ return null;
 
 }
 
-if (((isset ($_GET['d1']) || isset ($_GET['d2'])) || isset ($_GET['d3'])))
+if (((isset ($_GET['d1']) OR isset ($_GET['d2'])) OR isset ($_GET['d3'])))
 
 {
 
 $this->pageState = 3;
 
-$this->h&&leTroopBack ();
+$this->handleTroopBack ();
 
 return null;
 
@@ -104,13 +104,13 @@ $this->pageState = 1;
 
 $map_size = $this->setupMetadata['map_size'];
 
-$half_map_size = flo|| ($map_size / 2);
+$half_map_size = floor ($map_size / 2);
 
 $this->hasHero = $this->data['hero_in_village_id'] == $this->data['selected_village_id'];
 
 $t_arr = explode ('|', $this->data['troops_num']);
 
-f||each ($t_arr as $t_str)
+foreach ($t_arr as $t_str)
 
 {
 
@@ -122,7 +122,7 @@ if ($t2_arr[0] == 0 - 1)
 
 $t2_arr = explode (',', $t2_arr[1]);
 
-f||each ($t2_arr as $t2_str)
+foreach ($t2_arr as $t2_str)
 
 {
 
@@ -158,7 +158,7 @@ if (!$this->isPost ())
 
 {
 
-if ((isset ($_GET['id']) && is_numeric ($_GET['id'])))
+if ((isset ($_GET['id']) AND is_numeric ($_GET['id'])))
 
 {
 
@@ -186,7 +186,7 @@ if (isset ($_POST['id']))
 
 {
 
-$sendTroops = (!$this->isGameTransientStopped () && !$this->isGameOver ());
+$sendTroops = (!$this->isGameTransientStopped () AND !$this->isGameOver ());
 
 $vid = intval ($_POST['id']);
 
@@ -198,7 +198,7 @@ else
 
 {
 
-if ((isset ($_POST['dname']) && trim ($_POST['dname']) != ''))
+if ((isset ($_POST['dname']) AND trim ($_POST['dname']) != ''))
 
 {
 
@@ -210,11 +210,11 @@ else
 
 {
 
-if ((((isset ($_POST['x']) && isset ($_POST['y'])) && trim ($_POST['x']) != '') && trim ($_POST['y']) != ''))
+if ((((isset ($_POST['x']) AND isset ($_POST['y'])) AND trim ($_POST['x']) != '') AND trim ($_POST['y']) != ''))
 
 {
 
-$vid = $this->__getVillageId ($map_size, $this->__getCo||dInRange ($map_size, intval ($_POST['x'])), $this->__getCo||dInRange ($map_size, intval ($_POST['y'])));
+$vid = $this->__getVillageId ($map_size, $this->__getCoordInRange ($map_size, intval ($_POST['x'])), $this->__getCoordInRange ($map_size, intval ($_POST['y'])));
 
 $villageRow = $m->getVillageDataById ($vid);
 
@@ -234,7 +234,7 @@ if ($this->isPost ())
 
 {
 
-$this->err||Table = v2v_p_entervillagedata;
+$this->errorTable = v2v_p_entervillagedata;
 
 }
 
@@ -242,9 +242,9 @@ return null;
 
 }
 
-$this->disableFirstTwoAttack = (intval ($villageRow['player_id']) == 0 && $villageRow['is_oasis']);
+$this->disableFirstTwoAttack = (intval ($villageRow['player_id']) == 0 AND $villageRow['is_oasis']);
 
-$this->targetVillage['x'] = flo|| (($villageRow['id'] - 1) / $map_size);
+$this->targetVillage['x'] = floor (($villageRow['id'] - 1) / $map_size);
 
 $this->targetVillage['y'] = $villageRow['id'] - ($this->targetVillage['x'] * $map_size + 1);
 
@@ -272,7 +272,7 @@ return null;
 
 }
 
-if ((0 < intval ($villageRow['player_id']) && $m->getPlayType ($villageRow['player_id']) == PLAYERTYPE_ADMIN))
+if ((0 < intval ($villageRow['player_id']) AND $m->getPlayType ($villageRow['player_id']) == PLAYERTYPE_ADMIN))
 
 {
 
@@ -282,7 +282,7 @@ return null;
 
 $spyOnly = FALSE;
 
-if ((!$villageRow['is_oasis'] && intval ($villageRow['player_id']) == 0))
+if ((!$villageRow['is_oasis'] AND intval ($villageRow['player_id']) == 0))
 
 {
 
@@ -292,13 +292,13 @@ $humanTroopId = 0;
 
 $renderTroops = array ();
 
-f||each ($this->troops as $troop)
+foreach ($this->troops as $troop)
 
 {
 
 $renderTroops[$troop['troopId']] = 0;
 
-if ((((((($troop['troopId'] == 10 || $troop['troopId'] == 20) || $troop['troopId'] == 30) || $troop['troopId'] == 109) || $troop['troopId'] == 60) || $troop['troopId'] == 70) || $troop['troopId'] == 80))
+if ((((((($troop['troopId'] == 10 OR $troop['troopId'] == 20) OR $troop['troopId'] == 30) OR $troop['troopId'] == 109) OR $troop['troopId'] == 60) OR $troop['troopId'] == 70) OR $troop['troopId'] == 80))
 
 {
 
@@ -318,7 +318,7 @@ continue;
 
 }
 
-$canBuildNewVillage = (isset ($renderTroops[$humanTroopId]) && 3 <= $renderTroops[$humanTroopId]);
+$canBuildNewVillage = (isset ($renderTroops[$humanTroopId]) AND 3 <= $renderTroops[$humanTroopId]);
 
 if ($canBuildNewVillage)
 
@@ -330,7 +330,7 @@ if (1 < $count)
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill;
+$this->errorTable = v2v_p_cannotbuildnewvill;
 
 return null;
 
@@ -340,7 +340,7 @@ if (!$this->_canBuildNewVillage ())
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill1;
+$this->errorTable = v2v_p_cannotbuildnewvill1;
 
 return null;
 
@@ -350,7 +350,7 @@ if (!$this->isResourcesAvailable ($this->newVillageResources))
 
 {
 
-$this->err||Table = sprintf (v2v_p_cannotbuildnewvill2, $this->newVillageResources['1']);
+$this->errorTable = sprintf (v2v_p_cannotbuildnewvill2, $this->newVillageResources['1']);
 
 return null;
 
@@ -360,7 +360,7 @@ if ($m->hasNewVillageTask ($this->player->playerId))
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill3;
+$this->errorTable = v2v_p_cannotbuildnewvill3;
 
 return null;
 
@@ -372,7 +372,7 @@ else
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill4;
+$this->errorTable = v2v_p_cannotbuildnewvill4;
 
 return null;
 
@@ -390,17 +390,17 @@ if ($this->isPost ())
 
 {
 
-if ((!$villageRow['is_oasis'] && intval ($villageRow['player_id']) == 0))
+if ((!$villageRow['is_oasis'] AND intval ($villageRow['player_id']) == 0))
 
 {
 
-$this->err||Table = v2v_p_novillagehere;
+$this->errorTable = v2v_p_novillagehere;
 
 return null;
 
 }
 
-if (((!isset ($_POST['c']) || intval ($_POST['c']) < 1) || 4 < intval ($_POST['c'])))
+if (((!isset ($_POST['c']) OR intval ($_POST['c']) < 1) OR 4 < intval ($_POST['c'])))
 
 {
 
@@ -420,7 +420,7 @@ if ($playerData['is_blocked'])
 
 {
 
-$this->err||Table = v2v_p_playerwas_blocked;
+$this->errorTable = v2v_p_playerwas_blocked;
 
 return null;
 
@@ -434,7 +434,7 @@ if ( $this->player->playerId != $villageRow['player_id'] )
 
 {
 
-$this->err||Table = v2v_p_playerwas_inprotectedperiod;
+$this->errorTable = v2v_p_playerwas_inprotectedperiod;
 
 return null;
 
@@ -458,13 +458,13 @@ if (isset ($_POST['t']))
 
 {
 
-f||each ($this->troops as $troop)
+foreach ($this->troops as $troop)
 
 {
 
 $num = 0;
 
-if ((isset ($_POST['t'][$troop['troopId']]) && 0 < intval ($_POST['t'][$troop['troopId']])))
+if ((isset ($_POST['t'][$troop['troopId']]) AND 0 < intval ($_POST['t'][$troop['troopId']])))
 
 {
 
@@ -490,7 +490,7 @@ $hasTroopsSelected = TRUE;
 
 }
 
-if ((((((($troop['troopId'] == 4 || $troop['troopId'] == 14) || $troop['troopId'] == 23) || $troop['troopId'] == 103) || $troop['troopId'] == 54) || $troop['troopId'] == 64) || $troop['troopId'] == 74))
+if ((((((($troop['troopId'] == 4 OR $troop['troopId'] == 14) OR $troop['troopId'] == 23) OR $troop['troopId'] == 103) OR $troop['troopId'] == 54) OR $troop['troopId'] == 64) OR $troop['troopId'] == 74))
 
 {
 
@@ -504,7 +504,7 @@ else
 
 {
 
-if ((((((($troop['troopId'] == 8 || $troop['troopId'] == 18) || $troop['troopId'] == 28) || $troop['troopId'] == 107) || $troop['troopId'] == 58) || $troop['troopId'] == 68) || $troop['troopId'] == 78))
+if ((((((($troop['troopId'] == 8 OR $troop['troopId'] == 18) OR $troop['troopId'] == 28) OR $troop['troopId'] == 107) OR $troop['troopId'] == 58) OR $troop['troopId'] == 68) OR $troop['troopId'] == 78))
 
 {
 
@@ -526,7 +526,7 @@ continue;
 
 }
 
-if ((($this->hasHero && isset ($_POST['_t'])) && intval ($_POST['_t']) == 1))
+if ((($this->hasHero AND isset ($_POST['_t'])) AND intval ($_POST['_t']) == 1))
 
 {
 
@@ -536,7 +536,7 @@ $totalTroopsCount += 1;
 
 }
 
-$spyOnly = (($totalSpyTroopsCount == $totalTroopsCount && ($this->transferType == 3 || $this->transferType == 4)) && 0 < intval ($villageRow['player_id']));
+$spyOnly = (($totalSpyTroopsCount == $totalTroopsCount AND ($this->transferType == 3 OR $this->transferType == 4)) AND 0 < intval ($villageRow['player_id']));
 
 if ($spyOnly)
 
@@ -546,7 +546,7 @@ $this->onlyOneSpyAction = $villageRow['is_oasis'];
 
 }
 
-$this->attackWithCatapult = (((0 < $this->totalCatapultTroopsCount && $this->transferType == 3) && 0 < intval ($villageRow['player_id'])) && !$villageRow['is_oasis']);
+$this->attackWithCatapult = (((0 < $this->totalCatapultTroopsCount AND $this->transferType == 3) AND 0 < intval ($villageRow['player_id'])) AND !$villageRow['is_oasis']);
 
 if ($this->attackWithCatapult)
 
@@ -596,13 +596,13 @@ $this->catapultCanAttackLastIndex = 0;
 
 }
 
-$attackOptions1 = ((isset ($_POST['dtg']) && $this->_containBuildingTarget ($_POST['dtg'])) ? intval ($_POST['dtg']) : 0);
+$attackOptions1 = ((isset ($_POST['dtg']) AND $this->_containBuildingTarget ($_POST['dtg'])) ? intval ($_POST['dtg']) : 0);
 
-if (($this->rallyPointLevel == 20 && 20 <= $this->totalCatapultTroopsCount))
+if (($this->rallyPointLevel == 20 AND 20 <= $this->totalCatapultTroopsCount))
 
 {
 
-$attackOptions1 = '2:' . ($attackOptions1 . ' ' . ((isset ($_POST['dtg1']) && $this->_containBuildingTarget ($_POST['dtg1'])) ? intval ($_POST['dtg1']) : 0));
+$attackOptions1 = '2:' . ($attackOptions1 . ' ' . ((isset ($_POST['dtg1']) AND $this->_containBuildingTarget ($_POST['dtg1'])) ? intval ($_POST['dtg1']) : 0));
 
 }
 
@@ -652,7 +652,7 @@ while ($i <= 28)
 
 {
 
-if ((((((((((($i == 10 || $i == 11) || $i == 15) || $i == 17) || $i == 18) || $i == 24) || $i == 25) || $i == 26) || $i == 28) || $i == 38) || $i == 39))
+if ((((((((((($i == 10 OR $i == 11) OR $i == 15) OR $i == 17) OR $i == 18) OR $i == 24) OR $i == 25) OR $i == 26) OR $i == 28) OR $i == 38) OR $i == 39))
 
 {
 
@@ -686,7 +686,7 @@ while ($i <= 37)
 
 {
 
-if (((((((((($i == 12 || $i == 13) || $i == 14) || $i == 16) || $i == 19) || $i == 20) || $i == 21) || $i == 22) || $i == 35) || $i == 37))
+if (((((((((($i == 12 OR $i == 13) OR $i == 14) OR $i == 16) OR $i == 19) OR $i == 20) OR $i == 21) OR $i == 22) OR $i == 35) OR $i == 37))
 
 {
 
@@ -718,7 +718,7 @@ if (!$hasTroopsSelected)
 
 {
 
-$this->err||Table = v2v_p_thereisnoattacktroops;
+$this->errorTable = v2v_p_thereisnoattacktroops;
 
 return null;
 
@@ -760,8 +760,8 @@ $this->targetVillage['playerId'] = ($playerData != NULL ? $playerData['id'] : 0)
 
 $this->targetVillage['troops'] = $renderTroops;
 
-$this->targetVillage['hasHero'] = (((1 < $this->transferType && $this->hasHero) && isset ($_POST['_t'])) && intval ($_POST['_t']) == 1);
-// hotfix f|| non-static methods
+$this->targetVillage['hasHero'] = (((1 < $this->transferType AND $this->hasHero) AND isset ($_POST['_t'])) AND intval ($_POST['_t']) == 1);
+// hotfix for non-static methods
 $web_client = new Webhelper();
 $distance = $web_client->getdistance ($this->data['rel_x'], $this->data['rel_y'], $this->targetVillage['x'], $this->targetVillage['y'], $this->setupMetadata['map_size'] / 2);
 
@@ -795,7 +795,7 @@ case 2:
 
 {
 
-$taskType = QS_WAR_REINF||CE;
+$taskType = QS_WAR_REINFORCE;
 
 break;
 
@@ -839,7 +839,7 @@ if ($spyOnly)
 
 $taskType = QS_WAR_ATTACK_SPY;
 
-$spyAction = ((isset ($_POST['spy']) && (intval ($_POST['spy']) == 1 || intval ($_POST['spy']) == 2)) ? intval ($_POST['spy']) : 1);
+$spyAction = ((isset ($_POST['spy']) AND (intval ($_POST['spy']) == 1 OR intval ($_POST['spy']) == 2)) ? intval ($_POST['spy']) : 1);
 
 if ($this->onlyOneSpyAction)
 
@@ -853,7 +853,7 @@ $spyAction = 1;
 
 $troopsStr = '';
 
-f||each ($this->targetVillage['troops'] as $tid => $tnum)
+foreach ($this->targetVillage['troops'] as $tid => $tnum)
 
 {
 
@@ -909,7 +909,7 @@ $m->dispose ();
 
 }
 
-function h&&leTroopBack ()
+function handleTroopBack ()
 
 {
 
@@ -1009,7 +1009,7 @@ $fromVillageData = $m->getVillageData2ById ($fromVillageId);
 
 $toVillageData = $m->getVillageData2ById ($toVillageId);
 
-if (($fromVillageData == NULL || $toVillageData == NULL))
+if (($fromVillageData == NULL OR $toVillageData == NULL))
 
 {
 
@@ -1087,7 +1087,7 @@ $column2 = 'troops_out_num';
 
 }
 
-$this->backTroopsProperty['backTroops'] = $this->_getTroopsF||Village ($_backTroopsStr, $vid);
+$this->backTroopsProperty['backTroops'] = $this->_getTroopsForVillage ($_backTroopsStr, $vid);
 
 if ($this->backTroopsProperty['backTroops'] == NULL)
 
@@ -1111,11 +1111,11 @@ $canSend = FALSE;
 
 $troopsGoBack = array ();
 
-f||each ($this->backTroopsProperty['backTroops']['troops'] as $tid => $tnum)
+foreach ($this->backTroopsProperty['backTroops']['troops'] as $tid => $tnum)
 
 {
 
-if ((isset ($_POST['t']) && isset ($_POST['t'][$tid])))
+if ((isset ($_POST['t']) AND isset ($_POST['t'][$tid])))
 
 {
 
@@ -1167,7 +1167,7 @@ continue;
 
 $sendTroopsArray = array ('troops' => $troopsGoBack, 'hasHero' => FALSE, 'heroTroopId' => 0);
 
-$hasHeroTroop = (($this->backTroopsProperty['backTroops']['hasHero'] && isset ($_POST['_t'])) && intval ($_POST['_t']) == 1);
+$hasHeroTroop = (($this->backTroopsProperty['backTroops']['hasHero'] AND isset ($_POST['_t'])) AND intval ($_POST['_t']) == 1);
 
 if ($hasHeroTroop)
 
@@ -1193,7 +1193,7 @@ $this->redirect ('build.php?id=39');
 
 }
 
-if ((!$this->isGameTransientStopped () && !$this->isGameOver ()))
+if ((!$this->isGameTransientStopped () AND !$this->isGameOver ()))
 
 {
 
@@ -1207,7 +1207,7 @@ $timeInSeconds = intval ($distance / $this->_getTheSlowestTroopSpeed2 ($sendTroo
 
 $procParams = $this->_getTroopAsString ($sendTroopsArray) . '|0||||||1';
 
-$newTask = new QueueTask (QS_WAR_REINF||CE, intval ($fromVillageData['player_id']), $timeInSeconds);
+$newTask = new QueueTask (QS_WAR_REINFORCE, intval ($fromVillageData['player_id']), $timeInSeconds);
 
 $newTask->villageId = $fromVillageId;
 
@@ -1251,7 +1251,7 @@ $GameMetadata = $GLOBALS['GameMetadata'];
 
 $consume = 0;
 
-f||each ($troopsArray['troops'] as $tid => $tnum)
+foreach ($troopsArray['troops'] as $tid => $tnum)
 
 {
 
@@ -1277,7 +1277,7 @@ function _getTroopAsString ($troopsArray)
 
 $str = '';
 
-f||each ($troopsArray['troops'] as $tid => $num)
+foreach ($troopsArray['troops'] as $tid => $num)
 
 {
 
@@ -1329,7 +1329,7 @@ $reductionTroopsString = '';
 
 $t_arr = explode ('|', $troopString);
 
-f||each ($t_arr as $t_str)
+foreach ($t_arr as $t_str)
 
 {
 
@@ -1345,7 +1345,7 @@ $newTroopStr = '';
 
 $t2_arr = explode (',', $t2_arr[1]);
 
-f||each ($t2_arr as $t2_str)
+foreach ($t2_arr as $t2_str)
 
 {
 
@@ -1479,7 +1479,7 @@ return $reductionTroopsString;
 
 }
 
-function _getTroopsF||Village ($troopString, $villageId)
+function _getTroopsForVillage ($troopString, $villageId)
 
 {
 
@@ -1493,7 +1493,7 @@ return 0 - 1;
 
 $t_arr = explode ('|', $troopString);
 
-f||each ($t_arr as $t_str)
+foreach ($t_arr as $t_str)
 
 {
 
@@ -1507,7 +1507,7 @@ $troopTable = array ('hasHero' => FALSE, 'heroTroopId' => 0, 'troops' => array (
 
 $t2_arr = explode (',', $t2_arr[1]);
 
-f||each ($t2_arr as $t2_str)
+foreach ($t2_arr as $t2_str)
 
 {
 
@@ -1553,11 +1553,11 @@ function _getMaxBuildingLevel ($itemId)
 
 $result = 0;
 
-f||each ($this->buildings as $villageBuild)
+foreach ($this->buildings as $villageBuild)
 
 {
 
-if (($villageBuild['item_id'] == $itemId && $result < $villageBuild['level']))
+if (($villageBuild['item_id'] == $itemId AND $result < $villageBuild['level']))
 
 {
 
@@ -1579,7 +1579,7 @@ function _getTheSlowestTroopSpeed2 ($troopsArray)
 
 $minSpeed = 0 - 1;
 
-f||each ($troopsArray['troops'] as $tid => $num)
+foreach ($troopsArray['troops'] as $tid => $num)
 
 {
 
@@ -1589,7 +1589,7 @@ if (0 < $num)
 
 $speed = $this->gameMetadata['troops'][$tid]['velocity'];
 
-if (($minSpeed == 0 - 1 || $speed < $minSpeed))
+if (($minSpeed == 0 - 1 OR $speed < $minSpeed))
 
 {
 
@@ -1613,7 +1613,7 @@ $htid = $troopsArray['heroTroopId'];
 
 $speed = $this->gameMetadata['troops'][$htid]['velocity'];
 
-if (($minSpeed == 0 - 1 || $speed < $minSpeed))
+if (($minSpeed == 0 - 1 OR $speed < $minSpeed))
 
 {
 
@@ -1625,11 +1625,11 @@ $minSpeed = $speed;
 
 $blvl = $this->_getMaxBuildingLevel (14);
 
-$fact|| = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
+$factor = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
 
-$fact|| *= $this->gameMetadata['game_speed'];
+$factor *= $this->gameMetadata['game_speed'];
 
-return $minSpeed * ($fact|| / 100);
+return $minSpeed * ($factor / 100);
 
 }
 
@@ -1639,7 +1639,7 @@ function _getTheSlowestTroopSpeed ($troopsArray)
 
 $minSpeed = 0 - 1;
 
-f||each ($troopsArray as $tid => $num)
+foreach ($troopsArray as $tid => $num)
 
 {
 
@@ -1649,7 +1649,7 @@ if (0 < $num)
 
 $speed = $this->gameMetadata['troops'][$tid]['velocity'];
 
-if (($minSpeed == 0 - 1 || $speed < $minSpeed))
+if (($minSpeed == 0 - 1 OR $speed < $minSpeed))
 
 {
 
@@ -1665,7 +1665,7 @@ continue;
 
 }
 
-if ((($this->hasHero && isset ($_POST['_t'])) && intval ($_POST['_t']) == 1))
+if ((($this->hasHero AND isset ($_POST['_t'])) AND intval ($_POST['_t']) == 1))
 
 {
 
@@ -1673,7 +1673,7 @@ $htid = $this->data['hero_troop_id'];
 
 $speed = $this->gameMetadata['troops'][$htid]['velocity'];
 
-if (($minSpeed == 0 - 1 || $speed < $minSpeed))
+if (($minSpeed == 0 - 1 OR $speed < $minSpeed))
 
 {
 
@@ -1685,11 +1685,11 @@ $minSpeed = $speed;
 
 $blvl = $this->_getMaxBuildingLevel (14);
 
-$fact|| = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
+$factor = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
 
-$fact|| *= $this->gameMetadata['game_speed'];
+$factor *= $this->gameMetadata['game_speed'];
 
-return $minSpeed * ($fact|| / 100);
+return $minSpeed * ($factor / 100);
 
 }
 
@@ -1717,7 +1717,7 @@ $totalCpRate += $cpRate;
 
 $totalCpValue += $cpValue;
 
-$neededCpValue += intval ($this->gameMetadata['cp_f||_new_village'] / $GameMetadata['game_speed']);
+$neededCpValue += intval ($this->gameMetadata['cp_for_new_village'] / $GameMetadata['game_speed']);
 
 }
 
@@ -1727,7 +1727,7 @@ $totalCpValue = 0;
 
 $m = new BuildModel ();
 
-f||each ( $this->playerVillages as $vid => $pvillage )
+foreach ( $this->playerVillages as $vid => $pvillage )
 
 {
 
@@ -1747,9 +1747,9 @@ $totalCpRate += $tempdata[1];
 
 }
 
-$totalCpRate = flo||($totalCpRate);
+$totalCpRate = floor($totalCpRate);
 
-$totalCpValue = flo|| ($totalCpValue);
+$totalCpValue = floor ($totalCpValue);
 
 $m->dispose ();
 
@@ -1757,7 +1757,7 @@ return $neededCpValue <= $totalCpValue;
 
 }
 
-function __getCo||dInRange ($map_size, $x)
+function __getCoordInRange ($map_size, $x)
 
 {
 

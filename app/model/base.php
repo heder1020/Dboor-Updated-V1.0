@@ -1,8 +1,8 @@
 <?php
-require( LIB_PATH . 'mysqli.php' );
-class ModelBase extends MysqliModel {
+require( LIB_PATH . 'mysql.php' );
+class ModelBase extends MysqlModel {
 	function ModelBase() {
-		parent::MysqliModel();
+		parent::MysqlModel();
 		$this->provider->debug = FALSE;
 		$this->provider->properties = $GLOBALS['AppConfig']['db'];
   }

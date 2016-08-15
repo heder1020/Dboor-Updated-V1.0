@@ -1,5 +1,6 @@
 Original files : https://github.com/Bazaid/tatar-wars-old
 
+Live version available here : http://vitrex-dboor.tk/
 ###All copyrights of old files goes to Dboor creators.
 
 Goal of this project is to update these awesome files , add more flexibility to them , make them more secured, clean all the mess and useless code, re-write old things with new, add few custom features, fix known / new bugs.

@@ -1,42 +1,39 @@
 <?php
 $AppConfig = array (
 	'db' 					=> array (
-		'host'				=> '212.24.109.104', // host
-		'user'				=> 'vitrex', // user
-		'password'			=> 'kaciokas123', // password
-		'database'			=> 'travian' // database
+		'host'				=> 'localhost',
+		'user'				=> 'root',
+		'password'			=> '',
+		'database'			=> 'travian'
 	),
 	'Game' 	=> array (
-		'speed'	      		=> 1, //Game Speed
-		'attack'        	=> 1, // Troops Speed
-		'capacity'      	=> 1, // capacity
-		'carry'         	=> 1, // carry
-		'cranny'        	=> 1, // Cranny Capacity
-		'market'        	=> 1, // for trader 1 is normaly
-        'silver_coins'  	=> true, // true to enable  / false to disable silver coins
-        'silver_coins_rate' => 2, // silver coins ration for players actions
-		'map_size'			=> 400, // size of map 
-		'natar_rise'		=> 60 * 60 * 24 * 30, // 1 month
-		'cp_for_new_village' => 2000, // CP for new village, Formula : speed / 10 * cp_for_new_village 
-		'player_protection_period' => 60 * 60 * 24 * 2, // 48 hours
+		'speed'	      	=> '3', //Game Speed
+		'attack'        => '1.5', // Troops Speed
+		'capacity'      => '2', // capacity
+		'carry'         => '1', // carry
+		'cranny'        => '2', // Cranny Capacity
+		'market'        => '1', // for trader 1 is normaly
+        'silver_coins'  => true,
+        'silver_coins_rate' => '2',
 	),
 	'page' 		=> array (
-		'en_title'			=> 'Vitrex Dboor',
+		'en_title'			=> 'Tatar war',
 		'meta-tag' 			=> '',
-		'asset_version'		=> time(),	// i like to use timestamp value to flush all old css html and JS chache
+		'asset_version'		=> 'c4b7c089def'						// this is used to flush any old assets like css file or javascript
 	),
 	'system' 	=> array (
-		'lang'				=> 'en', // this is the default language en = for english
+		'lang'				=> 'en',										// this is the default language, ar = for arabic, en = for english
 		'forum_url'			=> '#',
 		'social_url'		=> '#',
-		'adminName'			=> 'Multihunter', // Administrator account name
-		'adminPassword'		=> '1', // Administrator Password
-		'admin_email'		=> 'b.expire@gmail.com', // the email for admin account (set it before setup)
-		'email' 			=> '@.', // the email for others (like activation, forget password, ..etc)
-        'install_key' 		=> '123',
-        'destroy' 			=> '123456',  //delete everything in the server
-        'securty_key'		=> '1234',
-        'new_user_activaiton'=> false // false to disabled email confirmation for new players , true to enable
+		// admin account info
+		'adminName'			=> 'Multihunter',
+		'adminPassword'		=> '1',
+		'admin_email'		=> 'some@mail.com',			// the email for admin account (set it before setup)
+		'email' 			=> '@.',			// the email for others (like activation, forget password, ..etc)
+                'install_key' => 'installMe',
+                'destroy' => 'destroy_game',  //delete everything in the server
+                'securty_key' => '666DAFEDuebw9je02jeeB666',
+                'new_user_activaiton'=> false // false to disabled email confirmation for new players , true to enable
 	),
 	'plus'			=> array (
 		'packages'	=> array (
@@ -96,7 +93,7 @@ $AppConfig = array (
 				'testMode'		=> false,
 				'name'			=> 'PayPal',
 				'image'			=> 'paypal_solution_graphic-US.gif',
-				'merchant_id'	=> 'b.expire@gmail.com',//your paypal emaill
+				'merchant_id'	=> '#',//your paypal emaill
 				'currency'		=> 'USD'
 			)
 		)
