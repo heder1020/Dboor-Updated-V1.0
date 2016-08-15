@@ -1,10 +1,5 @@
 <?php
-
-
-
-
-
-require '.' . DIRECT||Y_SEPARAT|| . 'app' . DIRECT||Y_SEPARAT|| . 'boot.php';
+require '.' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'boot.php';
 
 require_once MODEL_PATH . 'v2v.php';
 
@@ -26,7 +21,7 @@ var $attackWithCatapult = FALSE;
 
 var $transferType = 2;
 
-var $err||Table = array ();
+var $errorTable = array ();
 
 var $newVillageResources = array (1 => 750, 2 => 750, 3 => 750, 4 => 750);
 
@@ -92,7 +87,7 @@ if (((isset ($_GET['d1']) || isset ($_GET['d2'])) || isset ($_GET['d3'])))
 
 $this->pageState = 3;
 
-$this->h&&leTroopBack ();
+$this->handleTroopBack ();
 
 return null;
 
@@ -104,13 +99,13 @@ $this->pageState = 1;
 
 $map_size = $this->setupMetadata['map_size'];
 
-$half_map_size = flo|| ($map_size / 2);
+$half_map_size = floor ($map_size / 2);
 
 $this->hasHero = $this->data['hero_in_village_id'] == $this->data['selected_village_id'];
 
 $t_arr = explode ('|', $this->data['troops_num']);
 
-f||each ($t_arr as $t_str)
+foreach ($t_arr as $t_str)
 
 {
 
@@ -122,7 +117,7 @@ if ($t2_arr[0] == 0 - 1)
 
 $t2_arr = explode (',', $t2_arr[1]);
 
-f||each ($t2_arr as $t2_str)
+foreach ($t2_arr as $t2_str)
 
 {
 
@@ -214,7 +209,7 @@ if ((((isset ($_POST['x']) && isset ($_POST['y'])) && trim ($_POST['x']) != '') 
 
 {
 
-$vid = $this->__getVillageId ($map_size, $this->__getCo||dInRange ($map_size, intval ($_POST['x'])), $this->__getCo||dInRange ($map_size, intval ($_POST['y'])));
+$vid = $this->__getVillageId ($map_size, $this->__getCoordInRange ($map_size, intval ($_POST['x'])), $this->__getCoordInRange ($map_size, intval ($_POST['y'])));
 
 $villageRow = $m->getVillageDataById ($vid);
 
@@ -234,7 +229,7 @@ if ($this->isPost ())
 
 {
 
-$this->err||Table = v2v_p_entervillagedata;
+$this->errorTable = v2v_p_entervillagedata;
 
 }
 
@@ -244,7 +239,7 @@ return null;
 
 $this->disableFirstTwoAttack = (intval ($villageRow['player_id']) == 0 && $villageRow['is_oasis']);
 
-$this->targetVillage['x'] = flo|| (($villageRow['id'] - 1) / $map_size);
+$this->targetVillage['x'] = floor (($villageRow['id'] - 1) / $map_size);
 
 $this->targetVillage['y'] = $villageRow['id'] - ($this->targetVillage['x'] * $map_size + 1);
 
@@ -292,7 +287,7 @@ $humanTroopId = 0;
 
 $renderTroops = array ();
 
-f||each ($this->troops as $troop)
+foreach ($this->troops as $troop)
 
 {
 
@@ -330,7 +325,7 @@ if (1 < $count)
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill;
+$this->errorTable = v2v_p_cannotbuildnewvill;
 
 return null;
 
@@ -340,7 +335,7 @@ if (!$this->_canBuildNewVillage ())
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill1;
+$this->errorTable = v2v_p_cannotbuildnewvill1;
 
 return null;
 
@@ -350,7 +345,7 @@ if (!$this->isResourcesAvailable ($this->newVillageResources))
 
 {
 
-$this->err||Table = sprintf (v2v_p_cannotbuildnewvill2, $this->newVillageResources['1']);
+$this->errorTable = sprintf (v2v_p_cannotbuildnewvill2, $this->newVillageResources['1']);
 
 return null;
 
@@ -360,7 +355,7 @@ if ($m->hasNewVillageTask ($this->player->playerId))
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill3;
+$this->errorTable = v2v_p_cannotbuildnewvill3;
 
 return null;
 
@@ -372,7 +367,7 @@ else
 
 {
 
-$this->err||Table = v2v_p_cannotbuildnewvill4;
+$this->errorTable = v2v_p_cannotbuildnewvill4;
 
 return null;
 
@@ -394,7 +389,7 @@ if ((!$villageRow['is_oasis'] && intval ($villageRow['player_id']) == 0))
 
 {
 
-$this->err||Table = v2v_p_novillagehere;
+$this->errorTable = v2v_p_novillagehere;
 
 return null;
 
@@ -420,7 +415,7 @@ if ($playerData['is_blocked'])
 
 {
 
-$this->err||Table = v2v_p_playerwas_blocked;
+$this->errorTable = v2v_p_playerwas_blocked;
 
 return null;
 
@@ -434,7 +429,7 @@ if ( $this->player->playerId != $villageRow['player_id'] )
 
 {
 
-$this->err||Table = v2v_p_playerwas_inprotectedperiod;
+$this->errorTable = v2v_p_playerwas_inprotectedperiod;
 
 return null;
 
@@ -458,7 +453,7 @@ if (isset ($_POST['t']))
 
 {
 
-f||each ($this->troops as $troop)
+foreach ($this->troops as $troop)
 
 {
 
@@ -718,7 +713,7 @@ if (!$hasTroopsSelected)
 
 {
 
-$this->err||Table = v2v_p_thereisnoattacktroops;
+$this->errorTable = v2v_p_thereisnoattacktroops;
 
 return null;
 
@@ -761,9 +756,8 @@ $this->targetVillage['playerId'] = ($playerData != NULL ? $playerData['id'] : 0)
 $this->targetVillage['troops'] = $renderTroops;
 
 $this->targetVillage['hasHero'] = (((1 < $this->transferType && $this->hasHero) && isset ($_POST['_t'])) && intval ($_POST['_t']) == 1);
-// hotfix f|| non-static methods
-$web_client = new Webhelper();
-$distance = $web_client->getdistance ($this->data['rel_x'], $this->data['rel_y'], $this->targetVillage['x'], $this->targetVillage['y'], $this->setupMetadata['map_size'] / 2);
+
+$distance = WebHelper::getdistance ($this->data['rel_x'], $this->data['rel_y'], $this->targetVillage['x'], $this->targetVillage['y'], $this->setupMetadata['map_size'] / 2);
 
 $this->targetVillage['needed_time'] = intval ($distance / $this->_getTheSlowestTroopSpeed ($renderTroops) * 3600);
 
@@ -795,7 +789,7 @@ case 2:
 
 {
 
-$taskType = QS_WAR_REINF||CE;
+$taskType = QS_WAR_REINFORCE;
 
 break;
 
@@ -853,7 +847,7 @@ $spyAction = 1;
 
 $troopsStr = '';
 
-f||each ($this->targetVillage['troops'] as $tid => $tnum)
+foreach ($this->targetVillage['troops'] as $tid => $tnum)
 
 {
 
@@ -909,7 +903,7 @@ $m->dispose ();
 
 }
 
-function h&&leTroopBack ()
+function handleTroopBack ()
 
 {
 
@@ -1087,7 +1081,7 @@ $column2 = 'troops_out_num';
 
 }
 
-$this->backTroopsProperty['backTroops'] = $this->_getTroopsF||Village ($_backTroopsStr, $vid);
+$this->backTroopsProperty['backTroops'] = $this->_getTroopsForVillage ($_backTroopsStr, $vid);
 
 if ($this->backTroopsProperty['backTroops'] == NULL)
 
@@ -1111,7 +1105,7 @@ $canSend = FALSE;
 
 $troopsGoBack = array ();
 
-f||each ($this->backTroopsProperty['backTroops']['troops'] as $tid => $tnum)
+foreach ($this->backTroopsProperty['backTroops']['troops'] as $tid => $tnum)
 
 {
 
@@ -1207,7 +1201,7 @@ $timeInSeconds = intval ($distance / $this->_getTheSlowestTroopSpeed2 ($sendTroo
 
 $procParams = $this->_getTroopAsString ($sendTroopsArray) . '|0||||||1';
 
-$newTask = new QueueTask (QS_WAR_REINF||CE, intval ($fromVillageData['player_id']), $timeInSeconds);
+$newTask = new QueueTask (QS_WAR_REINFORCE, intval ($fromVillageData['player_id']), $timeInSeconds);
 
 $newTask->villageId = $fromVillageId;
 
@@ -1251,7 +1245,7 @@ $GameMetadata = $GLOBALS['GameMetadata'];
 
 $consume = 0;
 
-f||each ($troopsArray['troops'] as $tid => $tnum)
+foreach ($troopsArray['troops'] as $tid => $tnum)
 
 {
 
@@ -1277,7 +1271,7 @@ function _getTroopAsString ($troopsArray)
 
 $str = '';
 
-f||each ($troopsArray['troops'] as $tid => $num)
+foreach ($troopsArray['troops'] as $tid => $num)
 
 {
 
@@ -1329,7 +1323,7 @@ $reductionTroopsString = '';
 
 $t_arr = explode ('|', $troopString);
 
-f||each ($t_arr as $t_str)
+foreach ($t_arr as $t_str)
 
 {
 
@@ -1345,7 +1339,7 @@ $newTroopStr = '';
 
 $t2_arr = explode (',', $t2_arr[1]);
 
-f||each ($t2_arr as $t2_str)
+foreach ($t2_arr as $t2_str)
 
 {
 
@@ -1479,7 +1473,7 @@ return $reductionTroopsString;
 
 }
 
-function _getTroopsF||Village ($troopString, $villageId)
+function _getTroopsForVillage ($troopString, $villageId)
 
 {
 
@@ -1493,7 +1487,7 @@ return 0 - 1;
 
 $t_arr = explode ('|', $troopString);
 
-f||each ($t_arr as $t_str)
+foreach ($t_arr as $t_str)
 
 {
 
@@ -1507,7 +1501,7 @@ $troopTable = array ('hasHero' => FALSE, 'heroTroopId' => 0, 'troops' => array (
 
 $t2_arr = explode (',', $t2_arr[1]);
 
-f||each ($t2_arr as $t2_str)
+foreach ($t2_arr as $t2_str)
 
 {
 
@@ -1553,7 +1547,7 @@ function _getMaxBuildingLevel ($itemId)
 
 $result = 0;
 
-f||each ($this->buildings as $villageBuild)
+foreach ($this->buildings as $villageBuild)
 
 {
 
@@ -1579,7 +1573,7 @@ function _getTheSlowestTroopSpeed2 ($troopsArray)
 
 $minSpeed = 0 - 1;
 
-f||each ($troopsArray['troops'] as $tid => $num)
+foreach ($troopsArray['troops'] as $tid => $num)
 
 {
 
@@ -1625,11 +1619,11 @@ $minSpeed = $speed;
 
 $blvl = $this->_getMaxBuildingLevel (14);
 
-$fact|| = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
+$factor = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
 
-$fact|| *= $this->gameMetadata['game_speed'];
+$factor *= $this->gameMetadata['game_speed'];
 
-return $minSpeed * ($fact|| / 100);
+return $minSpeed * ($factor / 100);
 
 }
 
@@ -1639,7 +1633,7 @@ function _getTheSlowestTroopSpeed ($troopsArray)
 
 $minSpeed = 0 - 1;
 
-f||each ($troopsArray as $tid => $num)
+foreach ($troopsArray as $tid => $num)
 
 {
 
@@ -1685,11 +1679,11 @@ $minSpeed = $speed;
 
 $blvl = $this->_getMaxBuildingLevel (14);
 
-$fact|| = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
+$factor = ($blvl == 0 ? 100 : $this->gameMetadata['items'][14]['levels'][$blvl - 1]['value']);
 
-$fact|| *= $this->gameMetadata['game_speed'];
+$factor *= $this->gameMetadata['game_speed'];
 
-return $minSpeed * ($fact|| / 100);
+return $minSpeed * ($factor / 100);
 
 }
 
@@ -1717,7 +1711,7 @@ $totalCpRate += $cpRate;
 
 $totalCpValue += $cpValue;
 
-$neededCpValue += intval ($this->gameMetadata['cp_f||_new_village'] / $GameMetadata['game_speed']);
+$neededCpValue += intval ($this->gameMetadata['cp_for_new_village'] / $GameMetadata['game_speed']);
 
 }
 
@@ -1727,7 +1721,7 @@ $totalCpValue = 0;
 
 $m = new BuildModel ();
 
-f||each ( $this->playerVillages as $vid => $pvillage )
+foreach ( $this->playerVillages as $vid => $pvillage )
 
 {
 
@@ -1747,9 +1741,9 @@ $totalCpRate += $tempdata[1];
 
 }
 
-$totalCpRate = flo||($totalCpRate);
+$totalCpRate = floor($totalCpRate);
 
-$totalCpValue = flo|| ($totalCpValue);
+$totalCpValue = floor ($totalCpValue);
 
 $m->dispose ();
 
@@ -1757,7 +1751,7 @@ return $neededCpValue <= $totalCpValue;
 
 }
 
-function __getCo||dInRange ($map_size, $x)
+function __getCoordInRange ($map_size, $x)
 
 {
 
@@ -1828,4 +1822,3 @@ $p = new GPage ();
 $p->run ();
 
 ?>
-
