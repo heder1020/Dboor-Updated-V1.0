@@ -1,12 +1,16 @@
 <?php
-require_once("config.php");
+include "config.php";
 
-$attack=$AppConfig['Game']['attack'];
-$Market=$AppConfig['Game']['market'];
-$carry=$AppConfig['Game']['carry'];
-$capacity=$AppConfig['Game']['capacity'];
-$cranny=$AppConfig['Game']['cranny'];
-$speed=($AppConfig['Game']['speed']);
+$attack = $AppConfig['Game']['attack'];
+$Market = $AppConfig['Game']['market'];
+$carry = $AppConfig['Game']['carry'];
+$capacity = $AppConfig['Game']['capacity'];
+$cranny = $AppConfig['Game']['cranny'];
+$speed = $AppConfig['Game']['speed'];
+$mapSize = $AppConfig['Game']['map_size'];
+$natarRise = $AppConfig['Game']['natar_rise'];
+$cpForNewVillage = $AppConfig['Game']['cp_for_new_village'];
+$playerProtPeriod = $AppConfig['Game']['player_protection_period'];
 
 $SetupMetadata = array (
 
@@ -16,7 +20,7 @@ $SetupMetadata = array (
 
 	 */
 
-	'map_size'		=> 400,			// ranged from 400 to -400
+	'map_size'		=> $mapSize,			// ranged from 400 to -400
 
 
 
@@ -160,7 +164,7 @@ $GameMetadata = array (
 
 	 */
 	 
-	'natar_rise'=> 86430, // 1 month by default. 
+	'natar_rise'=> $natarRise, 
 
 	/**
 
@@ -170,7 +174,7 @@ $GameMetadata = array (
 
 	 */
 
-	'cp_for_new_village' => 2000,
+	'cp_for_new_village' => $cpForNewVillage,
 
 	
 
@@ -184,7 +188,7 @@ $GameMetadata = array (
 
 	 */
 
-	'player_protection_period'	=> 60 * 60 * 24 * 3,			// 3 days = (3 * 24 * 60 * 60) = 259200
+	'player_protection_period'	=> $playerProtPeriod,
 
 
 
@@ -12369,7 +12373,7 @@ $GameMetadata = array (
 
 		'37'	=> array (
 
-			'support_multiple' 	=> FALSE, 'built_in_capital' => FALSE, 'built_in_non_capital' => FALSE, 'built_in_special_only' => FALSE, 'max_lvl_in_non_capital' => NULL,
+			'support_multiple' 	=> FALSE, 'built_in_capital' => TRUE, 'built_in_non_capital' => FALSE, 'built_in_special_only' => FALSE, 'max_lvl_in_non_capital' => NULL,
 
 			'for_tribe_id' 			=> array( '1' => 1, '2' => 1, '3' => 1, '4' => 1, '6' => 1, '7' => 1 ),
 

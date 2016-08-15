@@ -10,7 +10,7 @@ class QueueJobModel extends ModelBase {
 		if ($mutex->lock(  )) {
 			$this->processTaskQueue(  );
 
-			if (date( 'w' ) == 5) {
+			if (date('w') == 5) {
 				$row = $this->provider->fetchRow( 'SELECT gs.cur_week w1, CEIL((TO_DAYS(NOW())-TO_DAYS(gs.start_date))/7) w2 FROM g_settings gs' );
 
 				if ($row['w1'] < $row['w2']) {
