@@ -1,9 +1,9 @@
 <?php
 $AppConfig = array (
 	'db' 					=> array (
-		'host'				=> '212.24.109.104', // host
-		'user'				=> 'vitrex', // user
-		'password'			=> 'kaciokas123', // password
+		'host'				=> 'localhost', // host
+		'user'				=> 'root', // user
+		'password'			=> '', // password
 		'database'			=> 'travian' // database
 	),
 	'Game' 	=> array (
