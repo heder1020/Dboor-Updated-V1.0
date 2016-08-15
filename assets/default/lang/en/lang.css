@@ -11,7 +11,7 @@
  
 /* ------------------- Buttons ------------------- */
 /* ----------------------------------------------- */
-img#btn_plus {width:80px; height:67px; background-image:url(a/plus.gif); background-position:0px -21px;}
+img#btn_plus {width:80px; height:67px; background-image:url(../../img/a/plus.gif); background-position:0px -21px;}
 input#btn_login {width:97px; background-image: url(b/login.gif);}
 input#btn_signup {width:97px; background-image: url(b/signup.gif);}
 input#btn_ok {width:47px; background-image: url(b/ok.gif);}
@@ -63,8 +63,8 @@ div.messages div.msg_content img.read {background-image:url(msg/block_bg24a.gif)
 /* ------------------- Images ------------------- */
 /* ---------------------------------------------- */
 /* travian logo */
-div#side_navi a#logo img {width:116px; height:60px; background-image:url(a/travian0.gif);}
-div#side_navi a#logo img.logo_plus {background-image:url(a/travian1.gif);}
+/*div#side_navi a#logo img {width:116px; height:60px; background-image:url(../../img/a/travian0.gif);}*/
+div#side_navi a#logo img.logo_plus {background-image:url(../../img/a/travian1.gif);}
 
 /* plus previews */
 div.plus table#plus_features td.preview img.autovv {width:200px; height:56px; background-image:url(p/autovv.gif);}
